@@ -1,10 +1,6 @@
 # HackHeroes2022
 
-poopy
-stinky
-ewwww
-
-## Contest Theme:[NOT YET DECIDED]
+## Contest Theme: Citizens
 
 
 ## Team:
