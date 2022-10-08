@@ -2,7 +2,6 @@
 	"name": "citizensback",
 	"version": "1.0.0",
 	"description": "",
-	"main": "app.js",
 	"type": "module",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +10,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@types/express": "^4.17.14",
 		"argon2": "^0.28.7",
 		"cors": "^2.8.5",
 		"express": "^4.17.3",
@@ -19,8 +19,11 @@
 		"typescript": "^4.8.4"
 	},
 	"devDependencies": {
+		"@types/nodemailer": "^6.4.6",
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.5.0",
-		"prettier": "^2.6.2"
+		"prettier": "^2.6.2",
+		"ts-node": "^10.9.1",
+		"ts-node-dev": "^2.0.0"
 	}
 }

@@ -44,7 +44,10 @@ const App = () => {
 						/>
 						<Route path="/register" element={<RegisterForm />} />
 						<Route path="/login" element={<h1>login</h1>} />
-						<Route path="/" element={<h1 className="bg-Gray-50">nope</h1>} />
+						<Route
+							path="/"
+							element={<h1 className="text-orange-600">nope</h1>}
+						/>
 					</Routes>
 				</BrowserRouter>
 			</AppStates.Provider>
