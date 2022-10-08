@@ -124,7 +124,7 @@ app.get('/verify/:id', async (req, res) => {
 	//TODO: Put into separate function
 
 	let query = 'SELECT isActivated FROM users WHERE id = ?';
-	let [results, fields] = await db.execute(query, [userId]);
+	let [results, fields] = await db.execute<RowDataPacket[]>(query, [userId]);
 	let isActivated = results[0].isActivated;
 	if (isActivated == true) {
 		res.send(
