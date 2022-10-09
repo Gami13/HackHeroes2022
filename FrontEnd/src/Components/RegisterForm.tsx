@@ -206,8 +206,7 @@ const RegisterForm = () => {
 					gap-3
 					justify-center 
 					items-left 
-					w-96 
-					"
+					w-116"
 					onSubmit={(e) => {
 						e.preventDefault();
 						registerUser();

@@ -4,8 +4,10 @@ import { createRoot } from 'react-dom/client';
 import RegisterForm from './Components/RegisterForm/RegisterForm';
 import { StrictMode } from 'react';
 import './css.css';
-import AppStates from './Components/States/States';
+import AppStates from './Components/States';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Navbar from './Components/Navbar/Navbar';
+import style from './App.module.css';
 
 const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,6 +17,7 @@ const App = () => {
 	const [userToken, setUserToken] = useState('');
 
 	const [isAdmin, setIsAdmin] = useState(false);
+	const [isNavbarShown, setIsNavbarShown] = useState(false);
 
 	useEffect(() => {}, [isLoggedIn]);
 
@@ -37,6 +40,9 @@ const App = () => {
 				}}
 			>
 				<BrowserRouter>
+					<Navbar></Navbar>
+					<div className={style.navbarPadder}></div>
+
 					<Routes>
 						<Route
 							path="/verify/:validationToken"

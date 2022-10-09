@@ -8,6 +8,7 @@ import type {OkPacket,RowDataPacket} from 'mysql2';
 import type {Options} from 'nodemailer/lib/mailer';
 
 
+type tokens = string[];
 
 class UserManagement {
 	static SHOULD_SEND_EMAIL = false;
@@ -83,16 +84,21 @@ class UserManagement {
 		password = salt + password + '4m06u52u5'; //pepper
 		return await argon2.verify(hashedPassword, password);
 	}
-	static async setVerificationCodeToUsed(hash:String)
+	static async setVerificationCodeToUsed(hash:string)
 	{
+
 		const query = 'UPDATE verifyaccount SET isUsed = true WHERE hash = ?';
 
 		const [results, fields] = await db.execute<OkPacket>(query, [hash])
+		
+
+		
 		if (results.affectedRows ==0 ) {
 		return false;
-	} 
+		}
+		return true; 
 }
-static async getDataFromVerificationCode(hash:String)
+static async getDataFromVerificationCode(hash:string)
 {
 	let query = 'SELECT userId, id, isUsed FROM verifyaccount WHERE hash = ?';
 	let [results, fields] = await db.execute<RowDataPacket[]>(query, [hash]);
@@ -103,6 +109,76 @@ static async getDataFromVerificationCode(hash:String)
 	} else {
 		return {isOkay : false};
 	}
+}
+
+
+static async getUserData(username:string, password:string){
+	let query =
+	'SELECT id, password, salt, isActivated, tokens FROM users WHERE username = ? OR email = ?';
+let [results, fields] = await db.execute<RowDataPacket[]>(query, [username, username]);
+if (results.length > 0) {
+	let userId:string = results[0].id;
+	let isActivated:boolean = results[0].isActivated;
+	let tokens:tokens = JSON.parse(results[0].tokens);
+	let hashedPassword:string = results[0].password;
+	let salt:string = results[0].salt;
+	return {userId : userId, isActivated : isActivated, tokens : tokens, hashedPassword : hashedPassword, salt : salt, isOkay : true};
+} else {
+	return {isOkay : false,userId:'',isActivated:false,tokens:[],hashedPassword:'',salt:''};
+}
+}
+
+
+static async updateToken(userId:string,tokens:any){
+	let token = crypto.randomBytes(100).toString('base64url');
+	tokens.push(token);
+	let query = 'UPDATE users SET tokens = ? WHERE id = ?';
+	let result =  await db.execute<OkPacket>(query, [JSON.stringify(tokens), userId]);
+	if (result[0].affectedRows == 1) {
+		return {token : token, isOkay : true};
+	}
+	return {isOkay : false};
+}
+
+
+
+
+
+
+static async isLoggedIn(username:string,token:string,id:string){
+	let query = 'SELECT id, tokens FROM users WHERE username = ? OR email = ?';
+	let [results, fields] = await db.execute<RowDataPacket[]>(query, [username, username]);
+	if (results.length > 0) {
+		let userId = results[0].id;
+		let tokens:tokens = JSON.parse(results[0].tokens);
+		if (userId == id) {
+			let index = tokens.indexOf(token);
+			if (index > -1) {
+				
+				return true;
+			}
+		}
+	}
+	return false;
+}
+static async logout(username:string,token:string,id:string){
+	let query = 'SELECT id, tokens FROM users WHERE username = ? OR email = ?';
+	let [results, fields] = await db.execute<RowDataPacket[]>(query, [username, username]);
+	if (results.length > 0) {
+		let userId:string = results[0].id;
+		let tokens:tokens = JSON.parse(results[0].tokens);
+		if (userId == id) {
+			let index = tokens.indexOf(token);
+			if (index > -1) {
+				tokens.splice(index, 1);
+				query = 'UPDATE users SET tokens = ? WHERE id = ?';
+				db.execute(query, [JSON.stringify(tokens), userId]);
+				
+				return true;
+			}
+		}
+	}
+	return false;
 }
 }
 

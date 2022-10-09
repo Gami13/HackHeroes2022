@@ -1,0 +1,128 @@
+@import '../../css.css';
+.navWrapper {
+	position: absolute;
+}
+.nav {
+	width: 250px;
+	max-width: 300px;
+	z-index: 100;
+	height: 100vh;
+	background-color: var(--depth1);
+	filter: var(--shadow);
+	transition-duration: var(--transitionSpeed);
+	transition-timing-function: ease-in-out;
+}
+
+.nav ul {
+	list-style: none;
+	height: 100%;
+}
+.nav li {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+
+	transition-duration: var(--transitionSpeed);
+}
+.nav li:hover {
+	background-color: var(--depth0);
+}
+
+.nav li a {
+	width: 100%;
+	padding-left: 1rem;
+	padding-top: 2.5rem;
+	padding-bottom: 2.5rem;
+	padding-right: 1rem;
+	height: 3rem;
+	color: var(--basicText);
+	text-decoration: none;
+	font-size: 1.5rem;
+	transition-duration: var(--transitionSpeed);
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+.nav li:hover a {
+	color: var(--highlightColor);
+}
+.nav li:hover span {
+	color: var(--highlightColor);
+}
+
+.nav li:first-child {
+	justify-content: left;
+
+	padding-right: 0;
+	/* border on bottom */
+	border-bottom: 4px solid var(--highlightColor);
+	align-items: center;
+}
+
+.nav span {
+	color: var(--basicText);
+	text-decoration: none;
+	font-size: 2.5rem;
+	font-weight: bold;
+
+	transition-duration: var(--transitionSpeed);
+	white-space: nowrap;
+}
+
+.nav svg {
+	width: 2rem;
+	height: 2rem;
+	fill: var(--highlightColor);
+	transition-duration: var(--transitionSpeed);
+	margin-right: 1rem;
+}
+.nav li:hover svg {
+	fill: var(--highlightColor);
+}
+.logo {
+	width: 3.25rem !important;
+	height: 3.25rem !important;
+	/*   rotate: -45deg !important; */
+	margin: 0 !important;
+	fill: var(--basicText) !important;
+	padding: 0;
+}
+.showNav {
+	display: none;
+}
+
+@media only screen and (max-width: 800px) {
+	.showNav {
+		display: block;
+		width: 4rem;
+		height: 4rem;
+
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		z-index: 100;
+		background-color: var(--depth1);
+
+		transition-duration: var(--transitionSpeed);
+		border: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+	}
+	.nav {
+		position: absolute;
+		translate: -130%;
+	}
+	.showNav svg {
+		width: 3rem;
+		height: 3rem;
+		fill: var(--highlightColor);
+		transition-duration: var(--transitionSpeed);
+		margin-right: 1rem;
+		margin: 0px;
+	}
+	.showMenu {
+		translate: 0%;
+	}
+}

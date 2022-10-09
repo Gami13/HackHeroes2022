@@ -1,3 +1,68 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: var(--primaryFont);
+	scroll-behavior: smooth !important;
+	--primaryFont: sans-serif;
+	box-sizing: border-box;
+
+	--depth0: #202225;
+	--primaryColor: #36393f;
+	--white: #ffffff;
+	--depth1: #2f3136;
+	--highlightColor: #888fe0;
+	--basicText: #dcddde;
+	--lessVisibleText: #949494;
+
+	--typedColor: #dcddde;
+	font-size: 14px;
+	--accentColorHovered: #4752c4;
+	--accentColor: #5865f2;
+
+	--mainFontColor: #b9bbbe;
+	/*write in chat box: #40444b
+  user menu: #292b2f
+  selected channel: #42464d
+  channel font color: #96989d
+  muted font channel color: #4f545c
+  hovered channel font color: 
+  unread/selected server color: #ffffff
+  message font color: #dcddde
+  write in chat box font color placeholder: #72767d
+  write in chat box font color: #dcddde
+  add attachement hover color: #dcddde
+  add new server green: #3ba55d
+  button not selected: #72767d
+  button selected: #3ba55d
+
+  grey button not hovered: #4f545c
+  grey button hovered: #686d73 */
+	--linkColor: #00aff4;
+	--red: #d83c3e;
+	--redFocused: #a12d2f;
+	--registerError: #f38688;
+	--roundedInput: 8px; /* buttons and inputs */
+	--roundedComponent: 8px; /* components */
+	--transitionSpeed: 600ms;
+	--transitionSpeedFast: 300ms;
+	--shadow: drop-shadow(0px 0px 8px rgb(28, 28, 28));
+	gap: 0px;
+}
+html {
+	height: 100vh;
+	width: 100vw;
+}
+body {
+	height: 100%;
+	background-color: var(--primaryColor);
+}
+
+.root {
+	height: 100%;
+	width: 100%;
+	display: flex;
+}

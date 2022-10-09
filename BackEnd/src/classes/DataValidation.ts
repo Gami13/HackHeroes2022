@@ -4,7 +4,7 @@ class DataValidation {
 		if (
 			DataValidation.validateUsername(username).length == 0 &&
 			DataValidation.validateEmail(email).length == 0 &&
-			DataValidation.validatePassword(password, passwordConfirm)
+			DataValidation.validatePassword(password, passwordConfirm).length == 0
 		) {
 			return true;
 		}

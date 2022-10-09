@@ -1,0 +1,16 @@
+@import './css.css';
+/* "w-1/5 flex-none h-full hidden medium:block " */
+.navbarPadder {
+	width: 250px;
+	flex: none;
+	height: 100%;
+	transition-duration: var(--transitionSpeed);
+	translate: 0%;
+}
+
+/* for screens under 900px */
+@media screen and (max-width: 900px) {
+	.navbarPadder {
+		translate: -150%;
+	}
+}
