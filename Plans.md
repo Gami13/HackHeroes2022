@@ -46,8 +46,7 @@
 ### Główne
 
 - Box
-- Input Text
-- Input Password
+- Input
 - Button
 - Button Secondary
 - NavBar
