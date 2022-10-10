@@ -42,19 +42,20 @@ const App = () => {
 				<BrowserRouter>
 					<Navbar></Navbar>
 					<div className={style.navbarPadder}></div>
-
-					<Routes>
-						<Route
-							path="/verify/:validationToken"
-							element={<h1>walidacja</h1>}
-						/>
-						<Route path="/register" element={<RegisterForm />} />
-						<Route path="/login" element={<h1>login</h1>} />
-						<Route
-							path="/"
-							element={<h1 className="text-orange-600">nope</h1>}
-						/>
-					</Routes>
+					<div className={style.routes}>
+						<Routes>
+							<Route
+								path="/verify/:validationToken"
+								element={<h1>walidacja</h1>}
+							/>
+							<Route path="/register" element={<RegisterForm />} />
+							<Route path="/login" element={<h1>login</h1>} />
+							<Route
+								path="/"
+								element={<h1 className="text-orange-600">nope</h1>}
+							/>
+						</Routes>
+					</div>
 				</BrowserRouter>
 			</AppStates.Provider>
 		</StrictMode>

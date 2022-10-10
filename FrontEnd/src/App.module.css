@@ -6,11 +6,20 @@
 	height: 100%;
 	transition-duration: var(--transitionSpeed);
 	translate: 0%;
+	pointer-events: none;
+}
+.routes {
+	width: 100%;
+	height: 100%;
+	transition-duration: var(--transitionSpeed);
 }
 
 /* for screens under 900px */
 @media screen and (max-width: 900px) {
 	.navbarPadder {
 		translate: -150%;
+	}
+	.routes {
+		position: absolute;
 	}
 }

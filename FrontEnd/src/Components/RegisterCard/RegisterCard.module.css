@@ -1,0 +1,18 @@
+@import './../../css.css';
+
+.registerCard {
+	width: 40%;
+	padding: 1rem;
+	background-color: var(--depth1);
+	border-radius: var(--roundedBig);
+}
+.registerCard > div > span {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: var(--textPrimary);
+}
+registerCard > div > p {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: var(--secondary);
+}

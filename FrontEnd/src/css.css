@@ -3,30 +3,56 @@
 @tailwind utilities;
 
 * {
+	/* TODO CHANGE FOCUS BORDER FOR BLINDS PEOPLE */
+	/* TODO: Change font to Oswald */
 	margin: 0px;
 	padding: 0px;
 	font-family: var(--primaryFont);
 	scroll-behavior: smooth !important;
 	--primaryFont: sans-serif;
 	box-sizing: border-box;
+	/* 
+kolory
+1. Background (0dp elevation surface overlay)
+2. Surface (with 1dp elevation surface overlay)
+3. Primary
+4. Secondary
 
-	--depth0: #202225;
-	--primaryColor: #36393f;
-	--white: #ffffff;
-	--depth1: #2f3136;
-	--highlightColor: #888fe0;
-	--basicText: #dcddde;
-	--lessVisibleText: #949494;
+teksty
+5. On background
+6. On Surface
+7. On Primary
+8. On Secondary
+
+
+*/
+	/* background depths */
+	--depth0: rgb(32, 34, 37);
+	--depth1: #292b2f;
+	--depth2: #2f3136;
+	--depth3: ;
+	--depth4: ;
+	--depth5: ;
+	--depth6: ;
+	--depth7: ;
+
+	/* colors */
+	--primary: #5865f2;
+	--primaryHover: #4752c4;
+
+	--secondary: #9896dd;
+	/* text colors  */
+
+	--textHover: #dcddde;
+	--text: #949494;
+	--textPrimary: #bbc5d0;
+	--textPrimaryHover: #e0e7ee;
 
 	--typedColor: #dcddde;
 	font-size: 14px;
-	--accentColorHovered: #4752c4;
-	--accentColor: #5865f2;
 
 	--mainFontColor: #b9bbbe;
 	/*write in chat box: #40444b
-  user menu: #292b2f
-  selected channel: #42464d
   channel font color: #96989d
   muted font channel color: #4f545c
   hovered channel font color: 
@@ -41,12 +67,14 @@
 
   grey button not hovered: #4f545c
   grey button hovered: #686d73 */
-	--linkColor: #00aff4;
+	--link: #00aff4;
+	--linkHover: rgb(3, 148, 206);
 	--red: #d83c3e;
 	--redFocused: #a12d2f;
 	--registerError: #f38688;
-	--roundedInput: 8px; /* buttons and inputs */
-	--roundedComponent: 8px; /* components */
+	--rounded: 5px; /* inputs */
+	--roundedBig: 8px;
+
 	--transitionSpeed: 600ms;
 	--transitionSpeedFast: 300ms;
 	--shadow: drop-shadow(0px 0px 8px rgb(28, 28, 28));

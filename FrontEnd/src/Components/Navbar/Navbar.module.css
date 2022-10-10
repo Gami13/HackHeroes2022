@@ -1,8 +1,10 @@
 @import '../../css.css';
 .navWrapper {
 	position: absolute;
+	pointer-events: none;
 }
 .nav {
+	pointer-events: auto;
 	width: 250px;
 	max-width: 300px;
 	z-index: 100;
@@ -35,7 +37,7 @@
 	padding-bottom: 2.5rem;
 	padding-right: 1rem;
 	height: 3rem;
-	color: var(--basicText);
+	color: var(--text);
 	text-decoration: none;
 	font-size: 1.5rem;
 	transition-duration: var(--transitionSpeed);
@@ -44,10 +46,10 @@
 	align-items: center;
 }
 .nav li:hover a {
-	color: var(--highlightColor);
+	color: var(--textHover);
 }
 .nav li:hover span {
-	color: var(--highlightColor);
+	color: var(--primary);
 }
 
 .nav li:first-child {
@@ -55,7 +57,7 @@
 
 	padding-right: 0;
 	/* border on bottom */
-	border-bottom: 4px solid var(--highlightColor);
+	border-bottom: 4px solid var(--primary);
 	align-items: center;
 }
 
@@ -72,26 +74,26 @@
 .nav svg {
 	width: 2rem;
 	height: 2rem;
-	fill: var(--highlightColor);
+	fill: var(--text);
 	transition-duration: var(--transitionSpeed);
 	margin-right: 1rem;
 }
 .nav li:hover svg {
-	fill: var(--highlightColor);
+	fill: var(--primary);
 }
 .logo {
 	width: 3.25rem !important;
 	height: 3.25rem !important;
 	/*   rotate: -45deg !important; */
 	margin: 0 !important;
-	fill: var(--basicText) !important;
+	fill: var(--text) !important;
 	padding: 0;
 }
 .showNav {
 	display: none;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
 	.showNav {
 		display: block;
 		width: 4rem;
@@ -101,7 +103,7 @@
 		left: 0px;
 		top: 0px;
 		z-index: 100;
-		background-color: var(--depth1);
+		background-color: var(--primary);
 
 		transition-duration: var(--transitionSpeed);
 		border: none;
@@ -109,6 +111,7 @@
 		justify-content: center;
 		align-items: center;
 		cursor: pointer;
+		pointer-events: auto;
 	}
 	.nav {
 		position: absolute;

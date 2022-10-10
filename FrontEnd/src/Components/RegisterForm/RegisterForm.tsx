@@ -1,103 +1,56 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import style from './RegisterForm.module.css';
+import RegisterCard from './../RegisterCard/RegisterCard';
 
 const RegisterForm = () => {
-	const [username, setUsername] = useState('');
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setPasswordConfirm] = useState('');
-	const [usernameErrors, setUsernameError] = useState<any>([]);
-	const [emailErrors, setEmailError] = useState<any>([]);
-	const [passwordErrors, setPasswordError] = useState<any>([]);
+	const [firstNameErrors, setFirstNameErrors] = useState<string[]>([]);
+	const [lastNameErrors, setLastNameErrors] = useState<string[]>([]);
+	const [emailErrors, setEmailError] = useState<string[]>([]);
+	const [passwordErrors, setPasswordErrors] = useState<String[]>([]);
 	const [responseError, setResponseError] = useState('');
 	const [didRegister, setDidRegister] = useState(false);
 	const navigate = useNavigate();
-
-	const [cardName, setCardName] = useState('');
-	const [cardEmail, setCardEmail] = useState('');
-
-	useEffect(() => {
-		switch (email.length) {
-			case 0:
-				setCardEmail('####');
-				break;
-			case 1:
-				setCardEmail(email + '###');
-				break;
-			case 2:
-				setCardEmail(email + '##');
-				break;
-			case 3:
-				setCardEmail(email + '#');
-				break;
-			default:
-				setCardEmail(email);
-				break;
-		}
-	}, [email]);
-	useEffect(() => {
-		//find part after @
-
-		const x = cardEmail.split('@')[0];
-
-		const splitEmail = x.match(/.{1,16}/g);
-		if (splitEmail) {
-			setCardEmail(splitEmail.join('\n'));
-		}
-	}, [cardEmail]);
-
-	useEffect(() => {
-		switch (username.length) {
-			case 0:
-				setCardName('####');
-				break;
-			case 1:
-				setCardName(username + '###');
-				break;
-			case 2:
-				setCardName(username + '##');
-				break;
-			case 3:
-				setCardName(username + '#');
-				break;
-			default:
-				setCardName(username);
-				break;
-		}
-	}, [username]);
-	useEffect(() => {
-		const splitUsername = cardName.match(/.{1,16}/g);
-		if (splitUsername) {
-			setCardName(splitUsername.join('\n'));
-		}
-	}, [cardName]);
 
 	useEffect(() => {
 		if (didRegister) {
 			//TODO: redirect to login
 		}
 	}, [didRegister]);
-	function validateUsername() {
-		setUsernameError([]);
-		if (username.includes('#')) {
-			setUsernameError((oldArray: string[]) => [
+
+	function validateFirstName() {
+		setFirstNameErrors([]);
+		setFirstName(firstName.trim());
+		if (firstName.length < 1) {
+			setFirstNameErrors((oldArray: string[]) => [
 				...oldArray,
-				'- Nie może zawierać znaku #',
+				'- Imie nie może być puste',
 			]);
 		}
-		if (username.length < 3 || username.length > 32) {
-			setUsernameError((oldArray: string[]) => [
+	}
+	function validateLastName() {
+		setLastNameErrors([]);
+		setLastName(lastName.trim());
+		if (lastName.length < 1) {
+			setLastNameErrors((oldArray: string[]) => [
 				...oldArray,
-				'- Musi być dłuższy niż 3 znaki i krótszy niż 32',
+				'- Nazwisko nie może być puste',
 			]);
 		}
 	}
 	function validateEmail() {
+		setEmail(email.trim());
 		setEmailError([]);
 		if (email.length < 3) {
 			setEmailError((oldArray: string[]) => [
 				...oldArray,
-				'- Musi być dłuższy niż 3 znaki',
+				'- Musi mieć więcej niż 3 znaki',
 			]);
 		}
 
@@ -109,27 +62,27 @@ const RegisterForm = () => {
 		}
 	}
 	function validatePassword() {
-		setPasswordError([]);
-		if (password.length < 8 || username.length > 64) {
-			setPasswordError((oldArray: string[]) => [
+		setPasswordErrors([]);
+		if (password.length < 8 || password.length > 64) {
+			setPasswordErrors((oldArray: String[]) => [
 				...oldArray,
-				'- Musi być dłuższe niż 8 znaków i krótsze niż 64',
+				'- Musi mieć od 8 do 64 znaków',
 			]);
 		}
 		if (!/[0-9]/.test(password)) {
-			setPasswordError((oldArray: string[]) => [
+			setPasswordErrors((oldArray: String[]) => [
 				...oldArray,
 				'- Musi zawierać co najmniej jedną cyfrę',
 			]);
 		}
 		if (!/[a-zA-Z]/.test(password)) {
-			setPasswordError((oldArray: string[]) => [
+			setPasswordErrors((oldArray: String[]) => [
 				...oldArray,
 				'- Musi zawierać co najmniej jedną literę',
 			]);
 		}
 		if (password != passwordConfirm) {
-			setPasswordError((oldArray: string[]) => [
+			setPasswordErrors((oldArray: String[]) => [
 				...oldArray,
 				'- Hasła nie są takie same',
 			]);
@@ -137,12 +90,14 @@ const RegisterForm = () => {
 	}
 
 	async function registerUser() {
-		validateUsername();
+		validateFirstName();
+		validateLastName();
 		validateEmail();
 		validatePassword();
 
 		if (
-			usernameErrors.length != 0 &&
+			firstNameErrors.length != 0 &&
+			lastNameErrors.length != 0 &&
 			emailErrors.length != 0 &&
 			passwordErrors.length != 0
 		) {
@@ -151,7 +106,8 @@ const RegisterForm = () => {
 		}
 
 		let data = {
-			username: username,
+			firstName: firstName,
+			lastName: lastName,
 			email: email,
 			password: password,
 			passwordConfirm: passwordConfirm,
@@ -176,127 +132,100 @@ const RegisterForm = () => {
 	}
 
 	return (
-		<div className=" w-full h-full bg-depth2">
-			<div>
-				<div>
-					<div>
-						<div>
-							{' '}
-							<span>Name:</span>
-							<p>{cardName}</p>
-						</div>
-						<div>
-							<span>E-Mail:</span>
-							<p>{cardEmail}</p>
-						</div>
+		<div className={style.container}>
+			<RegisterCard
+				firstName={firstName}
+				lastName={lastName}
+				email={email}
+			></RegisterCard>
+			<form
+				className={style.registerForm}
+				onSubmit={(e) => {
+					e.preventDefault();
+					registerUser();
+				}}
+			>
+				<h1 className="text-text text-center text-2xl font-bold">
+					Stwórz konto
+				</h1>
+
+				<label htmlFor="firstName">
+					<div className="flex gap-2">
+						<span className="font-bold text-text flex items-center">Imie</span>
+						<span className="text-rred">{firstNameErrors[0]}</span>
 					</div>
-				</div>
 
-				<form
-					className="
-					bg-depth0 
-					border-4
-					border-accent 
-					text-blue-200 
-					rounded-xl
-					shadow-xl 
-					p-10
-					flex 
-					flex-col 
-					gap-3
-					justify-center 
-					items-left 
-					w-96 
-					"
-					onSubmit={(e) => {
-						e.preventDefault();
-						registerUser();
-					}}
-				>
-					<h1 className="text-text text-center text-2xl font-bold">
-						Stwórz konto
-					</h1>
+					<input
+						type="text"
+						id="firstName"
+						value={firstName}
+						onChange={(e) => setFirstName(e.target.value)}
+						onBlur={validateFirstName}
+					/>
+				</label>
+				<label htmlFor="lastName">
+					<div className="flex gap-2">
+						<span className="font-bold text-text flex items-center">
+							Nazwisko
+						</span>
+						<span className="text-rred">{lastNameErrors[0]}</span>
+					</div>
 
-					<label htmlFor="username">
-						<div className="flex gap-2">
-							<span className="font-bold text-text flex items-center">
-								Nazwa
-							</span>
-							<span className="text-rred">{usernameErrors[0]}</span>
-						</div>
+					<input
+						type="text"
+						id="lastName"
+						value={lastName}
+						onChange={(e) => setLastName(e.target.value)}
+						onBlur={validateLastName}
+					/>
+				</label>
+				<label htmlFor="email">
+					<div className="flex gap-2">
+						<span className="font-bold text-text flex items-center">
+							E-Mail
+						</span>
+						<span className="text-rred">{emailErrors[0]}</span>
+					</div>
+					<input
+						type="email"
+						id="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						onBlur={validateEmail}
+					/>
+				</label>
 
-						<input
-							type="text"
-							id="username"
-							className="bg-depth2 border-2 w-full rounded-sm border-accent py-1.25 px-2 focus:outline-none focus:border-text"
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
-							onBlur={validateUsername}
-						/>
-					</label>
-					<label htmlFor="email">
-						<div className="flex gap-2">
-							<span className="font-bold text-text flex items-center">
-								E-Mail
-							</span>
-							<span className="text-rred">{emailErrors[0]}</span>
-						</div>
-						<input
-							type="email"
-							id="email"
-							className="bg-depth2 border-2  w-full rounded-sm border-accent py-1.25 px-2 focus:outline-none focus:border-text"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							onBlur={validateEmail}
-						/>
-					</label>
+				<label htmlFor="password">
+					<div className="flex gap-2">
+						<span className="font-bold text-text flex items-center">Hasło</span>
+						<span className="text-rred">{passwordErrors[0]}</span>
+					</div>
+					<input
+						type="password"
+						id="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						onBlur={validatePassword}
+					/>
+				</label>
+				<label htmlFor="passwordConfirm">
+					<div>
+						<span className="text-text font-bold">Potwierdź hasło</span>
+					</div>
+					<input
+						type="password"
+						id="passwordConfirm"
+						value={passwordConfirm}
+						onChange={(e) => setPasswordConfirm(e.target.value)}
+						onBlur={validatePassword}
+					/>
+				</label>
 
-					<label htmlFor="password">
-						<div className="flex gap-2">
-							<span className="font-bold text-text flex items-center">
-								Hasło
-							</span>
-							<span className="text-rred">{passwordErrors[0]}</span>
-						</div>
-						<input
-							type="password"
-							id="password"
-							className="bg-depth2 border-2  w-full rounded-sm border-accent py-1.25 px-2 focus:outline-none focus:border-text"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							onBlur={validatePassword}
-						/>
-					</label>
-					<label htmlFor="passwordConfirm">
-						<div>
-							<span className="text-text font-bold">Potwierdź hasło</span>
-						</div>
-						<input
-							type="password"
-							id="passwordConfirm"
-							className="bg-depth2 border-2 w-full rounded-sm border-accent py-1.25 px-2 focus:outline-none focus:border-text"
-							value={passwordConfirm}
-							onChange={(e) => setPasswordConfirm(e.target.value)}
-							onBlur={validatePassword}
-						/>
-					</label>
+				<button type="submit">Zarejestruj</button>
+				<Link to="/login">Masz już konto?</Link>
+			</form>
 
-					<button
-						type="submit"
-						className="w-fit text-text bg-depth2 border-2 px-3 py-2 rounded-md border-accent m-auto font-bold"
-					>
-						Zarejestruj
-					</button>
-					<Link
-						to="/login"
-						className="underline hover:decoration-textGold w-fit"
-					>
-						Masz już konto?
-					</Link>
-				</form>
-
-				<h1>{responseError}</h1>
-			</div>
+			<h1>{responseError}</h1>
 		</div>
 	);
 };

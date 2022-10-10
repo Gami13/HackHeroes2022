@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 app.listen(3000, () => {
-	console.blue(`
+	console.yellow(`
             k;double sin()
          ,cos();main(){float A=
        0,B=0,i,j,z[1760];char b[
@@ -40,12 +40,12 @@ in(B),t=c*h*g-f*        e;int x=40+30*D*
 });
 
 app.post('/registerUser', async (req: Request, res: Response) => {
+	/* TODO: CHANGE USERNAME TO FIRST NAME AND LAST NAME !!!!VERY IMPORTANT!!!! */
 	let response = '';
 	let username = req.body.username;
 	let email = req.body.email;
 	let password = req.body.password;
 	let passwordConfirm = req.body.passwordConfirm;
-
 
 	if (
 		!DataValidation.isUserDataValid(username, email, password, passwordConfirm)
