@@ -8,6 +8,7 @@ import AppStates from './Components/States';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import style from './App.module.css';
+import LoginForm from './Components/LoginForm/LoginForm';
 
 const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,7 +50,7 @@ const App = () => {
 								element={<h1>walidacja</h1>}
 							/>
 							<Route path="/register" element={<RegisterForm />} />
-							<Route path="/login" element={<h1>login</h1>} />
+							<Route path="/login" element={<LoginForm />} />
 							<Route
 								path="/"
 								element={<h1 className="text-orange-600">nope</h1>}

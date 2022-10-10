@@ -1,6 +1,11 @@
-import {Connection,RowDataPacket} from "mysql2"
+import { Connection, RowDataPacket } from 'mysql2';
 class DataValidation {
-	static isUserDataValid(username:string, email:string, password:string, passwordConfirm:string) {
+	static isUserDataValid(
+		username: string,
+		email: string,
+		password: string,
+		passwordConfirm: string
+	) {
 		if (
 			DataValidation.validateUsername(username).length == 0 &&
 			DataValidation.validateEmail(email).length == 0 &&
@@ -9,18 +14,19 @@ class DataValidation {
 			return true;
 		}
 	}
-	static validateUsername(username:string) {
-		let usernameErrors:string[] = [];
+	static validateUsername(username: string) {
+		let usernameErrors: string[] = [];
 		if (username.includes('#')) {
 			usernameErrors.push('- Cannot contain #');
 		}
 		if (username.length < 3 || username.length > 32) {
 			usernameErrors.push('- Must be between 3 and 32 characters');
 		}
+
 		return usernameErrors;
 	}
-	static validateEmail(email:string) {
-		let emailErrors:string[] = [];
+	static validateEmail(email: string) {
+		let emailErrors: string[] = [];
 
 		if (email.length < 3) {
 			emailErrors.push('- Must be at least 3 characters');
@@ -29,11 +35,12 @@ class DataValidation {
 		if (!email.includes('@')) {
 			emailErrors.push('- Must be in the correct format');
 		}
+
 		return emailErrors;
 	}
-	static validatePassword(password:string, passwordConfirm:string) {
-		let passwordErrors:string[] = [];
-		if (password.length < 8 || password.length > 64) {
+	static validatePassword(password: string, passwordConfirm: string) {
+		let passwordErrors: string[] = [];
+		if (password.length <= 8 || password.length > 64) {
 			passwordErrors.push('- Must be between 8 and 64 characters');
 		}
 		if (!/[0-9]/.test(password)) {
@@ -48,7 +55,7 @@ class DataValidation {
 		return passwordErrors;
 	}
 
-	static isUserAvailable(username:string, email:string, db:any) {
+	static isUserAvailable(username: string, email: string, db: any) {
 		return new Promise(async (resolve, reject) => {
 			const query =
 				'SELECT id FROM users WHERE username = ? OR email = ? LIMIT 1';

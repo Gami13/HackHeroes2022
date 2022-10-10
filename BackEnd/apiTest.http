@@ -2,9 +2,9 @@
 
 
 ###authentification
-@username = "aasdfffasdasdf"
-@password = "d"
-@email = "asdfgg@.backdoor.com"
+@username = "🐱‍👤🐱‍👤🐱‍👤"
+@password = "🦶🦶🦶🦶🦶🦶🦶420tak "
+@email = "🐴🐓@.backdoor.com"
 #Register a new user
 
 
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 ###
 # code from email
-@code = X-sO3Ekta9dNPs7zUXIKMNLWyID-e9hZnLlr3cRoMBTBygnkTKnHsoplOWZvQQXRzVhGJQJPrYUrth9ykft7zlAs5c8Yw8ImLBpE5QIWzZw2TKdDnp25R5RC8bOjRo76QzSzvw
+@code = ntznw0U8wjxk3eW2RKFcfIDJPkz6aaOeMByvLnyoC3m7zCGqljRtVdNY4KAF3QbJikCsPYDZyX4ybN43WHvfp443s_GRMT0URkxjfQAK71vggQFenSY-MJvkjb1qcPo4cSKV-w
 GET {{url}}/verify/{{code}} HTTP/1.1
 
 #Login
@@ -34,8 +34,8 @@ Content-Type: application/json
     "password": {{password}}
 }
 ### is logged in
-@id = "102126127690032176"
-@token = "_8yfIlFSdJPhSWjrEwxWP-k24KZp8uqqWIkc2VJ_EudmKv7Vj2DkXjBLS0WDcaz7AT46_piol4AHteudljoJ3b3LL-I3ywd_sW37M_7zaBquQCvK6DT2Imuz4FaWTQTqgajMoQ"
+@id = "102491262199805752"
+@token = "5ziyJuZYn2dhDJe85DM2__U1WsljMP4XXb_zikB2wvcHfNgVMTKK9CnaAKWNbzWcarsVzwzNeYBvERsA3kjuYB1rlid33CCQoAtDoAszK8kx1T9XGIsg3IOkAlM0F9518PUQMg""
 POST {{url}}/isLoggedIn HTTP/1.1
 Content-Type: application/json
 

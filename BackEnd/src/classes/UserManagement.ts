@@ -3,22 +3,21 @@ import * as crypto from 'crypto';
 import * as argon2 from 'argon2';
 import SnowflakeID from './Snowflake.js';
 import db from './../connection.js';
-import type {OkPacket,RowDataPacket} from 'mysql2';
+import type { OkPacket, RowDataPacket } from 'mysql2';
 
-import type {Options} from 'nodemailer/lib/mailer';
-
+import type { Options } from 'nodemailer/lib/mailer';
 
 type tokens = string[];
 
 class UserManagement {
 	static SHOULD_SEND_EMAIL = false;
-	
+
 	static mail = nodemailer.createTransport<Options>({
 		//TODO: change to service with no limits
 		//@ts-ignore
-		host: "smtp.office365.com",
+		host: 'smtp.office365.com',
 		port: 587,
-		secure: false, 
+		secure: false,
 		auth: {
 			user: 'gamiifrytak@outlook.com',
 			pass: 'haslo123',
@@ -26,7 +25,7 @@ class UserManagement {
 		supportBigNumbers: true,
 		bigNumberStrings: true,
 	});
-	static async insertVerificationCode(ID:string, email:string) {
+	static async insertVerificationCode(ID: string, email: string) {
 		return new Promise(async (resolve, reject) => {
 			const verifyID = SnowflakeID.createID('001');
 			//generate 200 character long verification code
@@ -52,7 +51,30 @@ class UserManagement {
 			resolve(true);
 		});
 	}
-	static sendEmail(recipient:string, subject:string, text:string) {
+	static async insertUserData(
+		ID: string,
+		username: string,
+		email: string,
+		hashedPassword: string,
+		salt: string
+	) {
+		let query =
+			'INSERT INTO users (id, username, email, password, salt, isactivated) VALUES (?,?,?,?,?,false);';
+
+		let [results, fields] = await db.execute<OkPacket>(query, [
+			ID,
+			username,
+			email,
+			hashedPassword,
+			salt,
+		]);
+
+		if (results.affectedRows != 1) {
+			return false;
+		}
+		return true;
+	}
+	static sendEmail(recipient: string, subject: string, text: string) {
 		var mailOptions = {
 			from: 'gamiifrytak@outlook.com',
 			to: recipient,
@@ -72,7 +94,7 @@ class UserManagement {
 			console.log('Email sending not enabled', mailOptions);
 		}
 	}
-	static async hashPassword(password:string) {
+	static async hashPassword(password: string) {
 		let salt = crypto.randomBytes(32).toString('base64');
 
 		let hashedPassword = salt + password + '4m06u52u5'; //pepper
@@ -80,106 +102,181 @@ class UserManagement {
 		hashedPassword = await argon2.hash(hashedPassword);
 		return { hashedPassword: hashedPassword, salt: salt };
 	}
-	static async checkPassword(password:string, salt:string, hashedPassword:string) {
+	static async checkPassword(
+		password: string,
+		salt: string,
+		hashedPassword: string
+	) {
 		password = salt + password + '4m06u52u5'; //pepper
 		return await argon2.verify(hashedPassword, password);
 	}
-	static async setVerificationCodeToUsed(hash:string)
-	{
-
+	static async setVerificationCodeToUsed(hash: string) {
 		const query = 'UPDATE verifyaccount SET isUsed = true WHERE hash = ?';
 
-		const [results, fields] = await db.execute<OkPacket>(query, [hash])
-		
+		const [results, fields] = await db.execute<OkPacket>(query, [hash]);
 
-		
-		if (results.affectedRows ==0 ) {
+		if (results.affectedRows == 0) {
+			return false;
+		}
+		return true;
+	}
+	static async getDataFromVerificationCode(hash: string) {
+		let query = 'SELECT userId, id, isUsed FROM verifyaccount WHERE hash = ?';
+		let [results, fields] = await db.execute<RowDataPacket[]>(query, [hash]);
+		console.log('results', results);
+		if (results.length > 0) {
+			return {
+				hashId: results[0].id,
+				userId: results[0].userId,
+				isUsed: results[0].isUsed,
+				isOkay: true,
+			};
+		} else {
+			return { isOkay: false };
+		}
+	}
+
+	static async getUserData(username: string, password: string) {
+		let query =
+			'SELECT id, password, salt, isActivated, tokens FROM users WHERE username = ? OR email = ?';
+		let [results, fields] = await db.execute<RowDataPacket[]>(query, [
+			username,
+			username,
+		]);
+		if (results.length > 0) {
+			let userId: string = results[0].id;
+			let isActivated: boolean = results[0].isActivated;
+			let tokens: tokens = JSON.parse(results[0].tokens);
+			let hashedPassword: string = results[0].password;
+			let salt: string = results[0].salt;
+
+			return {
+				userId: userId,
+				isActivated: isActivated,
+				tokens: tokens,
+				hashedPassword: hashedPassword,
+				salt: salt,
+				isOkay: true,
+			};
+		} else {
+			return {
+				isOkay: false,
+				userId: '',
+				isActivated: false,
+				tokens: [],
+				hashedPassword: '',
+				salt: '',
+			};
+		}
+	}
+	static async activateAccount(userId: string) {
+		let query = 'UPDATE users SET isActivated = 1 WHERE id = ?';
+
+		let [results, fields] = await db.execute<OkPacket>(query, [userId]);
+		if (results.affectedRows == 1) {
+			return true;
+		}
 		return false;
+	}
+	static async checkiIfaccountIsActivated(userId: string) {
+		let query = 'SELECT isActivated FROM users WHERE id = ?';
+		let [results, fields] = await db.execute<RowDataPacket[]>(query, [userId]);
+
+		if (results.length == 0) {
+			console.log('User does not exist');
+			return false;
 		}
-		return true; 
-}
-static async getDataFromVerificationCode(hash:string)
-{
-	let query = 'SELECT userId, id, isUsed FROM verifyaccount WHERE hash = ?';
-	let [results, fields] = await db.execute<RowDataPacket[]>(query, [hash]);
+		let isActivated = results[0].isActivated;
 
-	if (results.length > 0) {
-		console.log(results);
-		return {hashId : results[0].id, userId : results[0].userId, isUsed : results[0].isUsed, isOkay : true};
-	} else {
-		return {isOkay : false};
+		if (isActivated) {
+			return true;
+		}
+		return false;
 	}
-}
+	static async resendEmailIftokenTooOld(hashId: string, userId: string) {
+		let age = SnowflakeID.getDataFromID(hashId).age;
+		let email: string;
+		if (age > 3) {
+			let query = 'SELECT email, isActivated FROM users WHERE id = ?';
 
+			let [results, fields] = await db.execute<RowDataPacket[]>(query, [
+				userId,
+			]);
 
-static async getUserData(username:string, password:string){
-	let query =
-	'SELECT id, password, salt, isActivated, tokens FROM users WHERE username = ? OR email = ?';
-let [results, fields] = await db.execute<RowDataPacket[]>(query, [username, username]);
-if (results.length > 0) {
-	let userId:string = results[0].id;
-	let isActivated:boolean = results[0].isActivated;
-	let tokens:tokens = JSON.parse(results[0].tokens);
-	let hashedPassword:string = results[0].password;
-	let salt:string = results[0].salt;
-	return {userId : userId, isActivated : isActivated, tokens : tokens, hashedPassword : hashedPassword, salt : salt, isOkay : true};
-} else {
-	return {isOkay : false,userId:'',isActivated:false,tokens:[],hashedPassword:'',salt:''};
-}
-}
+			//sends email with new code
 
+			if (results.length > 0) {
+				email = results[0].email;
+			} else {
+				return {
+					isOkay: false,
+					message: 'Something went wrong, please try again later',
+				};
+			}
+			UserManagement.insertVerificationCode(userId, email);
 
-static async updateToken(userId:string,tokens:any){
-	let token = crypto.randomBytes(100).toString('base64url');
-	tokens.push(token);
-	let query = 'UPDATE users SET tokens = ? WHERE id = ?';
-	let result =  await db.execute<OkPacket>(query, [JSON.stringify(tokens), userId]);
-	if (result[0].affectedRows == 1) {
-		return {token : token, isOkay : true};
+			return {
+				isOkay: false,
+				message: 'New verification link has been sent to your e-mail',
+			};
+		}
+		return { isOkay: true };
 	}
-	return {isOkay : false};
-}
 
+	static async updateToken(userId: string, tokens: string[]) {
+		let token = crypto.randomBytes(100).toString('base64url');
+		tokens.push(token);
+		let query = 'UPDATE users SET tokens = ? WHERE id = ?';
+		let result = await db.execute<OkPacket>(query, [
+			JSON.stringify(tokens),
+			userId,
+		]);
+		if (result[0].affectedRows == 1) {
+			return { token: token, isOkay: true };
+		}
+		return { isOkay: false };
+	}
 
-
-
-
-
-static async isLoggedIn(username:string,token:string,id:string){
-	let query = 'SELECT id, tokens FROM users WHERE username = ? OR email = ?';
-	let [results, fields] = await db.execute<RowDataPacket[]>(query, [username, username]);
-	if (results.length > 0) {
-		let userId = results[0].id;
-		let tokens:tokens = JSON.parse(results[0].tokens);
-		if (userId == id) {
-			let index = tokens.indexOf(token);
-			if (index > -1) {
-				
-				return true;
+	static async isLoggedIn(username: string, token: string, id: string) {
+		let query = 'SELECT id, tokens FROM users WHERE username = ? OR email = ?';
+		let [results, fields] = await db.execute<RowDataPacket[]>(query, [
+			username,
+			username,
+		]);
+		if (results.length > 0) {
+			let userId = results[0].id;
+			let tokens: tokens = JSON.parse(results[0].tokens);
+			if (userId == id) {
+				let index = tokens.indexOf(token);
+				if (index > -1) {
+					return true;
+				}
 			}
 		}
+		return false;
 	}
-	return false;
-}
-static async logout(username:string,token:string,id:string){
-	let query = 'SELECT id, tokens FROM users WHERE username = ? OR email = ?';
-	let [results, fields] = await db.execute<RowDataPacket[]>(query, [username, username]);
-	if (results.length > 0) {
-		let userId:string = results[0].id;
-		let tokens:tokens = JSON.parse(results[0].tokens);
-		if (userId == id) {
-			let index = tokens.indexOf(token);
-			if (index > -1) {
-				tokens.splice(index, 1);
-				query = 'UPDATE users SET tokens = ? WHERE id = ?';
-				db.execute(query, [JSON.stringify(tokens), userId]);
-				
-				return true;
+	static async logout(username: string, token: string, id: string) {
+		let query = 'SELECT id, tokens FROM users WHERE username = ? OR email = ?';
+		let [results, fields] = await db.execute<RowDataPacket[]>(query, [
+			username,
+			username,
+		]);
+		if (results.length > 0) {
+			let userId: string = results[0].id;
+			let tokens: tokens = JSON.parse(results[0].tokens);
+			if (userId == id) {
+				let index = tokens.indexOf(token);
+				if (index > -1) {
+					tokens.splice(index, 1);
+					query = 'UPDATE users SET tokens = ? WHERE id = ?';
+					db.execute(query, [JSON.stringify(tokens), userId]);
+
+					return true;
+				}
 			}
 		}
+		return false;
 	}
-	return false;
-}
 }
 
 export default UserManagement;

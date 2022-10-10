@@ -1,6 +1,6 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 * {
 	/* TODO CHANGE FOCUS BORDER FOR BLINDS PEOPLE */
@@ -47,6 +47,7 @@ teksty
 	--text: #949494;
 	--textPrimary: #bbc5d0;
 	--textPrimaryHover: #e0e7ee;
+	--textError: rgb(255, 25, 25);
 
 	--typedColor: #dcddde;
 	font-size: 14px;

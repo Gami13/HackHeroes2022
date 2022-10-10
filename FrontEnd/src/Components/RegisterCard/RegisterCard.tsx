@@ -6,67 +6,33 @@ interface RegisterCardProps {
 	lastName: string;
 	email: string;
 }
+
+function fillwithBlank(string: string, min = 4) {
+	let newString = '';
+	for (let i = 0; i < min; i++) {
+		newString += '#';
+	}
+	for (let i = 0; i < string.length; i++) {
+		newString =
+			newString.substring(0, i) + string[i] + newString.substring(i + 1);
+	}
+	return newString;
+}
+
 const RegisterCard = (props: RegisterCardProps) => {
 	const [cardFirstName, setCardFirstName] = useState('');
 	const [cardEmail, setCardEmail] = useState('');
 	const [cardLastName, setCardLastName] = useState('');
+
 	useEffect(() => {
-		switch (props.firstName.length) {
-			case 0:
-				setCardFirstName('####');
-				break;
-			case 1:
-				setCardFirstName(props.firstName + '###');
-				break;
-			case 2:
-				setCardFirstName(props.firstName + '##');
-				break;
-			case 3:
-				setCardFirstName(props.firstName + '#');
-				break;
-			default:
-				setCardFirstName(props.firstName);
-				break;
-		}
+		setCardFirstName(fillwithBlank(props.firstName));
 	}, [props.firstName]);
 	useEffect(() => {
-		switch (props.lastName.length) {
-			case 0:
-				setCardLastName('####');
-				break;
-			case 1:
-				setCardLastName(props.lastName + '###');
-				break;
-			case 2:
-				setCardLastName(props.lastName + '##');
-				break;
-			case 3:
-				setCardLastName(props.lastName + '#');
-				break;
-			default:
-				setCardLastName(props.lastName);
-				break;
-		}
+		setCardLastName(fillwithBlank(props.lastName));
 	}, [props.lastName]);
 
 	useEffect(() => {
-		switch (props.email.length) {
-			case 0:
-				setCardEmail('####');
-				break;
-			case 1:
-				setCardEmail(props.email + '###');
-				break;
-			case 2:
-				setCardEmail(props.email + '##');
-				break;
-			case 3:
-				setCardEmail(props.email + '#');
-				break;
-			default:
-				setCardEmail(props.email);
-				break;
-		}
+		setCardEmail(fillwithBlank(props.email));
 	}, [props.email]);
 
 	return (

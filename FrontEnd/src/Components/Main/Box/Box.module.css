@@ -1,0 +1,6 @@
+.box {
+	background-color: var(--depth1);
+	border-radius: var(--roundedBig);
+	width: fit-content;
+	height: fit-content;
+}

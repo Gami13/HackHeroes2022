@@ -13,7 +13,7 @@ body {
 	gap: 5px;
 }
 
-/* .registerForm {
+.registerForm {
 	width: 30%;
 	background-color: var(--depth1);
 	height: fit-content;
@@ -26,16 +26,15 @@ body {
 	border-radius: var(--roundedBig);
 	gap: 10px;
 }
-
 .registerForm > label > input {
-	"bg-depth2 border-2 w-full rounded-sm border-accent py-1.25 px-2 focus:outline-none focus:border-text"
+	/* "bg-depth2 border-2 w-full rounded-sm border-accent py-1.25 px-2 focus:outline-none focus:border-text" */
 	width: 100%;
 
 	border-radius: var(--rounded);
 	background-color: var(--depth2);
 	padding: 0.5rem;
 }
- button
+/* button */
 
 .registerForm > button {
 	background-color: var(--primary);
@@ -71,4 +70,4 @@ body {
 	.registerForm {
 		width: 95%;
 	}
-} */
+}

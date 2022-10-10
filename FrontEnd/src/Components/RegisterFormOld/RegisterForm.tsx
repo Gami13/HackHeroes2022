@@ -2,8 +2,6 @@ import { SetStateAction, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import style from './RegisterForm.module.css';
 import RegisterCard from './../RegisterCard/RegisterCard';
-import FormInput from '../FormInput/FormInput';
-import Form from '../Main/Form/Form';
 
 const RegisterForm = () => {
 	const [firstName, setFirstName] = useState('');
@@ -15,7 +13,7 @@ const RegisterForm = () => {
 	const [firstNameErrors, setFirstNameErrors] = useState<string[]>([]);
 	const [lastNameErrors, setLastNameErrors] = useState<string[]>([]);
 	const [emailErrors, setEmailError] = useState<string[]>([]);
-	const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
+	const [passwordErrors, setPasswordErrors] = useState<String[]>([]);
 	const [responseError, setResponseError] = useState('');
 	const [didRegister, setDidRegister] = useState(false);
 	const navigate = useNavigate();
@@ -66,25 +64,25 @@ const RegisterForm = () => {
 	function validatePassword() {
 		setPasswordErrors([]);
 		if (password.length < 8 || password.length > 64) {
-			setPasswordErrors((oldArray: string[]) => [
+			setPasswordErrors((oldArray: String[]) => [
 				...oldArray,
 				'- Musi mieć od 8 do 64 znaków',
 			]);
 		}
 		if (!/[0-9]/.test(password)) {
-			setPasswordErrors((oldArray: string[]) => [
+			setPasswordErrors((oldArray: String[]) => [
 				...oldArray,
 				'- Musi zawierać co najmniej jedną cyfrę',
 			]);
 		}
 		if (!/[a-zA-Z]/.test(password)) {
-			setPasswordErrors((oldArray: string[]) => [
+			setPasswordErrors((oldArray: String[]) => [
 				...oldArray,
 				'- Musi zawierać co najmniej jedną literę',
 			]);
 		}
 		if (password != passwordConfirm) {
-			setPasswordErrors((oldArray: string[]) => [
+			setPasswordErrors((oldArray: String[]) => [
 				...oldArray,
 				'- Hasła nie są takie same',
 			]);
@@ -140,54 +138,92 @@ const RegisterForm = () => {
 				lastName={lastName}
 				email={email}
 			></RegisterCard>
-			<Form
+			<form
 				className={style.registerForm}
 				onSubmit={(e) => {
 					e.preventDefault();
 					registerUser();
 				}}
 			>
-				<h1>Stwórz konto</h1>
+				<h1 className="text-text text-center text-2xl font-bold">
+					Stwórz konto
+				</h1>
 
-				<FormInput
-					type="text"
-					id="firstName"
-					label="Imie"
-					value={firstName}
-					onChange={(e) => setFirstName(e.target.value)}
-					onBlur={validateFirstName}
-					errors={firstNameErrors}
-				/>
-				<FormInput
-					id="email"
-					type="email"
-					label="E-Mail"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					onBlur={validateEmail}
-					errors={emailErrors}
-				/>
-				<FormInput
-					id="password"
-					type="password"
-					label="Hasło"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					onBlur={validatePassword}
-					errors={passwordErrors}
-				/>
-				<FormInput
-					id="passwordConfirm"
-					type="password"
-					label="Potwierdź hasło"
-					value={passwordConfirm}
-					onChange={(e) => setPasswordConfirm(e.target.value)}
-					onBlur={validatePassword}
-					errors={passwordErrors}
-				/>
+				<label htmlFor="firstName">
+					<div className="flex gap-2">
+						<span className="font-bold text-text flex items-center">Imie</span>
+						<span className="text-rred">{firstNameErrors[0]}</span>
+					</div>
+
+					<input
+						type="text"
+						id="firstName"
+						value={firstName}
+						onChange={(e) => setFirstName(e.target.value)}
+						onBlur={validateFirstName}
+					/>
+				</label>
+				<label htmlFor="lastName">
+					<div className="flex gap-2">
+						<span className="font-bold text-text flex items-center">
+							Nazwisko
+						</span>
+						<span className="text-rred">{lastNameErrors[0]}</span>
+					</div>
+
+					<input
+						type="text"
+						id="lastName"
+						value={lastName}
+						onChange={(e) => setLastName(e.target.value)}
+						onBlur={validateLastName}
+					/>
+				</label>
+				<label htmlFor="email">
+					<div className="flex gap-2">
+						<span className="font-bold text-text flex items-center">
+							E-Mail
+						</span>
+						<span className="text-rred">{emailErrors[0]}</span>
+					</div>
+					<input
+						type="email"
+						id="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						onBlur={validateEmail}
+					/>
+				</label>
+
+				<label htmlFor="password">
+					<div className="flex gap-2">
+						<span className="font-bold text-text flex items-center">Hasło</span>
+						<span className="text-rred">{passwordErrors[0]}</span>
+					</div>
+					<input
+						type="password"
+						id="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						onBlur={validatePassword}
+					/>
+				</label>
+				<label htmlFor="passwordConfirm">
+					<div>
+						<span className="text-text font-bold">Potwierdź hasło</span>
+					</div>
+					<input
+						type="password"
+						id="passwordConfirm"
+						value={passwordConfirm}
+						onChange={(e) => setPasswordConfirm(e.target.value)}
+						onBlur={validatePassword}
+					/>
+				</label>
+
 				<button type="submit">Zarejestruj</button>
 				<Link to="/login">Masz już konto?</Link>
-			</Form>
+			</form>
 
 			<h1>{responseError}</h1>
 		</div>
