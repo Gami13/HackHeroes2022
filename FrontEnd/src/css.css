@@ -2,30 +2,26 @@
 @tailwind components;
 @tailwind utilities; */
 
-* {
+:root {
 	/* TODO CHANGE FOCUS BORDER FOR BLINDS PEOPLE */
 	/* TODO: Change font to Oswald */
-	margin: 0px;
-	padding: 0px;
-	font-family: var(--primaryFont);
-	scroll-behavior: smooth !important;
+
 	--primaryFont: sans-serif;
-	box-sizing: border-box;
+
 	/* 
-kolory
-1. Background (0dp elevation surface overlay)
-2. Surface (with 1dp elevation surface overlay)
-3. Primary
-4. Secondary
+	kolory
+	1. Background (0dp elevation surface overlay)
+	2. Surface (with 1dp elevation surface overlay)
+	3. Primary
+	4. Secondary
 
-teksty
-5. On background
-6. On Surface
-7. On Primary
-8. On Secondary
+	teksty
+	5. On background
+	6. On Surface
+	7. On Primary
+	8. On Secondary
+	*/
 
-
-*/
 	/* background depths */
 	--depth0: rgb(32, 34, 37);
 	--depth1: #292b2f;
@@ -41,53 +37,50 @@ teksty
 	--primaryHover: #4752c4;
 
 	--secondary: #9896dd;
+
 	/* text colors  */
 
 	--textHover: #dcddde;
 	--text: #949494;
 	--textPrimary: #bbc5d0;
 	--textPrimaryHover: #e0e7ee;
-	--textError: rgb(255, 25, 25);
+	--textError: #f38688;
 
 	--typedColor: #dcddde;
-	font-size: 14px;
 
 	--mainFontColor: #b9bbbe;
-	/*write in chat box: #40444b
-  channel font color: #96989d
-  muted font channel color: #4f545c
-  hovered channel font color: 
-  unread/selected server color: #ffffff
-  message font color: #dcddde
-  write in chat box font color placeholder: #72767d
-  write in chat box font color: #dcddde
-  add attachement hover color: #dcddde
-  add new server green: #3ba55d
-  button not selected: #72767d
-  button selected: #3ba55d
-
-  grey button not hovered: #4f545c
-  grey button hovered: #686d73 */
 	--link: #00aff4;
 	--linkHover: rgb(3, 148, 206);
 	--red: #d83c3e;
 	--redFocused: #a12d2f;
-	--registerError: #f38688;
 	--rounded: 5px; /* inputs */
 	--roundedBig: 8px;
 
 	--transitionSpeed: 600ms;
 	--transitionSpeedFast: 300ms;
 	--shadow: drop-shadow(0px 0px 8px rgb(28, 28, 28));
-	gap: 0px;
 }
+
+* {
+	margin: 0px;
+	padding: 0px;
+	font-size: 1rem;
+	gap: 0px;
+	box-sizing: border-box;
+	color: var(--textPrimary);
+	font-family: var(--primaryFont);
+	scroll-behavior: smooth !important;
+	border-style: none;
+}
+
 html {
 	height: 100vh;
 	width: 100vw;
 }
+
 body {
-	height: 100%;
-	background-color: var(--primaryColor);
+	min-height: 100vh;
+	background-color: var(--depth0);
 }
 
 .root {

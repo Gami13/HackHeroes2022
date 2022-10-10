@@ -141,6 +141,7 @@ const RegisterForm = () => {
 				email={email}
 			></RegisterCard>
 			<Form
+				gap={4}
 				className={style.registerForm}
 				onSubmit={(e) => {
 					e.preventDefault();
@@ -157,6 +158,15 @@ const RegisterForm = () => {
 					onChange={(e) => setFirstName(e.target.value)}
 					onBlur={validateFirstName}
 					errors={firstNameErrors}
+				/>
+				<FormInput
+					type="text"
+					id="lastName"
+					label="Imie"
+					value={lastName}
+					onChange={(e) => setLastName(e.target.value)}
+					onBlur={validateLastName}
+					errors={lastNameErrors}
 				/>
 				<FormInput
 					id="email"

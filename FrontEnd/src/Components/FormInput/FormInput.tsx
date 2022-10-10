@@ -19,24 +19,22 @@ function FormInput(props: FormInputProps) {
 	let width = props.width ? props.width : '24rem';
 
 	return (
-		<div>
-			<label>
-				<div>
-					<span>{props.label}</span>
-					<span className={style.error}>{props.errors?.join(' ')}</span>
-				</div>
+		<label htmlFor={props.id}>
+			<div>
+				<span>{props.label}</span>
+				<span className={style.error}>{props.errors?.join(' ')}</span>
+			</div>
 
-				<Input
-					id={props.id}
-					type={props.type}
-					width={width}
-					value={props.value}
-					className={style.input}
-					onChange={props.onChange}
-					onBlur={props.onBlur}
-				/>
-			</label>
-		</div>
+			<Input
+				id={props.id}
+				type={props.type}
+				width={width}
+				value={props.value}
+				className={style.input}
+				onChange={props.onChange}
+				onBlur={props.onBlur}
+			/>
+		</label>
 	);
 }
 

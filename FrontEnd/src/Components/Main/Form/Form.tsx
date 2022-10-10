@@ -1,5 +1,6 @@
 import React from 'react';
 import Box from '../Box/Box';
+import style from './Form.module.css';
 
 interface FormProps {
 	gap?: number;
@@ -15,9 +16,9 @@ function Form(props: FormProps) {
 	return (
 		<Box>
 			<form
-				className={props.className}
+				className={(props.className, style.form)}
 				onSubmit={props.onSubmit}
-				style={{ gap: gap + 'rem' }}
+				style={{ gap: gap + 'rem', padding: gap * 2 + 'rem' }}
 			>
 				{props.children}
 			</form>
