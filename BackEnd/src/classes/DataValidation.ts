@@ -55,12 +55,11 @@ class DataValidation {
 		return passwordErrors;
 	}
 
-	static isUserAvailable(username: string, email: string, db: any) {
+	static isUserAvailable(email: string, db: any) {
 		return new Promise(async (resolve, reject) => {
-			const query =
-				'SELECT id FROM users WHERE username = ? OR email = ? LIMIT 1';
+			const query = 'SELECT id FROM users WHERE email = ? LIMIT 1';
 			console.log('checking if user is available');
-			let [results, fields] = await db.execute(query, [username, email]);
+			let [results, fields] = await db.execute(query, [email]);
 			if (results.length > 0) {
 				resolve(false);
 			} else {
