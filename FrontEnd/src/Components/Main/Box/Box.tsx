@@ -1,21 +1,29 @@
 import React, { CSSProperties } from 'react';
 import style from './Box.module.css';
+import type { Property } from 'csstype';
 
 interface BoxProps {
 	width?: string;
 	height?: string;
-	justify?: 'flex-center' | string;
-	items?: 'flex-center' | string;
+	padding?: string;
+	backgroundColor?: Property.BackgroundColor;
+	justify?: 'center' | 'start' | 'end' | 'left' | 'right' | string;
+	items?: 'center' | 'start' | 'end' | 'left' | 'right' | string;
 	direction?: 'column' | 'row' | string;
 	children?: any;
 }
 
 function Box(props: BoxProps) {
-	let justify = props.justify ? props.justify : 'center';
-	let items = props.items ? props.items : 'center';
-	let direction = props.direction ? props.direction : 'column';
-	let width = props.width ? props.width : 'min-content';
-	let height = props.height ? props.height : 'min-content';
+	const {
+		width,
+		height,
+		padding,
+		backgroundColor,
+		justify,
+		items,
+		direction,
+		children,
+	} = props;
 
 	return (
 		<div
@@ -24,15 +32,29 @@ function Box(props: BoxProps) {
 				{
 					width: width,
 					height: height,
+					padding: padding,
+					backgroundColor: backgroundColor,
 					justifyContent: justify,
 					alignItems: items,
 					flexDirection: direction,
 				} as CSSProperties
 			}
 		>
-			{props.children}
+			{children}
 		</div>
 	);
 }
+
+Box.defaultProps = {
+	justify: 'center',
+	items: 'center',
+	direction: 'column',
+	padding: '1rem',
+	width: 'min-content',
+	height: 'min-content',
+	backgroundColor: getComputedStyle(document.documentElement).getPropertyValue(
+		'--depth1'
+	),
+};
 
 export default Box;

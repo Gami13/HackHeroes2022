@@ -1,30 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import RegisterForm from './Components/RegisterForm/RegisterForm';
+import RegisterForm from './Routes/RegisterForm/RegisterForm';
 import { StrictMode } from 'react';
 import './css.css';
-import AppStates from './Components/States';
+import States from './Components/States';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import style from './App.module.css';
-import LoginForm from './Components/LoginForm/LoginForm';
+import LoginForm from './Routes/LoginForm/LoginForm';
+import ReminderSettings from './Routes/ReminderSettings/ReminderSettings';
+import ActivateAccount from './Routes/ActivateAccount/ActivateAccount';
+import MainPage from './Routes/MainPage/MainPage';
 
 const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [userEmail, setUserEmail] = useState('');
 	const [userID, setUserID] = useState('');
-	const [userUsername, setUserUsername] = useState('');
+	const [userFirstName, setUserFirstName] = useState('');
+	const [userLastName, setUserLastName] = useState('');
 	const [userToken, setUserToken] = useState('');
 
-	const [isAdmin, setIsAdmin] = useState(false);
+	const [userRanks, setUserRanks] = useState<string[]>([]);
+
 	const [isNavbarShown, setIsNavbarShown] = useState(false);
 
 	useEffect(() => {}, [isLoggedIn]);
 
 	return (
 		<StrictMode>
-			<AppStates.Provider
+			<States.Provider
 				value={{
 					isLoggedIn,
 					setIsLoggedIn,
@@ -32,12 +37,17 @@ const App = () => {
 					setUserEmail,
 					userID,
 					setUserID,
-					userUsername,
-					setUserUsername,
+
+					userFirstName,
+					setUserFirstName,
+					userLastName,
+					setUserLastName,
+
 					userToken,
 					setUserToken,
-					isAdmin,
-					setIsAdmin,
+
+					userRanks,
+					setUserRanks,
 				}}
 			>
 				<BrowserRouter>
@@ -47,18 +57,16 @@ const App = () => {
 						<Routes>
 							<Route
 								path="/verify/:validationToken"
-								element={<h1>walidacja</h1>}
+								element={<ActivateAccount />}
 							/>
 							<Route path="/register" element={<RegisterForm />} />
 							<Route path="/login" element={<LoginForm />} />
-							<Route
-								path="/"
-								element={<h1>nope</h1>}
-							/>
+							<Route path="/" element={<MainPage />} />
+							<Route path="/reminder" element={<ReminderSettings />} />
 						</Routes>
 					</div>
 				</BrowserRouter>
-			</AppStates.Provider>
+			</States.Provider>
 		</StrictMode>
 	);
 };

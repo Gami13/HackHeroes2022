@@ -24,30 +24,35 @@
 
 	/* background depths */
 	--depth0: rgb(32, 34, 37);
-	--depth1: #292b2f;
-	--depth2: #2f3136;
+	--depth1: rgb(41, 43, 47);
+	--depth2: rgb(47, 49, 54);
 	--depth3: ;
 	--depth4: ;
 	--depth5: ;
-	--depth6: ;
-	--depth7: ;
 
 	/* colors */
 	--primary: #5865f2;
 	--primaryHover: #4752c4;
 
-	--secondary: #9896dd;
+	--secondary: #ac81dd;
+	--secondaryHover: #a07bcb;
+
+	--red: rgb(200, 50, 50);
+	--yellow: rgb(200, 190, 50);
+	--green: rgb(50, 200, 90);
+	--blue: rgb(50, 130, 200);
 
 	/* text colors  */
 	--textPrimary: #bbc5d0;
 	--textPrimaryHover: #e0e7ee;
 	--textError: #f38688;
-	
+
 	--mainFontColor: #b9bbbe;
 	--link: #00aff4;
 	--linkHover: rgb(3, 148, 206);
 	--red: #d83c3e;
 	--redFocused: #a12d2f;
+	--roundedSmall: 3px; /* checkbox */
 	--rounded: 5px; /* inputs */
 	--roundedBig: 8px;
 
@@ -89,7 +94,13 @@ body {
 	width: 100%;
 	display: flex;
 }
-
+.root > h1 {
+	color: var(--textPrimary);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 a {
 	width: fit-content;
 

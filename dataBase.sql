@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `password` varchar(255) NOT NULL,
     `salt` varchar(255) NOT NULL,
     `tokens` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '[]',
+    `ranks` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '["user"]',
     `isBanned` tinyint(1) NOT NULL,
     `isActivated` tinyint(1) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;

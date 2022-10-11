@@ -4,3 +4,6 @@
 	align-items: center;
 	justify-content: center;
 }
+.form > h1 {
+	font-size: 1.75rem;
+}

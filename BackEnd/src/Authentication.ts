@@ -5,10 +5,10 @@ import SnowflakeID from './classes/Snowflake.js';
 import UserManagement from './classes/UserManagement.js';
 import * as crypto from 'crypto';
 import db from './connection.js';
+
 export default function authentication(app: Express) {
 	app.post('/registerUser', async (req: Request, res: Response) => {
 		/* TODO: CHANGE USERNAME TO FIRST NAME AND LAST NAME !!!!VERY IMPORTANT!!!! */
-		let response = '';
 		let firstName = req.body.firstName;
 		let lastName = req.body.lastName;
 		let email = req.body.email;
@@ -24,7 +24,7 @@ export default function authentication(app: Express) {
 				passwordConfirm
 			)
 		) {
-			res.send({ status: 'error', message: 'Invalid form data' });
+			res.sendError('Invalid form data');
 			return false;
 		}
 
@@ -37,10 +37,8 @@ export default function authentication(app: Express) {
 		let availability = await DataValidation.isUserAvailable(email, db);
 
 		if (!availability) {
-			res.send({
-				status: 'error',
-				message: 'Username or E-Mail already in use',
-			});
+			res.sendError('Username or E-Mail already in use');
+
 			return false;
 		}
 		UserManagement.insertVerificationCode(ID, email);
@@ -55,11 +53,11 @@ export default function authentication(app: Express) {
 				salt
 			))
 		) {
-			res.send({ status: 'error', message: 'Failed to register user' });
+			res.sendError('Failed to register user');
 			return false;
 		}
 
-		res.send({ status: 'success', message: 'User registered successfully' });
+		res.sendSuccess('User registered successfully');
 		return true;
 	});
 
@@ -72,32 +70,25 @@ export default function authentication(app: Express) {
 			await UserManagement.getDataFromVerificationCode(hash);
 
 		if (!isOkay) {
-			res.send({
-				status: 'error',
-				message: 'Unable to find account correlating to your verification link',
-			});
+			res.sendError(
+				'Unable to find account correlating to your verification link'
+			);
 			return false;
 		}
 
 		if (isUsed == true) {
-			res.send({
-				status: 'error',
-				message: 'The verification link has been used already',
-			});
+			res.sendError('The verification link has been used already');
 			return false;
 		}
 
 		let result = await UserManagement.resendEmailIftokenTooOld(hashId, userId);
 
 		if (!result.isOkay) {
-			res.send({ status: 'error', message: result.message });
+			res.sendError(result.message);
 		}
 		let isActivated = await UserManagement.checkiIfaccountIsActivated(userId);
 		if (isActivated) {
-			res.send({
-				status: 'error',
-				message: 'Your account has already been activated',
-			});
+			res.sendError('Your account has already been activated');
 			return false;
 		}
 
@@ -105,21 +96,17 @@ export default function authentication(app: Express) {
 		console.log(wasCodeUsed);
 
 		if (!wasCodeUsed) {
-			res.status(500).send(
-				JSON.stringify({
-					status: 'error',
-					message: 'Something went wrong, please try again later',
-				})
-			);
+			res.sendError('Something went wrong, please try again later', 500);
+
 			return false;
 		}
 
 		if (await UserManagement.activateAccount(userId)) {
-			res.send({ status: 'success', message: 'Verified Correctly' });
+			res.sendSuccess('Verified Correctly');
 			return true;
 		}
 
-		res.status(500).send({ status: 'error', message: 'Something went wrong' });
+		res.sendError('Something went wrong', 500);
 		return false;
 	});
 	app.post('/sendPasswordReset', async (req, res) => {
@@ -142,12 +129,7 @@ export default function authentication(app: Express) {
 				'INSERT INTO passwordReset (id, userId,hash, isUsed) VALUES (?,?,?,false)';
 
 			await db.execute(query, [passResetID, userId, resetHash]);
-			res.send(
-				JSON.stringify({
-					status: 'success',
-					message: 'Email with password reset code sent',
-				})
-			);
+			res.sendSuccess('Email with password reset code sent');
 		} else {
 			res.send({ status: 'error', message: 'Email not found' });
 		}
@@ -173,10 +155,7 @@ export default function authentication(app: Express) {
 			let userId = results[0].userId;
 			let isUsed = results[0].isUsed;
 			if (isUsed == true) {
-				res.send({
-					status: 'error',
-					message: 'The password reset link has been used already',
-				});
+				res.sendError('The password reset link has been used already');
 				return false;
 			}
 			let { hashedPassword, salt } = await UserManagement.hashPassword(
@@ -187,7 +166,7 @@ export default function authentication(app: Express) {
 			db.execute(query, [hashedPassword, salt, userId]);
 			query = 'UPDATE passwordReset SET isUsed = true WHERE hash = ?';
 			db.execute(query, [token]);
-			res.send({ status: 'success', message: 'Password reset correctly' });
+			res.sendSuccess('Password reset correctly');
 			return true;
 		}
 	});
@@ -200,15 +179,12 @@ export default function authentication(app: Express) {
 		let { userId, isActivated, tokens, hashedPassword, salt, isOkay } =
 			await UserManagement.getUserData(email, password);
 		if (!isOkay) {
-			res.send({ status: 'error', message: 'User not found' });
+			res.sendError('User not found');
 			return false;
 		}
 
 		if (isActivated == false) {
-			res.send({
-				status: 'error',
-				message: 'Your account has not been activated yet',
-			});
+			res.sendError('Your account has not been activated yet');
 			return false;
 		}
 		let isPasswordCorrect = await UserManagement.checkPassword(
@@ -219,26 +195,31 @@ export default function authentication(app: Express) {
 		if (isPasswordCorrect) {
 			let { token, isOkay } = await UserManagement.updateToken(userId, tokens);
 			if (!isOkay) {
-				res.send(
-					JSON.stringify({
-						status: 'error',
-						message: 'Something went wrong, please try again later',
-					})
-				);
+				res.sendError('Something went wrong, please try again later');
 				return false;
 			}
-
-			res.send(
-				JSON.stringify({
-					status: 'success',
-					token: token,
-					message: 'Logged in correctly',
-				})
+			// res.setHeader('access-control-expose-headers', 'Set-Cookie');
+			// res.setHeader('withCredentials', 'true');
+			res.cookie(
+				'vewySecwetUwU',
+				'takeThisCookieAndGoAwayYouFuckingCookieStealingBastard',
+				// { token: token, userId: userId, email: email },
+				{ httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 30 }
 			);
+			/* check is admin */
+			/* TODO: fetch first name and last name and id */
+			res.sendSuccess('Logged in correctly', {
+				token: token,
+				ranks: ['user'],
+				email: email,
+				firstName: 'John',
+				lastName: 'Doe',
+				id: userId,
+			});
 
 			return true;
 		} else {
-			res.send({ status: 'error', message: 'Incorrect password' });
+			res.sendError('Incorrect password');
 			return false;
 		}
 	});
@@ -248,11 +229,9 @@ export default function authentication(app: Express) {
 		let email = req.body.email || '';
 		let token = req.body.token || '';
 		if (await UserManagement.isLoggedIn(email, token, id)) {
-			res.send({ status: 'success', message: 'Logged in' });
+			res.sendSuccess('Logged in');
 		} else {
-			res
-				.status(401)
-				.send({ status: 'error', message: 'Something went wrong' });
+			res.sendError('Something went wrong', 401);
 		}
 		return false;
 	});
@@ -261,10 +240,10 @@ export default function authentication(app: Express) {
 		let email = req.body.email;
 		let token = req.body.token;
 		if (await UserManagement.logout(email, token, id)) {
-			res.send({ status: 'success', message: 'Logged out correctly' });
+			res.sendSuccess('Logged out correctly');
 			return true;
 		}
-		res.send({ status: 'error', message: 'Something went wrong' });
+		res.sendError('Something went wrong');
 		return false;
 	});
 	//#endregion

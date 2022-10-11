@@ -140,7 +140,7 @@ class UserManagement {
 
 	static async getUserData(email: string, password: string) {
 		let query =
-			'SELECT id, password, salt, isActivated, tokens FROM users WHERE email = ?';
+			'SELECT id, password, salt, isActivated, tokens, firstName, lastName, email, ranks FROM users WHERE email = ?';
 		let [results, fields] = await db.execute<RowDataPacket[]>(query, [email]);
 		if (results.length > 0) {
 			let userId: string = results[0].id;
@@ -148,6 +148,10 @@ class UserManagement {
 			let tokens: tokens = JSON.parse(results[0].tokens);
 			let hashedPassword: string = results[0].password;
 			let salt: string = results[0].salt;
+			let firstName: string = results[0].firstName;
+			let lastName: string = results[0].lastName;
+			let email: string = results[0].email;
+			let ranks: string[] = JSON.parse(results[0].ranks);
 
 			return {
 				userId: userId,
@@ -155,6 +159,10 @@ class UserManagement {
 				tokens: tokens,
 				hashedPassword: hashedPassword,
 				salt: salt,
+				firstName: firstName,
+				lastName: lastName,
+				email: email,
+				ranks: ranks,
 				isOkay: true,
 			};
 		} else {
@@ -165,6 +173,10 @@ class UserManagement {
 				tokens: [],
 				hashedPassword: '',
 				salt: '',
+				firstName: '',
+				lastName: '',
+				email: '',
+				ranks: [],
 			};
 		}
 	}

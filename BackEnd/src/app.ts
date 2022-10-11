@@ -1,9 +1,38 @@
-import express from 'express';
+import express, { Response } from 'express';
 import cors from 'cors';
 import { yes } from './classes/Log.js';
 import authentication from './Authentication.js';
 
 yes();
+
+declare global {
+	namespace Express {
+		interface Response {
+			sendError: (
+				message: string | any,
+				errorCode?: number | 404 | 401 | 500
+			) => express.Response;
+			sendSuccess: (message: string | any, ...data: any) => express.Response;
+		}
+	}
+}
+class extend {
+	static sendError(
+		message: string,
+		errorCode: number | 404 | 401 | 500 = 500
+	): express.Response {
+		let response = this as unknown as Response;
+		return response
+			.status(errorCode)
+			.send({ status: 'error', success: false, message });
+	}
+	static sendSuccess(message: string, data: any = null): express.Response {
+		let response = this as unknown as Response;
+		return response.send({ status: 'success', succes: true, message, ...data });
+	}
+}
+express.response.sendError = extend.sendError;
+express.response.sendSuccess = extend.sendSuccess;
 
 const app = express();
 app.use(express.json());

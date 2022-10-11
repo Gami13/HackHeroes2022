@@ -2,7 +2,7 @@ class SnowflakeID {
 	static epoch = new Date(2022, 0, 1).getTime(); //get timestamp since Januray 1st 2022 in binary
 	static numberInBatch = 0;
 
-	static pad(input:string, desiredLength:number, whatToPadWith:string) {
+	static pad(input: string, desiredLength: number, whatToPadWith: string) {
 		let amountToPad = desiredLength - input.length;
 		for (let i = 0; i < amountToPad; i++) {
 			input = whatToPadWith + input;
@@ -13,11 +13,11 @@ class SnowflakeID {
 	static createID(idType: string) {
 		const currentDate = Date.now();
 		let timestampBits = (currentDate - this.epoch).toString(2); //timestamp since epoch in bits
-		let ID = SnowflakeID.pad(timestampBits, 41, '0');
+		let ID = SnowflakeID.pad(timestampBits, 41, "0");
 		let numberInBatchBits = (this.numberInBatch++).toString(2);
-		numberInBatchBits = SnowflakeID.pad(numberInBatchBits, 8, '0');
+		numberInBatchBits = SnowflakeID.pad(numberInBatchBits, 8, "0");
 		ID += numberInBatchBits;
-		let randomness = '';
+		let randomness = "";
 		for (let i = 0; i < 11; i++) {
 			randomness += Math.round(Math.random()).toString();
 		}
@@ -28,10 +28,10 @@ class SnowflakeID {
 	}
 	static getDataFromID(id: string) {
 		//convert id to binary
-		
+
 		id = BigInt(id).toString(2);
 
-		id = SnowflakeID.pad(id, 63, '0');
+		id = SnowflakeID.pad(id, 63, "0");
 
 		let timestampBits = id.substring(0, 41);
 		let timestamp = parseInt(timestampBits, 2) + this.epoch;
@@ -44,32 +44,32 @@ class SnowflakeID {
 		let numberInBatch = parseInt(numberInBatchBits, 2);
 		let idType = id.substring(60, 63);
 		switch (idType) {
-			case '000':
-				idType = 'user';
+			case "000":
+				idType = "user";
 				break;
-			case '001':
-				idType = 'verification';
+			case "001":
+				idType = "verification";
 				break;
-			case '010':
-				idType = 'article';
+			case "010":
+				idType = "article";
 				break;
-			case '011':
-				idType = 'comment';
+			case "011":
+				idType = "comment";
 				break;
-			case '100':
-				idType = 'password reset';
+			case "100":
+				idType = "password reset";
 				break;
-			case '101':
-				idType = 'other';
+			case "101":
+				idType = "other";
 				break;
-			case '110':
-				idType = 'other';
+			case "110":
+				idType = "other";
 				break;
-			case '111':
-				idType = 'other';
+			case "111":
+				idType = "other";
 				break;
 			default:
-				idType = 'unknown';
+				idType = "unknown";
 				break;
 		}
 

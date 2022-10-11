@@ -22,7 +22,6 @@ class DataValidation {
 		if (username.length < 3 || username.length > 32) {
 			usernameErrors.push('- Must be between 3 and 32 characters');
 		}
-
 		return usernameErrors;
 	}
 	static validateEmail(email: string) {
@@ -40,7 +39,7 @@ class DataValidation {
 	}
 	static validatePassword(password: string, passwordConfirm: string) {
 		let passwordErrors: string[] = [];
-		if (password.length <= 8 || password.length > 64) {
+		if (password.length < 8 || password.length > 64) {
 			passwordErrors.push('- Must be between 8 and 64 characters');
 		}
 		if (!/[0-9]/.test(password)) {
@@ -52,6 +51,7 @@ class DataValidation {
 		if (password != passwordConfirm) {
 			passwordErrors.push('- Passwords must match');
 		}
+
 		return passwordErrors;
 	}
 

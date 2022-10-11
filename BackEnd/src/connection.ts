@@ -1,8 +1,8 @@
-import * as mysql from 'mysql2/promise';
+import * as mysql from "mysql2/promise";
 const db = await mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	database: 'Obywatel++',
+	host: "localhost",
+	user: "root",
+	database: "Obywatel++",
 	supportBigNumbers: true,
 	bigNumberStrings: true,
 });

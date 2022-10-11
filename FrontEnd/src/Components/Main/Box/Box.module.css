@@ -1,5 +1,4 @@
 .box {
-	background-color: var(--depth1);
 	border-radius: var(--roundedBig);
 	display: flex;
 }

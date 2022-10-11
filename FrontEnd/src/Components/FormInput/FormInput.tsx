@@ -16,26 +16,40 @@ interface FormInputProps {
 }
 
 function FormInput(props: FormInputProps) {
-	let width = props.width ? props.width : '24rem';
+	const {
+		id,
+		type,
+		width,
+		value,
+		className,
+		placeholder,
+		label,
+		errors,
+		onChange,
+		onBlur,
+	} = props;
 
 	return (
-		<label htmlFor={props.id}>
-			
-				<span>{props.label}</span>
-				<span className={style.error}>{props.errors}</span>
-			
+		<label htmlFor={id}>
+			<span className={style.formInputLabel}>{label}</span>
+			<span className={style.error}>{errors}</span>
 
 			<Input
-				id={props.id}
-				type={props.type}
+				id={id}
+				type={type}
 				width={width}
-				value={props.value}
+				value={value}
+				placeholder={placeholder}
 				className={style.input}
-				onChange={props.onChange}
-				onBlur={props.onBlur}
+				onChange={onChange}
+				onBlur={onBlur}
 			/>
 		</label>
 	);
 }
+
+FormInput.defaultProps = {
+	width: '24rem',
+};
 
 export default FormInput;

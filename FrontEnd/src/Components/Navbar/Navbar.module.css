@@ -61,10 +61,10 @@
 	align-items: center;
 }
 
-.nav span {
+.nav li:first-child a {
 	color: var(--basicText);
 	text-decoration: none;
-	font-size: 2.5rem;
+	font-size: 2rem;
 	font-weight: bold;
 
 	transition-duration: var(--transitionSpeed);
@@ -75,11 +75,13 @@
 	width: 2rem;
 	height: 2rem;
 	fill: var(--textPrimary);
+	stroke: var(--textPrimary);
 	transition-duration: var(--transitionSpeed);
 	margin-right: 1rem;
 }
 .nav li:hover svg {
 	fill: var(--primary);
+	stroke: var(--primary);
 }
 .logo {
 	width: 3.25rem !important;
@@ -120,7 +122,7 @@
 	.showNav svg {
 		width: 3rem;
 		height: 3rem;
-		fill: var(--highlightColor);
+		fill: var(--textPrimary);
 		transition-duration: var(--transitionSpeed);
 		margin-right: 1rem;
 		margin: 0px;

@@ -1,0 +1,32 @@
+/* Chceckbox style */
+input[type='checkbox'] {
+	-webkit-appearance: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: var(--roundedSmall);
+	border-style: solid;
+	border-width: 0.1rem;
+	border-color: var(--textPrimary);
+	background-color: transparent;
+}
+
+input[type='checkbox']:hover {
+	cursor: pointer;
+	/* 	filter: brightness(90%);
+ */
+}
+
+input[type='checkbox']:checked {
+	background-color: var(--secondary);
+}
+
+input[type='checkbox']:checked::after {
+	display: flex;
+	justify-content: center;
+	content: '\2714';
+	color: var(--white);
+}
+input[type='checkbox']:focus {
+	outline: none;
+}

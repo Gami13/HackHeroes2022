@@ -1,11 +1,12 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import style from './RegisterForm.module.css';
-import RegisterCard from './../RegisterCard/RegisterCard';
-import FormInput from '../FormInput/FormInput';
-import Form from '../Main/Form/Form';
-import Button from '../Main/Button/Button';
-import PopUp from '../Main/PopUp/PopUp';
+import RegisterCard from '../../Components/RegisterCard/RegisterCard';
+import FormInput from '../../Components/FormInput/FormInput';
+import Form from '../../Components/Main/Form/Form';
+import Button from '../../Components/Main/Button/Button';
+import PopUp from '../../Components/Main/PopUp/PopUp';
+import Notification from '../../Components/Main/Notification/Notification';
 
 const RegisterForm = () => {
 	const [firstName, setFirstName] = useState('');
@@ -137,13 +138,8 @@ const RegisterForm = () => {
 
 	return (
 		<div className={style.container}>
-			<RegisterCard
-				firstName={firstName}
-				lastName={lastName}
-				email={email}
-			></RegisterCard>
 			<Form
-				gap={4}
+				gap={1}
 				className={style.registerForm}
 				onSubmit={(e) => {
 					e.preventDefault();
@@ -195,11 +191,22 @@ const RegisterForm = () => {
 					value={passwordConfirm}
 					onChange={(e) => setPasswordConfirm(e.target.value)}
 					onBlur={validatePassword}
-					errors={passwordErrors[0]}
 				/>
 				<Button type={'submit'}>Zarejestruj</Button>
 				<Link to="/login">Masz już konto?</Link>
 			</Form>
+
+			<RegisterCard
+				firstName={firstName}
+				lastName={lastName}
+				email={email}
+			></RegisterCard>
+			<Notification
+				icon="success"
+				title={'Rejestracja'}
+				body={'Zarejestrowałeś się pomyślnie'}
+				footer={'Zaloguj się'}
+			></Notification>
 
 			<h1>{responseError}</h1>
 		</div>

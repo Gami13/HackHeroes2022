@@ -1,27 +1,28 @@
 import React from 'react';
 import Box from '../Box/Box';
 import style from './Form.module.css';
+import type { Property } from 'csstype';
 
 interface FormProps {
 	width?: string;
 	height?: string;
 	gap?: number;
+	backgroundColor?: Property.BackgroundColor;
 	className?: string;
-	onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 	children?: any;
+	onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 function Form(props: FormProps) {
-	let width = props.width ? props.width : 'min-content';
-	let height = props.height ? props.height : 'min-content';
-	let gap = props.gap ? props.gap : 1;
-	gap = gap / 4;
+	const { width, height, gap, className, children, onSubmit, backgroundColor } =
+		props;
 
 	return (
-		<Box width={width} height={height}>
+		<Box width={width} height={height} backgroundColor={backgroundColor}>
 			<form
-				className={(props.className, style.form)}
+				className={([props.className].join(' '), style.form)}
 				onSubmit={props.onSubmit}
+				// @ts-ignore
 				style={{ gap: gap + 'rem', padding: gap * 2 + 'rem' }}
 			>
 				{props.children}
@@ -29,5 +30,11 @@ function Form(props: FormProps) {
 		</Box>
 	);
 }
+
+Form.defaultProps = {
+	width: 'min-content',
+	height: 'min-content',
+	gap: 1,
+};
 
 export default Form;

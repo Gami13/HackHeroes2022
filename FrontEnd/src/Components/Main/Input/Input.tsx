@@ -13,20 +13,25 @@ interface InputProps {
 }
 
 function Input(props: InputProps) {
-	let width = props.width ? props.width : '24rem';
+	const { id, type, width, value, className, placeholder, onChange, onBlur } =
+		props;
 
 	return (
 		<input
-			id={props.id}
-			type={props.type}
-			value={props.value}
-			className={props.className}
-			placeholder={props.placeholder}
-			onChange={props.onChange}
-			onBlur={props.onBlur}
+			id={id}
+			type={type}
+			value={value}
+			className={className}
+			placeholder={placeholder}
+			onChange={onChange}
+			onBlur={onBlur}
 			style={{ width: width }}
 		></input>
 	);
 }
+
+Input.defaultProps = {
+	width: '24rem',
+};
 
 export default Input;
