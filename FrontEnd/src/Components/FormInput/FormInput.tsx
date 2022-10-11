@@ -10,7 +10,7 @@ interface FormInputProps {
 	className?: string;
 	placeholder?: string;
 	label?: string;
-	errors?: string[];
+	errors?: string;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
@@ -20,10 +20,10 @@ function FormInput(props: FormInputProps) {
 
 	return (
 		<label htmlFor={props.id}>
-			<div>
+			
 				<span>{props.label}</span>
-				<span className={style.error}>{props.errors?.join(' ')}</span>
-			</div>
+				<span className={style.error}>{props.errors}</span>
+			
 
 			<Input
 				id={props.id}

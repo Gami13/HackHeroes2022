@@ -1,5 +1,6 @@
 import React from 'react';
 import Box from '../Box/Box';
+import style from './PopUp.module.css';
 
 interface PopUpProps {
 	children?: any;
@@ -7,7 +8,7 @@ interface PopUpProps {
 
 function PopUp(props: PopUpProps) {
 	return (
-		<div>
+		<div className={style.bigBlack}>
 			<Box>{props.children}</Box>
 		</div>
 	);

@@ -1,7 +1,8 @@
 import React from 'react';
+import style from './Notification.module.css';
 
 interface NotificationProps {
-	icon: string;
+	icon: "success" | "error" | string;
 	title?: any;
 	body?: any;
 	footer?: any;

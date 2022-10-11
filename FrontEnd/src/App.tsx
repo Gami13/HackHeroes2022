@@ -53,7 +53,7 @@ const App = () => {
 							<Route path="/login" element={<LoginForm />} />
 							<Route
 								path="/"
-								element={<h1 className="text-orange-600">nope</h1>}
+								element={<h1>nope</h1>}
 							/>
 						</Routes>
 					</div>

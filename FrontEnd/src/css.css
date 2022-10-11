@@ -39,15 +39,10 @@
 	--secondary: #9896dd;
 
 	/* text colors  */
-
-	--textHover: #dcddde;
-	--text: #949494;
 	--textPrimary: #bbc5d0;
 	--textPrimaryHover: #e0e7ee;
 	--textError: #f38688;
-
-	--typedColor: #dcddde;
-
+	
 	--mainFontColor: #b9bbbe;
 	--link: #00aff4;
 	--linkHover: rgb(3, 148, 206);
@@ -73,6 +68,12 @@
 	border-style: none;
 }
 
+*:focus {
+	outline-color: var(--secondary);
+	outline-style: solid;
+	outline-width: 1px;
+}
+
 html {
 	height: 100vh;
 	width: 100vw;
@@ -87,4 +88,15 @@ body {
 	height: 100%;
 	width: 100%;
 	display: flex;
+}
+
+a {
+	width: fit-content;
+
+	color: var(--link);
+	text-decoration: underline;
+}
+
+a:hover {
+	color: var(--linkHover);
 }

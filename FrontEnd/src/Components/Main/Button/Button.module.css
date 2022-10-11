@@ -1,0 +1,17 @@
+.button {
+	background-color: var(--primary);
+	color: var(--textPrimary);
+	width: fit-content;
+	padding: 0.5rem 1rem;
+	border-radius: var(--rounded);
+	margin: 10px auto;
+	font-weight: 600;
+	transition-duration: var(--transitionSpeedFast);
+	transition-property: color, background-color;
+
+}
+.button:hover {
+	color: var(--textPrimaryHover);
+	background-color: var(--primaryHover);
+	transition-duration: var(--transitionSpeedFast);
+}

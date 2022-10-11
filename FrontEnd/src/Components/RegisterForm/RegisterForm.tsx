@@ -4,6 +4,8 @@ import style from './RegisterForm.module.css';
 import RegisterCard from './../RegisterCard/RegisterCard';
 import FormInput from '../FormInput/FormInput';
 import Form from '../Main/Form/Form';
+import Button from '../Main/Button/Button';
+import PopUp from '../Main/PopUp/PopUp';
 
 const RegisterForm = () => {
 	const [firstName, setFirstName] = useState('');
@@ -157,7 +159,7 @@ const RegisterForm = () => {
 					value={firstName}
 					onChange={(e) => setFirstName(e.target.value)}
 					onBlur={validateFirstName}
-					errors={firstNameErrors}
+					errors={firstNameErrors[0]}
 				/>
 				<FormInput
 					type="text"
@@ -166,7 +168,7 @@ const RegisterForm = () => {
 					value={lastName}
 					onChange={(e) => setLastName(e.target.value)}
 					onBlur={validateLastName}
-					errors={lastNameErrors}
+					errors={lastNameErrors[0]}
 				/>
 				<FormInput
 					id="email"
@@ -175,7 +177,7 @@ const RegisterForm = () => {
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 					onBlur={validateEmail}
-					errors={emailErrors}
+					errors={emailErrors[0]}
 				/>
 				<FormInput
 					id="password"
@@ -184,7 +186,7 @@ const RegisterForm = () => {
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 					onBlur={validatePassword}
-					errors={passwordErrors}
+					errors={passwordErrors[0]}
 				/>
 				<FormInput
 					id="passwordConfirm"
@@ -193,9 +195,9 @@ const RegisterForm = () => {
 					value={passwordConfirm}
 					onChange={(e) => setPasswordConfirm(e.target.value)}
 					onBlur={validatePassword}
-					errors={passwordErrors}
+					errors={passwordErrors[0]}
 				/>
-				<button type="submit">Zarejestruj</button>
+				<Button type={'submit'}>Zarejestruj</Button>
 				<Link to="/login">Masz już konto?</Link>
 			</Form>
 
