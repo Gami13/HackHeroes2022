@@ -164,7 +164,7 @@ const RegisterForm = () => {
 				<FormInput
 					type="text"
 					id="lastName"
-					label="Imie"
+					label="Nazwisko"
 					value={lastName}
 					onChange={(e) => setLastName(e.target.value)}
 					onBlur={validateLastName}
