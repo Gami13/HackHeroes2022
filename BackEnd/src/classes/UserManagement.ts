@@ -53,17 +53,19 @@ class UserManagement {
 	}
 	static async insertUserData(
 		ID: string,
-		username: string,
+		firstName: string,
+		lastName: string,
 		email: string,
 		hashedPassword: string,
 		salt: string
 	) {
 		let query =
-			'INSERT INTO users (id, username, email, password, salt, isactivated) VALUES (?,?,?,?,?,false);';
+			'INSERT INTO users (id, firstName,lastName, email, password, salt, isactivated) VALUES (?,?,?,?,?,?,false);';
 
 		let [results, fields] = await db.execute<OkPacket>(query, [
 			ID,
-			username,
+			firstName,
+			lastName,
 			email,
 			hashedPassword,
 			salt,
@@ -136,13 +138,10 @@ class UserManagement {
 		}
 	}
 
-	static async getUserData(username: string, password: string) {
+	static async getUserData(email: string, password: string) {
 		let query =
-			'SELECT id, password, salt, isActivated, tokens FROM users WHERE username = ? OR email = ?';
-		let [results, fields] = await db.execute<RowDataPacket[]>(query, [
-			username,
-			username,
-		]);
+			'SELECT id, password, salt, isActivated, tokens FROM users WHERE email = ?';
+		let [results, fields] = await db.execute<RowDataPacket[]>(query, [email]);
 		if (results.length > 0) {
 			let userId: string = results[0].id;
 			let isActivated: boolean = results[0].isActivated;
@@ -237,30 +236,24 @@ class UserManagement {
 		return { isOkay: false };
 	}
 
-	static async isLoggedIn(username: string, token: string, id: string) {
-		let query = 'SELECT id, tokens FROM users WHERE username = ? OR email = ?';
+	static async isLoggedIn(email: string, token: string, id: string) {
+		let query = 'SELECT tokens FROM users WHERE email = ? AND id = ?';
 		let [results, fields] = await db.execute<RowDataPacket[]>(query, [
-			username,
-			username,
+			email,
+			id,
 		]);
 		if (results.length > 0) {
-			let userId = results[0].id;
 			let tokens: tokens = JSON.parse(results[0].tokens);
-			if (userId == id) {
-				let index = tokens.indexOf(token);
-				if (index > -1) {
-					return true;
-				}
+			let index = tokens.indexOf(token);
+			if (index > -1) {
+				return true;
 			}
 		}
 		return false;
 	}
-	static async logout(username: string, token: string, id: string) {
-		let query = 'SELECT id, tokens FROM users WHERE username = ? OR email = ?';
-		let [results, fields] = await db.execute<RowDataPacket[]>(query, [
-			username,
-			username,
-		]);
+	static async logout(email: string, token: string, id: string) {
+		let query = 'SELECT id, tokens FROM users WHERE email = ?';
+		let [results, fields] = await db.execute<RowDataPacket[]>(query, [email]);
 		if (results.length > 0) {
 			let userId: string = results[0].id;
 			let tokens: tokens = JSON.parse(results[0].tokens);

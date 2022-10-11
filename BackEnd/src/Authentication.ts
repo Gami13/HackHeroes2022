@@ -9,14 +9,16 @@ export default function authentication(app: Express) {
 	app.post('/registerUser', async (req: Request, res: Response) => {
 		/* TODO: CHANGE USERNAME TO FIRST NAME AND LAST NAME !!!!VERY IMPORTANT!!!! */
 		let response = '';
-		let username = req.body.username;
+		let firstName = req.body.firstName;
+		let lastName = req.body.lastName;
 		let email = req.body.email;
 		let password = req.body.password;
 		let passwordConfirm = req.body.passwordConfirm;
 
+		//TODO add validation for first name and last name
 		if (
 			!DataValidation.isUserDataValid(
-				username,
+				firstName,
 				email,
 				password,
 				passwordConfirm
@@ -32,11 +34,7 @@ export default function authentication(app: Express) {
 		/* 	console.log(
             `Username: ${username} | E-Mail: ${email} | Password: | ${password} | PasswordCofirm: ${passwordConfirm} | HashedPassword: ${hashedPassword} | Salt: ${salt} | ID: ${ID} }`
         ); */
-		let availability = await DataValidation.isUserAvailable(
-			username,
-			email,
-			db
-		);
+		let availability = await DataValidation.isUserAvailable(email, db);
 
 		if (!availability) {
 			res.send({
@@ -50,7 +48,8 @@ export default function authentication(app: Express) {
 		if (
 			!(await UserManagement.insertUserData(
 				ID,
-				username,
+				firstName,
+				lastName,
 				email,
 				hashedPassword,
 				salt
@@ -91,7 +90,7 @@ export default function authentication(app: Express) {
 		let result = await UserManagement.resendEmailIftokenTooOld(hashId, userId);
 
 		if (!result.isOkay) {
-			res.send(JSON.stringify({ status: 'error', message: result.message }));
+			res.send({ status: 'error', message: result.message });
 		}
 		let isActivated = await UserManagement.checkiIfaccountIsActivated(userId);
 		if (isActivated) {
@@ -195,11 +194,11 @@ export default function authentication(app: Express) {
 	//#region login and everything related to it
 	app.post('/login', async (req, res) => {
 		//SEND ACCOUNT DATA TO CLIENT
-		let username = req.body.username; //username is either username or email
+		let email = req.body.email;
 		let password = req.body.password;
 
 		let { userId, isActivated, tokens, hashedPassword, salt, isOkay } =
-			await UserManagement.getUserData(username, password);
+			await UserManagement.getUserData(email, password);
 		if (!isOkay) {
 			res.send({ status: 'error', message: 'User not found' });
 			return false;
@@ -245,10 +244,10 @@ export default function authentication(app: Express) {
 	});
 
 	app.post('/isLoggedIn', async (req, res) => {
-		let id = req.body.id;
-		let username = req.body.username; //username is either username or email
-		let token = req.body.token;
-		if (await UserManagement.isLoggedIn(username, token, id)) {
+		let id = req.body.id || '';
+		let email = req.body.email || '';
+		let token = req.body.token || '';
+		if (await UserManagement.isLoggedIn(email, token, id)) {
 			res.send({ status: 'success', message: 'Logged in' });
 		} else {
 			res
@@ -259,9 +258,9 @@ export default function authentication(app: Express) {
 	});
 	app.post('/logout', async (req, res) => {
 		let id = req.body.id;
-		let username = req.body.username; //username is either username or email
+		let email = req.body.email;
 		let token = req.body.token;
-		if (await UserManagement.logout(username, token, id)) {
+		if (await UserManagement.logout(email, token, id)) {
 			res.send({ status: 'success', message: 'Logged out correctly' });
 			return true;
 		}
