@@ -9,6 +9,8 @@ import States from '../../Components/States';
 
 import layouts from '../../layouts.module.css';
 
+import Cookies from 'js-cookie';
+
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -52,6 +54,19 @@ const LoginForm = () => {
 			localStorage.setItem('userToken', context.userToken);
 			localStorage.setItem('userRanks', JSON.stringify(context.userRanks));
 
+			Cookies.set(
+				'token',
+				Buffer.from(
+					JSON.stringify({
+						token: json.token,
+						email: json.email,
+						id: json.id,
+					}),
+					'utf-8'
+				).toString('base64'),
+				{ expires: 7 }
+			);
+
 			setDidLogin(true);
 			console.log('login successful');
 		} else {
@@ -93,7 +108,11 @@ const LoginForm = () => {
 					// onBlur={validatePassword}
 					// errors={passwordErrors}
 				/>
-				<CheckBox></CheckBox>
+				<label htmlFor="rememberMe">
+					{/* TODO */}
+					<span>TODO komponent z tego chyba</span>
+					<CheckBox></CheckBox>
+				</label>
 				<Button type="submit">Zaloguj</Button>
 				<Link to="/register">Nie masz konta?</Link>
 			</Form>

@@ -64,3 +64,7 @@ app.listen(3000, () => {
 	//              ..,--------,*/`);
 });
 authentication(app);
+app.get('/test', (req, res) => {
+	res.cookie('test', 'test', { httpOnly: true });
+	res.sendSuccess('test');
+});
