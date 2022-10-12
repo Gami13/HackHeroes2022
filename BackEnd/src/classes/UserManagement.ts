@@ -138,7 +138,7 @@ class UserManagement {
 		}
 	}
 
-	static async getUserData(email: string, password: string) {
+	static async getAuthData(email: string) {
 		let query =
 			'SELECT id, password, salt, isActivated, tokens, firstName, lastName, email, ranks FROM users WHERE email = ?';
 		let [results, fields] = await db.execute<RowDataPacket[]>(query, [email]);
@@ -281,6 +281,25 @@ class UserManagement {
 			}
 		}
 		return false;
+	}
+	static async getDataFromToken(token: string, id: string) {
+		let query =
+			'SELECT id,firstName,lastName,email tokens FROM users WHERE id = ?';
+		let [results, fields] = await db.execute<RowDataPacket[]>(query, [id]);
+		if (results.length > 0) {
+			let tokens: tokens = JSON.parse(results[0].tokens);
+			let index = tokens.indexOf(token);
+			if (index > -1 && results[0].id == id) {
+				return {
+					isOkay: true,
+
+					firstName: results[0].firstName,
+					lastName: results[0].lastName,
+					email: results[0].email,
+				};
+			}
+		}
+		return { isOkay: false };
 	}
 }
 

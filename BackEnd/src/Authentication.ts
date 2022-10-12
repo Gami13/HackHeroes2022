@@ -177,7 +177,7 @@ export default function authentication(app: Express) {
 		let password = req.body.password;
 
 		let { userId, isActivated, tokens, hashedPassword, salt, isOkay } =
-			await UserManagement.getUserData(email, password);
+			await UserManagement.getAuthData(email);
 		if (!isOkay) {
 			res.sendError('User not found');
 			return false;
@@ -245,6 +245,23 @@ export default function authentication(app: Express) {
 		}
 		res.sendError('Something went wrong');
 		return false;
+	});
+
+	app.get('/UserData', async (req, res) => {
+		let id = req.body.id;
+		let email = req.body.email;
+		let token = req.body.token;
+		if (await UserManagement.isLoggedIn(email, token, id)) {
+			const { firstName, lastName, email, isOkay } =
+				await UserManagement.getDataFromToken(token, id);
+			if (!isOkay) {
+				res.sendError('Something went wrong');
+				return false;
+			}
+			res.sendSuccess({ firstName, lastName, email });
+		} else {
+			res.sendError('Something went wrong', 401);
+		}
 	});
 	//#endregion
 	console.green('Authentication Routes Loaded ✔');
