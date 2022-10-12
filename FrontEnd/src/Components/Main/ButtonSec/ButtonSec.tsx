@@ -5,13 +5,18 @@ interface ButtonSecProps {
 	type?: 'submit' | 'button';
 	onClick?: any;
 	children?: any;
+	className?: string[] | string;
 }
 
 function ButtonSec(props: ButtonSecProps) {
 	const { type, onClick, children } = props;
 
 	return (
-		<button type={type} className={style.button} onClick={onClick}>
+		<button
+			type={type}
+			className={[style.button, props.className].join(' ')}
+			onClick={onClick}
+		>
 			{children}
 		</button>
 	);

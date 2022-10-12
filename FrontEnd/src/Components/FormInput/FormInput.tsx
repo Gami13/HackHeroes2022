@@ -7,7 +7,7 @@ interface FormInputProps {
 	type: string;
 	width?: string;
 	value?: string;
-	className?: string;
+	className?: string[] | string;
 	placeholder?: string;
 	label?: string;
 	errors?: string;
@@ -30,7 +30,7 @@ function FormInput(props: FormInputProps) {
 	} = props;
 
 	return (
-		<label htmlFor={id}>
+		<label htmlFor={id} className={[className].join(' ')}>
 			<span className={style.formInputLabel}>{label}</span>
 			<span className={style.error}>{errors}</span>
 

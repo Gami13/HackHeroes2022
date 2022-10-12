@@ -11,6 +11,7 @@ interface BoxProps {
 	items?: 'center' | 'start' | 'end' | 'left' | 'right' | string;
 	direction?: 'column' | 'row' | string;
 	children?: any;
+	className?: string[] | string;
 }
 
 function Box(props: BoxProps) {
@@ -23,11 +24,12 @@ function Box(props: BoxProps) {
 		items,
 		direction,
 		children,
+		className,
 	} = props;
 
 	return (
 		<div
-			className={style.box}
+			className={[style.box, className].join(' ')}
 			style={
 				{
 					width: width,

@@ -6,6 +6,9 @@ import Button from '../../Components/Main/Button/Button';
 import CheckBox from '../../Components/Main/CheckBox/CheckBox';
 import style from './LoginForm.module.css';
 import States from '../../Components/States';
+
+import layouts from '../../layouts.module.css';
+
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -62,7 +65,7 @@ const LoginForm = () => {
 		}
 	}, [didLogin]);
 	return (
-		<div className={style.container}>
+		<div className={layouts.center}>
 			<Form
 				className={style.loginForm}
 				onSubmit={(e) => {

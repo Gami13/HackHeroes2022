@@ -7,6 +7,7 @@ interface NotificationProps {
 	title?: any;
 	body?: any;
 	footer?: any;
+	className?: string[] | string;
 }
 
 function Notification(props: NotificationProps) {
@@ -22,7 +23,7 @@ function Notification(props: NotificationProps) {
 	let path = '../../../assets/svgs/' + defaultIcons[icon] + '.svg';
 
 	return (
-		<div className={style.notificationContainer}>
+		<div className={[style.notificationContainer, props.className].join('')}>
 			<img
 				src={require('../../../assets/svgs/question-circle-fill.svg')}
 				alt="icon"

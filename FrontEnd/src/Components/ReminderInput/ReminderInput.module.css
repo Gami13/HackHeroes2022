@@ -1,0 +1,20 @@
+.reminderForm {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	transition: height 0.5s;
+}
+.reminderButton {
+	background: var(--depth2);
+	font-size: 2rem;
+	width: 100%;
+}
+.calendarHidden {
+	display: none;
+}
+.react-calendar {
+	transition: height 0.5s;
+	background: var(--depth2);
+
+	border-radius: 0.25rem;
+}

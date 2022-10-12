@@ -2,11 +2,11 @@ import React from 'react';
 import style from './Input.module.css';
 
 interface InputProps {
-	id: string;
+	id?: string;
 	type: string;
 	width?: string;
 	value?: string;
-	className?: string;
+	className?: string[] | string;
 	placeholder?: string;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -21,7 +21,7 @@ function Input(props: InputProps) {
 			id={id}
 			type={type}
 			value={value}
-			className={className}
+			className={[style.input, className].join(' ')}
 			placeholder={placeholder}
 			onChange={onChange}
 			onBlur={onBlur}

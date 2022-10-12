@@ -8,6 +8,8 @@ import Button from '../../Components/Main/Button/Button';
 import PopUp from '../../Components/Main/PopUp/PopUp';
 import Notification from '../../Components/Main/Notification/Notification';
 
+import layouts from '../../layouts.module.css';
+
 const RegisterForm = () => {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
@@ -137,7 +139,7 @@ const RegisterForm = () => {
 	}
 
 	return (
-		<div className={style.container}>
+		<div className={layouts.center}>
 			<Form
 				gap={1}
 				className={style.registerForm}

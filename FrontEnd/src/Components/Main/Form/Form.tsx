@@ -8,7 +8,7 @@ interface FormProps {
 	height?: string;
 	gap?: number;
 	backgroundColor?: Property.BackgroundColor;
-	className?: string;
+	className?: string[] | string;
 	children?: any;
 	onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
@@ -20,7 +20,7 @@ function Form(props: FormProps) {
 	return (
 		<Box width={width} height={height} backgroundColor={backgroundColor}>
 			<form
-				className={([props.className].join(' '), style.form)}
+				className={([className].join(' '), style.form)}
 				onSubmit={props.onSubmit}
 				// @ts-ignore
 				style={{ gap: gap + 'rem', padding: gap * 2 + 'rem' }}

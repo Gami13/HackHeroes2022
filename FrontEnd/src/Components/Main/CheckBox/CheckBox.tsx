@@ -5,6 +5,7 @@ interface CheckBoxProps {
 	id?: string;
 	width?: string;
 	height?: string;
+	className?: string[] | string;
 }
 
 function CheckBox(props: CheckBoxProps) {
@@ -14,6 +15,7 @@ function CheckBox(props: CheckBoxProps) {
 		<input
 			id={id}
 			type="checkbox"
+			className={[style.checkbox, props.className].join(' ')}
 			style={{ width: width, height: height }}
 		></input>
 	);

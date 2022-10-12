@@ -1,5 +1,5 @@
 /* Chceckbox style */
-input[type='checkbox'] {
+.checkbox {
 	-webkit-appearance: none;
 	display: flex;
 	justify-content: center;
@@ -11,22 +11,22 @@ input[type='checkbox'] {
 	background-color: transparent;
 }
 
-input[type='checkbox']:hover {
+.checkbox:hover {
 	cursor: pointer;
 	/* 	filter: brightness(90%);
  */
 }
 
-input[type='checkbox']:checked {
+.checkbox:checked {
 	background-color: var(--secondary);
 }
 
-input[type='checkbox']:checked::after {
+.checkbox:checked::after {
 	display: flex;
 	justify-content: center;
 	content: '\2714';
 	color: var(--white);
 }
-input[type='checkbox']:focus {
+.checkbox:focus {
 	outline: none;
 }
