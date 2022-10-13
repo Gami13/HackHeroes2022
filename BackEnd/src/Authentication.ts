@@ -65,6 +65,7 @@ export default function authentication(app: Express) {
 		//ADD CHECKING IF ACCOUNT ALREADY VERIFIED
 
 		const hash = req.params.id;
+		console.log(hash);
 
 		let { hashId, userId, isUsed, isOkay } =
 			await UserManagement.getDataFromVerificationCode(hash);
@@ -198,22 +199,19 @@ export default function authentication(app: Express) {
 				res.sendError('Something went wrong, please try again later');
 				return false;
 			}
-			// res.setHeader('access-control-expose-headers', 'Set-Cookie');
-			// res.setHeader('withCredentials', 'true');
-			res.cookie(
-				'vewySecwetUwU',
-				'takeThisCookieAndGoAwayYouFuckingCookieStealingBastard',
-				// { token: token, userId: userId, email: email },
-				{ httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 30 }
-			);
+			const r = await UserManagement.getDataFromToken(token, userId);
+			if (!r.isOkay) {
+				res.sendError('Something went wrong, please try again later');
+				return false;
+			}
 			/* check is admin */
 			/* TODO: fetch first name and last name and id */
 			res.sendSuccess('Logged in correctly', {
 				token: token,
-				ranks: ['user'],
+				ranks: r.ranks,
 				email: email,
-				firstName: 'John',
-				lastName: 'Doe',
+				firstName: r.firstName,
+				lastName: r.lastName,
 				id: userId,
 			});
 
@@ -247,18 +245,18 @@ export default function authentication(app: Express) {
 		return false;
 	});
 
-	app.get('/UserData', async (req, res) => {
+	app.post('/UserData', async (req, res) => {
 		let id = req.body.id;
 		let email = req.body.email;
 		let token = req.body.token;
 		if (await UserManagement.isLoggedIn(email, token, id)) {
-			const { firstName, lastName, email, isOkay } =
+			const { firstName, lastName, email, ranks, isOkay } =
 				await UserManagement.getDataFromToken(token, id);
 			if (!isOkay) {
 				res.sendError('Something went wrong');
 				return false;
 			}
-			res.sendSuccess({ firstName, lastName, email });
+			res.sendSuccess({ firstName, lastName, email, ranks });
 		} else {
 			res.sendError('Something went wrong', 401);
 		}

@@ -30,8 +30,6 @@ function Input(props: InputProps) {
 	);
 }
 
-Input.defaultProps = {
-	width: '24rem',
-};
+Input.defaultProps = {};
 
 export default Input;

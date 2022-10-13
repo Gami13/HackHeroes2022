@@ -21,3 +21,8 @@
 	font-weight: 600;
 	color: var(--secondary);
 }
+@media only screen and (max-width: 900px) {
+	.registerCard {
+		display: none;
+	}
+}

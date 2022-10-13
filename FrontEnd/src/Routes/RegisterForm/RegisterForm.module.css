@@ -1,1 +1,10 @@
-/*  w-full h-full bg-depth2 *
+.input > input {
+	width: 24rem;
+}
+@media screen and (max-width: 500px) {
+	.input > input {
+		width: 12rem;
+
+		min-width: 90%;
+	}
+}

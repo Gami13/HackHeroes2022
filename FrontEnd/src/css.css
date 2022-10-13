@@ -23,12 +23,17 @@
 	*/
 
 	/* background depths */
-	--depth0: rgb(32, 34, 37);
+	/* --depth0: rgb(32, 34, 37);
 	--depth1: rgb(41, 43, 47);
 	--depth2: rgb(47, 49, 54);
 	--depth3: ;
 	--depth4: ;
-	--depth5: ;
+	--depth5: ; */
+
+	--depth0: rgb(241, 242, 241);
+	--depth1: rgb(229, 231, 229);
+	--depth2: rgb(214, 221, 221);
+	--depth3: rgb(203, 203, 203);
 
 	/* colors */
 	--primary: #5865f2;
@@ -43,8 +48,10 @@
 	--blue: rgb(50, 130, 200);
 
 	/* text colors  */
-	--textPrimary: #bbc5d0;
-	--textPrimaryHover: #e0e7ee;
+	--textPrimary: #393939;
+	--textPrimaryHover: #6e6e6e;
+	--textSecondary: #f0feff;
+	--textSecondaryHover: #dae7ea;
 	--textError: #f38688;
 
 	--mainFontColor: #b9bbbe;
@@ -94,9 +101,10 @@ body {
 	width: 100%;
 	display: flex;
 }
-.root > h1 {
+.root > span {
 	color: var(--textPrimary);
 	position: absolute;
+	font-size: 2rem;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -110,4 +118,63 @@ a {
 
 a:hover {
 	color: var(--linkHover);
+}
+
+/* animacja ładowania */
+.loading {
+	height: fit-content;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	gap: 0.5rem;
+}
+.loading > h1 {
+	font-size: 2rem;
+}
+.loadingDots {
+	position: relative;
+	margin: 0px 15px;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: var(--textPrimary);
+	color: var(--textPrimary);
+	animation: loadingDots 1s infinite linear alternate;
+	animation-delay: 0.5s;
+	margin-top: auto;
+	margin-bottom: 7px;
+}
+.loadingDots::before,
+.loadingDots::after {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	top: 0;
+}
+.loadingDots::before {
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	left: -15px;
+	background-color: var(--textPrimary);
+	animation: loadingDots 1s infinite linear alternate;
+	animation-delay: 0s;
+}
+.loadingDots::after {
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	left: 15px;
+	background-color: var(--textPrimary);
+	animation: loadingDots 1s infinite linear alternate;
+	animation-delay: 1s;
+}
+@keyframes loadingDots {
+	0% {
+		background-color: var(--textPrimary);
+	}
+	50%,
+	100% {
+		background-color: #ebe6ff;
+	}
 }

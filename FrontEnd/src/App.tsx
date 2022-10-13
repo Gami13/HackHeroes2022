@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import RegisterForm from './Routes/RegisterForm/RegisterForm';
-import { StrictMode } from 'react';
 import './css.css';
 import States from './Components/States';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
@@ -12,6 +11,11 @@ import LoginForm from './Routes/LoginForm/LoginForm';
 import ReminderSettings from './Routes/ReminderSettings/ReminderSettings';
 import ActivateAccount from './Routes/ActivateAccount/ActivateAccount';
 import MainPage from './Routes/MainPage/MainPage';
+import useIsFirstRender from './isFirstRender';
+import Test from './Routes/Test/Test';
+import Logout from './Routes/Logout/Logout';
+import PlsVerify from './Routes/PlsVerify/PlsVerify';
+import { getCookie } from './cookies';
 
 const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,7 +27,46 @@ const App = () => {
 
 	const [userRanks, setUserRanks] = useState<string[]>([]);
 
-	const [isNavbarShown, setIsNavbarShown] = useState(false);
+	const isFirstRender = useIsFirstRender();
+
+	if (isFirstRender) {
+		let a = async () => {
+			let cookie = getCookie('token');
+			if (!cookie) {
+				return;
+			}
+
+			let data = {
+				id: cookie.id,
+				email: cookie.email,
+
+				token: cookie.token,
+			};
+			let config = {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			};
+
+			const res = await fetch(`http://localhost:3000/userData`, config);
+			const json = await res.json();
+			console.log(json);
+			if (json.status == 'success') {
+				setUserEmail(json.email);
+				setUserID(cookie.id);
+				setUserFirstName(json.firstName);
+				setUserLastName(json.lastName);
+				setUserRanks(json.ranks);
+				setUserToken(cookie.token);
+				setIsLoggedIn(true);
+			}
+		};
+
+		a();
+	}
 
 	useEffect(() => {}, [isLoggedIn]);
 
@@ -52,17 +95,17 @@ const App = () => {
 			>
 				<BrowserRouter>
 					<Navbar></Navbar>
-					<div className={style.navbarPadder}></div>
+					<aside className={style.navbarPadder}></aside>
 					<div className={style.routes}>
 						<Routes>
-							<Route
-								path="/verify/:validationToken"
-								element={<ActivateAccount />}
-							/>
+							<Route path="/verify/:token" element={<ActivateAccount />} />
 							<Route path="/register" element={<RegisterForm />} />
 							<Route path="/login" element={<LoginForm />} />
 							<Route path="/" element={<MainPage />} />
 							<Route path="/reminder" element={<ReminderSettings />} />
+							<Route path="/test" element={<Test />} />
+							<Route path="/plsVerify" element={<PlsVerify />} />
+							<Route path="/logout" element={<Logout />} />
 						</Routes>
 					</div>
 				</BrowserRouter>

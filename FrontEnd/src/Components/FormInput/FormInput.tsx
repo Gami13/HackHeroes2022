@@ -48,8 +48,8 @@ function FormInput(props: FormInputProps) {
 	);
 }
 
-FormInput.defaultProps = {
-	width: '24rem',
-};
+// FormInput.defaultProps = {
+// 	width: '24rem',
+// };
 
 export default FormInput;

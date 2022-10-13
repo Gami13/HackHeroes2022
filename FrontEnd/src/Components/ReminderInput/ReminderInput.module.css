@@ -5,7 +5,6 @@
 	transition: height 0.5s;
 }
 .reminderButton {
-	background: var(--depth2);
 	font-size: 2rem;
 	width: 100%;
 }

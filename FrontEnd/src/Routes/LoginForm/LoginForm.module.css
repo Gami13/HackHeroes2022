@@ -1,0 +1,12 @@
+.rememberMe {
+	display: flex;
+	flex-direction: column;
+	align-self: flex-start;
+}
+
+.rememberMe > h1 {
+	display: inherit;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+}

@@ -7,15 +7,20 @@ interface BoxProps {
 	height?: string;
 	padding?: string;
 	backgroundColor?: Property.BackgroundColor;
+	display?: 'flex' | 'grid';
 	justify?: 'center' | 'start' | 'end' | 'left' | 'right' | string;
 	items?: 'center' | 'start' | 'end' | 'left' | 'right' | string;
 	direction?: 'column' | 'row' | string;
+	gridTemplateColumns?: string;
+	gridTemplateRows?: string;
+	gap?: string;
 	children?: any;
 	className?: string[] | string;
 }
 
 function Box(props: BoxProps) {
 	const {
+		display,
 		width,
 		height,
 		padding,
@@ -23,6 +28,9 @@ function Box(props: BoxProps) {
 		justify,
 		items,
 		direction,
+		gridTemplateColumns,
+		gridTemplateRows,
+		gap,
 		children,
 		className,
 	} = props;
@@ -32,6 +40,7 @@ function Box(props: BoxProps) {
 			className={[style.box, className].join(' ')}
 			style={
 				{
+					display,
 					width: width,
 					height: height,
 					padding: padding,
@@ -39,6 +48,9 @@ function Box(props: BoxProps) {
 					justifyContent: justify,
 					alignItems: items,
 					flexDirection: direction,
+					gridTemplateColumns: gridTemplateColumns,
+					gridTemplateRows: gridTemplateRows,
+					gap: gap,
 				} as CSSProperties
 			}
 		>
@@ -48,6 +60,7 @@ function Box(props: BoxProps) {
 }
 
 Box.defaultProps = {
+	display: 'flex',
 	justify: 'center',
 	items: 'center',
 	direction: 'column',

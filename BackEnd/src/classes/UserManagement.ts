@@ -245,7 +245,7 @@ class UserManagement {
 		if (result[0].affectedRows == 1) {
 			return { token: token, isOkay: true };
 		}
-		return { isOkay: false };
+		return { token: '', isOkay: false };
 	}
 
 	static async isLoggedIn(email: string, token: string, id: string) {
@@ -284,7 +284,7 @@ class UserManagement {
 	}
 	static async getDataFromToken(token: string, id: string) {
 		let query =
-			'SELECT id,firstName,lastName,email tokens FROM users WHERE id = ?';
+			'SELECT id,firstName,lastName,email,tokens,ranks FROM users WHERE id = ?';
 		let [results, fields] = await db.execute<RowDataPacket[]>(query, [id]);
 		if (results.length > 0) {
 			let tokens: tokens = JSON.parse(results[0].tokens);
@@ -296,6 +296,7 @@ class UserManagement {
 					firstName: results[0].firstName,
 					lastName: results[0].lastName,
 					email: results[0].email,
+					ranks: JSON.parse(results[0].ranks),
 				};
 			}
 		}

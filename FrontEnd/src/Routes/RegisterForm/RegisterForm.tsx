@@ -132,14 +132,14 @@ const RegisterForm = () => {
 		const json = await res.json();
 		console.log(json);
 		if (json.status == 'success') {
-			setDidRegister(true);
+			navigate('/plsVerify');
 		} else {
 			setResponseError(json.message);
 		}
 	}
 
 	return (
-		<div className={layouts.center}>
+		<div className={[layouts.center].join(' ')}>
 			<Form
 				gap={1}
 				className={style.registerForm}
@@ -158,6 +158,7 @@ const RegisterForm = () => {
 					onChange={(e) => setFirstName(e.target.value)}
 					onBlur={validateFirstName}
 					errors={firstNameErrors[0]}
+					className={style.input}
 				/>
 				<FormInput
 					type="text"
@@ -167,6 +168,7 @@ const RegisterForm = () => {
 					onChange={(e) => setLastName(e.target.value)}
 					onBlur={validateLastName}
 					errors={lastNameErrors[0]}
+					className={style.input}
 				/>
 				<FormInput
 					id="email"
@@ -176,6 +178,7 @@ const RegisterForm = () => {
 					onChange={(e) => setEmail(e.target.value)}
 					onBlur={validateEmail}
 					errors={emailErrors[0]}
+					className={style.input}
 				/>
 				<FormInput
 					id="password"
@@ -185,6 +188,7 @@ const RegisterForm = () => {
 					onChange={(e) => setPassword(e.target.value)}
 					onBlur={validatePassword}
 					errors={passwordErrors[0]}
+					className={style.input}
 				/>
 				<FormInput
 					id="passwordConfirm"
@@ -193,6 +197,7 @@ const RegisterForm = () => {
 					value={passwordConfirm}
 					onChange={(e) => setPasswordConfirm(e.target.value)}
 					onBlur={validatePassword}
+					className={style.input}
 				/>
 				<Button type={'submit'}>Zarejestruj</Button>
 				<Link to="/login">Masz już konto?</Link>

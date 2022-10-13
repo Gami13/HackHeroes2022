@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FormInput from '../../Components/FormInput/FormInput';
 import Form from '../../Components/Main/Form/Form';
 import Button from '../../Components/Main/Button/Button';
@@ -9,9 +9,10 @@ import States from '../../Components/States';
 
 import layouts from '../../layouts.module.css';
 
-import Cookies from 'js-cookie';
+import { setCookie } from '../../cookies';
 
 const LoginForm = () => {
+	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [rememberMe, setRememberMe] = useState(false);
@@ -46,39 +47,18 @@ const LoginForm = () => {
 			context.setUserToken(json.token);
 			context.setUserRanks(json.ranks);
 
-			localStorage.setItem('isLoggedIn', context.isLoggedIn.toString());
-			localStorage.setItem('userEmail', context.userEmail);
-			localStorage.setItem('userFirstName', context.userFirstName);
-			localStorage.setItem('userLastName', context.userLastName);
-			localStorage.setItem('userID', context.userID);
-			localStorage.setItem('userToken', context.userToken);
-			localStorage.setItem('userRanks', JSON.stringify(context.userRanks));
-
-			Cookies.set(
-				'token',
-				Buffer.from(
-					JSON.stringify({
-						token: json.token,
-						email: json.email,
-						id: json.id,
-					}),
-					'utf-8'
-				).toString('base64'),
-				{ expires: 7 }
-			);
-
-			setDidLogin(true);
+			setCookie({
+				token: json.token,
+				email: json.email,
+				id: json.id,
+			});
 			console.log('login successful');
+			navigate('/');
 		} else {
 			setResponseError(json.message);
 		}
 	}
-	useEffect(() => {
-		if (didLogin) {
-			/* TODO: NAVIGATE TO SOMEWHERE */
-			console.log('logged in');
-		}
-	}, [didLogin]);
+
 	return (
 		<div className={layouts.center}>
 			<Form
@@ -96,6 +76,7 @@ const LoginForm = () => {
 					label="E-Mail"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
+					width="24rem"
 					// onBlur={validateEmail}
 					// errors={emailErrors}
 				/>
@@ -105,13 +86,15 @@ const LoginForm = () => {
 					label="Hasło"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
+					width="24rem"
 					// onBlur={validatePassword}
 					// errors={passwordErrors}
 				/>
-				<label htmlFor="rememberMe">
-					{/* TODO */}
-					<span>TODO komponent z tego chyba</span>
-					<CheckBox></CheckBox>
+				<label htmlFor="rememberMe" className={style.rememberMe}>
+					<h1>
+						Zapamiętaj mnie
+						<CheckBox></CheckBox>
+					</h1>
 				</label>
 				<Button type="submit">Zaloguj</Button>
 				<Link to="/register">Nie masz konta?</Link>

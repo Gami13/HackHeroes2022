@@ -28,7 +28,13 @@ class extend {
 	}
 	static sendSuccess(message: string, data: any = null): express.Response {
 		let response = this as unknown as Response;
-		return response.send({ status: 'success', succes: true, message, ...data });
+		let msg: string | undefined = message;
+
+		if (typeof message === 'object') {
+			data = message;
+			msg = undefined;
+		}
+		return response.send({ status: 'success', succes: true, msg, ...data });
 	}
 }
 express.response.sendError = extend.sendError;

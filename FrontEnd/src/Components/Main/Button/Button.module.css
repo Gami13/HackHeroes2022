@@ -1,6 +1,6 @@
 .button {
 	background-color: var(--primary);
-	color: var(--textPrimary);
+	color: var(--textSecondary);
 	width: fit-content;
 	padding: 0.5rem 1rem;
 	border-radius: var(--rounded);
@@ -13,6 +13,6 @@
 }
 .button:hover {
 	color: var(--textPrimaryHover);
-	background-color: var(--primaryHover);
+	background-color: var(--textSecondaryHover);
 	transition-duration: var(--transitionSpeedFast);
 }

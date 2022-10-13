@@ -34,6 +34,7 @@ const ReminderInput = (props: ReminderInputProps) => {
 				value={title}
 				className={style.title}
 				onChange={(e) => setTitle(e.target.value)}
+				width="24rem"
 			></FormInput>
 			<div className={style.reminderDate}>
 				<Button
