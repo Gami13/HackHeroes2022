@@ -8,13 +8,23 @@ interface InputProps {
 	value?: string;
 	className?: string[] | string;
 	placeholder?: string;
+	list?: string;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 function Input(props: InputProps) {
-	const { id, type, width, value, className, placeholder, onChange, onBlur } =
-		props;
+	const {
+		id,
+		type,
+		width,
+		value,
+		className,
+		placeholder,
+		list,
+		onChange,
+		onBlur,
+	} = props;
 
 	return (
 		<input
@@ -26,6 +36,7 @@ function Input(props: InputProps) {
 			onChange={onChange}
 			onBlur={onBlur}
 			style={{ width: width }}
+			list={list}
 		></input>
 	);
 }

@@ -9,6 +9,7 @@ interface FormInputProps {
 	value?: string;
 	className?: string[] | string;
 	placeholder?: string;
+	list?: string;
 	label?: string;
 	errors?: string;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -23,6 +24,7 @@ function FormInput(props: FormInputProps) {
 		value,
 		className,
 		placeholder,
+		list,
 		label,
 		errors,
 		onChange,
@@ -43,6 +45,7 @@ function FormInput(props: FormInputProps) {
 				className={style.input}
 				onChange={onChange}
 				onBlur={onBlur}
+				list={list}
 			/>
 		</label>
 	);
