@@ -10,7 +10,7 @@ const ReminderSettings = () => {
 	return (
 		<div className={[layouts.center, style.container].join(' ')}>
 			<Form>
-				<h1>Reminder Settings</h1>
+				<h1>Przypominajka</h1>
 				{/* <Calendar className={style.calendar} /> */}
 
 				<ReminderInput></ReminderInput>

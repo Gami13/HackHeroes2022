@@ -18,8 +18,8 @@ const MainPage = () => {
 
 			<Publication
 				user="Boby Drop Tables"
-				title={'Titis'}
-				body={'Jebać'}
+				title={'Frytak'}
+				body={'Ty jesteś frytakiem (GitHub Copilot 2022)'}
 				footer={<Tag text="Bug" emoji="👨‍💻" />}
 			/>
 		</div>
