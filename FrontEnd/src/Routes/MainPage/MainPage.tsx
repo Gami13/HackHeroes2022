@@ -5,6 +5,7 @@ import Publication from '../../Components/Publication/Publication';
 import Tag from '../../Components/Main/Tag/Tag';
 import Calendar from '../../Components/Main/Calendar/Calendar';
 import DatePanel from 'react-multi-date-picker/plugins/date_panel';
+import Box from '../../Components/Main/Box/Box';
 const MainPage = () => {
 	const context = useContext(States);
 	return (

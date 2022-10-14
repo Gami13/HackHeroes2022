@@ -6,8 +6,7 @@
 	/* TODO CHANGE FOCUS BORDER FOR BLINDS PEOPLE */
 	/* TODO: Change font to Oswald */
 
-	--primaryFont: sans-serif;
-
+	--primaryFont: 'Poppins', sans-serif;
 	/* 
 	kolory
 	1. Background (0dp elevation surface overlay)
@@ -36,7 +35,7 @@
 	--depth3: rgb(203, 203, 203);
 
 	/* colors */
-	--primary: #5865f2;
+	--primary: rgb(50, 130, 200); /* #5865f2 - zamienione z blue*/
 	--primaryHover: #4752c4;
 
 	--secondary: #ac81dd;
