@@ -23,7 +23,7 @@ function Form(props: FormProps) {
 				className={([className].join(' '), style.form)}
 				onSubmit={props.onSubmit}
 				// @ts-ignore
-				style={{ gap: gap + 'rem', padding: gap * 2 + 'rem' }}
+				style={{ gap: gap + 'rem', padding: gap + 'rem' }}
 			>
 				{props.children}
 			</form>

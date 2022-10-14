@@ -7,10 +7,11 @@
 
 	justify-content: space-evenly;
 	gap: 5px;
+	z-index: 1 !important;
 }
 @media only screen and (max-width: 900px) {
 	.center {
 		flex-wrap: wrap;
-		overflow-y: hidden;
+		justify-content: center;
 	}
 }

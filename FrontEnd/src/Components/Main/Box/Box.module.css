@@ -3,8 +3,22 @@
 	display: flex;
 }
 @media screen and (max-width: 900px) {
+	.center {
+		justify-content: center;
+	}
 	.box {
-		max-width: 90%;
+		width: 70% !important;
 		position: relative;
+	}
+	.box > form > label {
+		width: 100% !important;
+		display: flex;
+		flex-direction: column;
+	}
+}
+@media screen and (max-width: 500px) {
+	.box {
+		width: 100% !important;
+		margin-top: 50px;
 	}
 }
