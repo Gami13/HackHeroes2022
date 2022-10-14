@@ -22,13 +22,15 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-
+	position: relative;
 	transition-duration: var(--transitionSpeed);
 }
+
 .nav li:hover {
 	background-color: var(--depth0);
 }
-
+.nav li:focus::after {
+}
 .nav li a {
 	width: 100%;
 	padding-left: 1rem;

@@ -55,7 +55,7 @@
 	--textError: #df3638;
 
 	--mainFontColor: #b9bbbe;
-	--link: #00aff4;
+	--link: #4a8ca6;
 	--linkHover: rgb(3, 148, 206);
 	--red: #d83c3e;
 	--redFocused: #a12d2f;
@@ -81,7 +81,7 @@
 }
 
 *:focus {
-	outline-color: var(--secondary);
+	outline-color: var(--primary);
 	outline-style: solid;
 	outline-width: 2px;
 	outline-offset: -1px;
@@ -112,9 +112,9 @@ body {
 }
 a {
 	width: fit-content;
-
 	color: var(--link);
 	text-decoration: underline;
+	font-weight: 600;
 }
 
 a:hover {

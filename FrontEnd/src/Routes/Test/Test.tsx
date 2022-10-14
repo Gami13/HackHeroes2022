@@ -5,13 +5,6 @@ import layouts from '../../layouts.module.css';
 import style from './test.module.css';
 
 const Test = () => {
-	return (
-		<div className={layouts.center}>
-			<span class="loading">
-				<h1>Ładowanie</h1>
-				<h1 class="loadingDots"></h1>
-			</span>
-		</div>
-	);
+	return <div className={layouts.center}></div>;
 };
 export default Test;
