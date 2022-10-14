@@ -1,29 +1,31 @@
 import React from 'react';
 import style from './CheckBox.module.css';
+import { useState } from 'react';
 
-interface CheckBoxProps {
+/* interface CheckBoxProps {
 	id?: string;
 	width?: string;
 	height?: string;
 	className?: string[] | string;
-}
-
-function CheckBox(props: CheckBoxProps) {
+} 
+ function CheckBox(props: CheckBoxProps) {
 	const { id, width, height, className } = props;
-
+ */
+const CheckBox = () => {
+	const [check, setCheck] = useState(false);
+	console.log(check);
 	return (
-		<input
-			id={id}
-			type="checkbox"
-			className={[style.checkbox, className].join(' ')}
-			style={{ width: width, height: height }}
-		></input>
+		<div className={!check ? style.form_input : style.form_input_checked}>
+			<input
+				type="checkbox"
+				className={style.checkbox}
+				onChange={() => setCheck(!check)}
+			/>
+			<span className={style.wrapper}>
+				<span className={check ? style.tick : null}></span>
+			</span>
+		</div>
 	);
-}
-
-CheckBox.defaultProps = {
-	width: '1.2rem',
-	height: '1.2rem',
 };
 
 export default CheckBox;

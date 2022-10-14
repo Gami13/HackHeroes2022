@@ -80,12 +80,12 @@
 	border-style: none;
 }
 
-*:focus {
+/* *:focus {
 	outline-color: var(--primary);
 	outline-style: solid;
 	outline-width: 2px;
 	outline-offset: -1px;
-}
+} */
 
 html {
 	height: 100vh;

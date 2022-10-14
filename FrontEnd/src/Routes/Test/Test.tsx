@@ -5,6 +5,24 @@ import layouts from '../../layouts.module.css';
 import style from './test.module.css';
 
 const Test = () => {
-	return <div className={layouts.center}></div>;
+	const [check, setCheck] = useState(false);
+	console.log(check);
+	return (
+		<>
+			<div className={layouts.center}>
+				<div className={!check ? style.form_input : style.form_input_checked}>
+					<input
+						type="checkbox"
+						className={style.checkbox}
+						id="chk"
+						onChange={() => setCheck(!check)}
+					/>
+					<span className={style.wrapper}>
+						<span className={check ? style.tick : null}></span>
+					</span>
+				</div>
+			</div>
+		</>
+	);
 };
 export default Test;
