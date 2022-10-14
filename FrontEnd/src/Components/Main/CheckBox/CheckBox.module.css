@@ -1,5 +1,6 @@
 /* Chceckbox style */
 .checkbox {
+	color: var(--textSecondary);
 	-webkit-appearance: none;
 	display: flex;
 	justify-content: center;
@@ -7,7 +8,7 @@
 	border-radius: var(--roundedSmall);
 	border-style: solid;
 	border-width: 0.1rem;
-	border-color: var(--textSecondaryPrimary);
+	border-color: var(--textPrimary);
 	background-color: transparent;
 }
 
