@@ -1,10 +1,9 @@
 import { SetStateAction, useRef, useState } from 'react';
-import { Calendar } from 'react-calendar';
 import FormInput from '../FormInput/FormInput';
 import Button from '../Main/Button/Button';
+import Calendar from '../Main/Calendar/Calendar';
 import Input from '../Main/Input/Input';
 import style from './ReminderInput.module.css';
-import './calendar.css';
 
 interface ReminderInputProps {
 	onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
