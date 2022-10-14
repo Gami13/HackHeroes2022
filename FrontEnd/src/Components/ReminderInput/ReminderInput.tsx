@@ -5,6 +5,7 @@ import Calendar from '../Main/DatePicker/DatePicker';
 import Input from '../Main/Input/Input';
 import style from './ReminderInput.module.css';
 import layouts from '../../layouts.module.css';
+import Label from '../Main/Label/Label';
 
 interface ReminderInputProps {
 	onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -16,8 +17,6 @@ const ReminderInput = (props: ReminderInputProps) => {
 
 	const [title, setTitle] = useState('');
 	const [date, setDate] = useState(new Date());
-
-	const [calendarVisible, setCalendarVisible] = useState(false);
 
 	let dateFormat = Intl.DateTimeFormat('pl-PL', {
 		weekday: 'short',
@@ -38,14 +37,15 @@ const ReminderInput = (props: ReminderInputProps) => {
 				width="24rem"
 				list={props.datalist}
 			></FormInput>
-
-			<Calendar
-				className={[!calendarVisible ? style.calendarHidden : null]}
-				value={date}
-				onChange={(date: SetStateAction<Date>) => {
-					setDate(date);
-				}}
-			/>
+			<Label label="data">
+				<Calendar
+					containerClassName={[style.calendar]}
+					value={date}
+					onChange={(date: SetStateAction<Date>) => {
+						setDate(date);
+					}}
+				/>
+			</Label>
 		</div>
 	);
 };

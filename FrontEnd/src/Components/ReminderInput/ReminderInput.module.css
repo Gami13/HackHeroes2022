@@ -9,9 +9,6 @@
 	width: 100%;
 }
 
-.react-calendar {
-	transition: height 0.5s;
-	background: var(--depth2);
-
-	border-radius: 0.25rem;
+.calendar {
+	width: 100%;
 }

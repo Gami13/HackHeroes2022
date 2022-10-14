@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from '../Main/Input/Input';
+import Label from '../Main/Label/Label';
 import style from './FormInput.module.css';
 
 interface FormInputProps {
@@ -32,8 +33,7 @@ function FormInput(props: FormInputProps) {
 	} = props;
 
 	return (
-		<label htmlFor={id} className={[className].join(' ')}>
-			<span className={style.formInputLabel}>{label}</span>
+		<Label htmlFor={id} className={[className].join(' ')} label={label}>
 			<span className={style.error}>{errors}</span>
 
 			<Input
@@ -47,7 +47,7 @@ function FormInput(props: FormInputProps) {
 				onBlur={onBlur}
 				list={list}
 			/>
-		</label>
+		</Label>
 	);
 }
 

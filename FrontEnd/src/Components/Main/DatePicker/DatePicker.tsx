@@ -8,20 +8,23 @@ import gregorian_pl from './gregorian_pl';
 interface DatePickerProps {
 	id?: string;
 	className?: string[] | string;
+	containerClassName?: string[] | string;
 	value?: Date;
 	onChange?: (date: any) => void;
 }
 
 const DatePicker = (props: DatePickerProps) => {
+	const { id, className, containerClassName, value, onChange } = props;
 	return (
 		<DatePick
+			containerClassName={[containerClassName].join(' ')}
 			locale={gregorian_pl}
 			inputClass={style['custom-input']}
-			className={['custom-calendar', style['custom-calendar']].join(' ')}
+			className={['custom-calendar', className].join(' ')}
 			// className={[props.className].join(' ')}
 			// defaultActiveStartDate={props.defaultActiveStartDate}
-			value={props.value}
-			onChange={props.onChange}
+			value={value}
+			onChange={onChange}
 		></DatePick>
 	);
 };
