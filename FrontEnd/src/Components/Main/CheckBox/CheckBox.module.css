@@ -1,6 +1,7 @@
 /* Chceckbox style */
 .checkbox {
 	color: var(--textSecondary);
+	appearance: none;
 	-webkit-appearance: none;
 	display: flex;
 	justify-content: center;
@@ -14,12 +15,11 @@
 
 .checkbox:hover {
 	cursor: pointer;
-	/* 	filter: brightness(90%);
- */
+	background-color: var(--depth2);
 }
 
 .checkbox:checked {
-	background-color: var(--secondary);
+	background-color: var(--primary);
 }
 
 .checkbox:checked::after {
@@ -27,7 +27,4 @@
 	justify-content: center;
 	content: '\2714';
 	color: var(--textSecondaryPrimary);
-}
-.checkbox:focus {
-	outline: none;
 }

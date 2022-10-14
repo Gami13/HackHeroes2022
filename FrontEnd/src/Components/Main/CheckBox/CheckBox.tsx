@@ -9,13 +9,13 @@ interface CheckBoxProps {
 }
 
 function CheckBox(props: CheckBoxProps) {
-	const { id, width, height } = props;
+	const { id, width, height, className } = props;
 
 	return (
 		<input
 			id={id}
 			type="checkbox"
-			className={[style.checkbox, props.className].join(' ')}
+			className={[style.checkbox, className].join(' ')}
 			style={{ width: width, height: height }}
 		></input>
 	);

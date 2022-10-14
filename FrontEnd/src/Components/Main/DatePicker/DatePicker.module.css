@@ -1,3 +1,11 @@
+.custom-input {
+	width: 100%;
+	max-width: 24rem;
+	border-radius: var(--rounded);
+	background-color: var(--depth2);
+	padding: 0.5rem;
+}
+/* 
 .react-calendar {
 	width: 100%;
 	background: var(--depth2);
@@ -124,4 +132,4 @@
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
 	background-color: #e6e6e6;
-}
+} */

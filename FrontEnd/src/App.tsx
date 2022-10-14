@@ -16,6 +16,7 @@ import Test from './Routes/Test/Test';
 import Logout from './Routes/Logout/Logout';
 import PlsVerify from './Routes/PlsVerify/PlsVerify';
 import { getCookie } from './cookies';
+import BookMeeting from './Routes/BookMeeting/BookMeeting';
 
 const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -106,6 +107,7 @@ const App = () => {
 							<Route path="/test" element={<Test />} />
 							<Route path="/plsVerify" element={<PlsVerify />} />
 							<Route path="/logout" element={<Logout />} />
+							<Route path="/bookMeeting" element={<BookMeeting />} />
 						</Routes>
 					</div>
 				</BrowserRouter>

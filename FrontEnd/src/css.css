@@ -32,7 +32,7 @@
 
 	--depth0: rgb(241, 242, 241);
 	--depth1: rgb(229, 231, 229);
-	--depth2: rgb(214, 221, 221);
+	--depth2: rgb(219, 219, 219);
 	--depth3: rgb(203, 203, 203);
 
 	/* colors */
@@ -52,7 +52,7 @@
 	--textPrimaryHover: #6e6e6e;
 	--textSecondary: #f0feff;
 	--textSecondaryHover: #dae7ea;
-	--textError: #f38688;
+	--textError: #df3638;
 
 	--mainFontColor: #b9bbbe;
 	--link: #00aff4;
@@ -83,12 +83,13 @@
 *:focus {
 	outline-color: var(--secondary);
 	outline-style: solid;
-	outline-width: 1px;
+	outline-width: 2px;
+	outline-offset: -1px;
 }
 
 html {
 	height: 100vh;
-	width: 100vw;
+	width: 100%;
 }
 
 body {

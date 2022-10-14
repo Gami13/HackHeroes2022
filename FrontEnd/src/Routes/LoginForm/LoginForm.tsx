@@ -93,7 +93,7 @@ const LoginForm = () => {
 				<label htmlFor="rememberMe" className={style.rememberMe}>
 					<h1>
 						Zapamiętaj mnie
-						<CheckBox></CheckBox>
+						<CheckBox id="rememberMe"></CheckBox>
 					</h1>
 				</label>
 				<Button type="submit">Zaloguj</Button>

@@ -12,7 +12,6 @@
 	cursor: pointer;
 }
 .button:hover {
-	color: var(--textPrimaryHover);
-	background-color: var(--textSecondaryHover);
+	background-color: var(--primaryHover);
 	transition-duration: var(--transitionSpeedFast);
 }

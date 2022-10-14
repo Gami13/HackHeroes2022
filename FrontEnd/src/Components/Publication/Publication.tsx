@@ -6,6 +6,7 @@ interface PublicationProps {
 	width?: string;
 	height?: string;
 	user: string;
+	date: string;
 	title: string;
 	body: any;
 	footer: any;
@@ -13,17 +14,21 @@ interface PublicationProps {
 }
 
 function Publication(props: PublicationProps) {
-	const { width, height, user, title, body, footer, className } = props;
+	const { width, height, user, date, title, body, footer, className } = props;
 
 	return (
 		<Box
 			width={width}
-			height={height}
+			height={'fit-content'}
 			display="grid"
 			gridTemplateColumns="1fr"
-			gridTemplateRows="1rem 2rem 1fr 2rem"
+			gridTemplateRows="fit-content(1rem) 2rem 1fr fit-content(1rem)"
+			gap="0.5rem"
 		>
-			<p className={style.user}>{user}</p>
+			<div className={style.info}>
+				<p>{date}</p>
+				<p>{user}</p>
+			</div>
 			<h1 className={style.title}>{title}</h1>
 			<div className={style.body}>{body}</div>
 			<div className={style.footer}>{footer}</div>
@@ -32,7 +37,7 @@ function Publication(props: PublicationProps) {
 }
 
 Publication.defaultProps = {
-	width: '24rem',
+	width: '36rem',
 	height: '12rem',
 };
 

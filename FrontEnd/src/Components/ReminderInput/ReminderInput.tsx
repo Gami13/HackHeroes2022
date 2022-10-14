@@ -1,9 +1,10 @@
 import { SetStateAction, useRef, useState } from 'react';
 import FormInput from '../FormInput/FormInput';
 import Button from '../Main/Button/Button';
-import Calendar from '../Main/Calendar/Calendar';
+import Calendar from '../Main/DatePicker/DatePicker';
 import Input from '../Main/Input/Input';
 import style from './ReminderInput.module.css';
+import layouts from '../../layouts.module.css';
 
 interface ReminderInputProps {
 	onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -26,7 +27,7 @@ const ReminderInput = (props: ReminderInputProps) => {
 	});
 
 	return (
-		<div className={[style.reminderForm, className].join(' ')}>
+		<div className={[style.reminderForm, className, layouts.center].join(' ')}>
 			<FormInput
 				label="Tytuł"
 				type="text"
@@ -38,22 +39,13 @@ const ReminderInput = (props: ReminderInputProps) => {
 				list={props.datalist}
 			></FormInput>
 
-			<div className={style.reminderDate}>
-				<Button
-					className={style.reminderButton}
-					onClick={() => setCalendarVisible(!calendarVisible)}
-				>
-					{dateFormat.format(date)}
-				</Button>
-
-				<Calendar
-					className={[!calendarVisible ? style.calendarHidden : null]}
-					defaultActiveStartDate={date}
-					onChange={(date: SetStateAction<Date>) => {
-						setDate(date);
-					}}
-				/>
-			</div>
+			<Calendar
+				className={[!calendarVisible ? style.calendarHidden : null]}
+				value={date}
+				onChange={(date: SetStateAction<Date>) => {
+					setDate(date);
+				}}
+			/>
 		</div>
 	);
 };

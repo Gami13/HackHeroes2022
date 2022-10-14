@@ -8,9 +8,7 @@
 	font-size: 2rem;
 	width: 100%;
 }
-.calendarHidden {
-	display: none;
-}
+
 .react-calendar {
 	transition: height 0.5s;
 	background: var(--depth2);
