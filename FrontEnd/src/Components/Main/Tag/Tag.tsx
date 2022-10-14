@@ -1,20 +1,21 @@
 import type { Property } from 'csstype';
+import { CSSProperties } from 'react';
 import style from './Tag.module.css';
 
 interface TagProps {
 	text: string;
 	emoji?: string;
-	color: Property.BackgroundColor;
+	backgroundColor?: Property.BackgroundColor | null;
 	className?: string[] | string;
 }
 
 function Tag(props: TagProps) {
-	const { text, emoji, color, className } = props;
+	const { text, emoji, backgroundColor, className } = props;
 
 	return (
 		<div
 			className={[className, style.tag].join(' ')}
-			style={{ backgroundColor: color }}
+			style={{ backgroundColor: backgroundColor } as CSSProperties}
 		>
 			<div className={style.emoji}>{emoji}</div>
 			<p className={style.text}>{text}</p>
@@ -23,7 +24,7 @@ function Tag(props: TagProps) {
 }
 
 Tag.defaultProps = {
-	color: 'var(--red)',
+	backgroundColor: 'var(--red)',
 };
 
 export default Tag;

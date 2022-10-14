@@ -37,7 +37,7 @@ function Publication(props: PublicationProps) {
 }
 
 Publication.defaultProps = {
-	width: '36rem',
+	width: '40rem',
 	height: '12rem',
 };
 

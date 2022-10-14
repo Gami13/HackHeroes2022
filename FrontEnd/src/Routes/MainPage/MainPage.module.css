@@ -1,3 +1,38 @@
-.mainPage {
+main {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
 	display: flex;
+	justify-content: center;
+}
+
+.mainElements {
+	padding-right: 2rem;
+	grid-column: 3 / 6;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 2rem;
+}
+
+.additionalElements {
+	grid-column: 6 / 7;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2rem;
+}
+
+.additionalElements > * {
+	position: sticky;
+	top: 2rem;
+}
+
+.additionalElements > div {
+	box-shadow: none;
+	border-radius: var(--roundedBig);
+}
+
+.additionalElements > div > * {
+	border-radius: var(--roundedBig);
+	background-color: var(--depth1);
 }

@@ -11,6 +11,7 @@ interface DatePickerProps {
 	containerClassName?: string[] | string;
 	value?: Date;
 	onChange?: (date: any) => void;
+	plugins?: any;
 }
 
 const DatePicker = (props: DatePickerProps) => {
@@ -21,6 +22,7 @@ const DatePicker = (props: DatePickerProps) => {
 			locale={gregorian_pl}
 			inputClass={style['custom-input']}
 			className={['custom-calendar', className].join(' ')}
+			plugins={props.plugins}
 			// className={[props.className].join(' ')}
 			// defaultActiveStartDate={props.defaultActiveStartDate}
 			value={value}

@@ -37,6 +37,7 @@
 .wrapper:hover {
 	background-color: var(--depth2);
 }
+
 .clip-animation {
 	clip-path: polygon(
 		100% 50%,

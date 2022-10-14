@@ -3,19 +3,36 @@
 	background-color: var(--depth2);
 }
 
-.rmdp-container .custom-calendar.ep-arrow[direction='bottom'] {
+.rmdp-container.custom-calendar.ep-arrow[direction='bottom'] {
 	border-top: 1px solid var(--depth2);
 }
 
-.rmdp-container .custom-calendar.ep-arrow[direction='top'] {
+.rmdp-container.custom-calendar.ep-arrow[direction='top'] {
 	border-bottom: 1px solid var(--depth2);
 }
-.rmdp-container .custom-calendar {
+.rmdp-container.custom-calendar,
+.rmdp-wrapper.custom-calendar {
 	color: var(--textPrimary);
 }
-.rmdp-container .custom-calendar .rmdp-day.rmdp-selected span:not(.highlight) {
+.rmdp-container.custom-calendar .rmdp-day.rmdp-selected span:not(.highlight),
+.rmdp-wrapper.custom-calendar .rmdp-day.rmdp-selected span:not(.highlight) {
 	background-color: var(--primary);
 }
-.rmdp-container .custom-calendar .rmdp-day.rmdp-today span {
+
+.rmdp-container.custom-calendar .rmdp-day.rmdp-today span,
+.rmdp-wrapper.custom-calendar .rmdp-day.rmdp-today span {
 	background-color: var(--secondary);
+}
+
+.custom-calendar .rmdp-panel {
+	width: 100%;
+}
+/* .custom-calendar .rmdp-panel-body span {
+	color: var(--textSecondary);
+} */
+.custom-calendar .rmdp-panel-body li.bg-yellow span {
+	color: var(--textPrimary);
+}
+.custom-calendar .rmdp-panel-body li span {
+	color: var(--textSecondary);
 }

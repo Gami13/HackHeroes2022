@@ -7,10 +7,10 @@ interface PopUpProps {
 	width?: string;
 	height?: string;
 	padding?: string;
-	backgroundColor?: Property.BackgroundColor;
-	justify?: 'center' | 'start' | 'end' | 'left' | 'right' | string;
-	items?: 'center' | 'start' | 'end' | 'left' | 'right' | string;
-	direction?: 'column' | 'row' | string;
+	backgroundColor?: Property.BackgroundColor | null;
+	justify?: 'center' | 'start' | 'end' | 'left' | 'right' | string | null;
+	items?: 'center' | 'start' | 'end' | 'left' | 'right' | string | null;
+	direction?: 'column' | 'row' | string | null;
 	children?: any;
 }
 

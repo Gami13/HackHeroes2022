@@ -3,14 +3,14 @@ import style from './Box.module.css';
 import type { Property } from 'csstype';
 
 interface BoxProps {
-	width?: string;
-	height?: string;
-	padding?: string;
-	backgroundColor?: Property.BackgroundColor;
+	width?: string | null;
+	height?: string | null;
+	padding?: string | null;
+	backgroundColor?: Property.BackgroundColor | null;
 	display?: 'flex' | 'grid';
-	justify?: 'center' | 'start' | 'end' | 'left' | 'right' | string;
-	items?: 'center' | 'start' | 'end' | 'left' | 'right' | string;
-	direction?: 'column' | 'row' | string;
+	justify?: 'center' | 'start' | 'end' | 'left' | 'right' | string | null;
+	items?: 'center' | 'start' | 'end' | 'left' | 'right' | string | null;
+	direction?: 'column' | 'row' | string | null;
 	gridTemplateColumns?: string;
 	gridTemplateRows?: string;
 	gap?: string;

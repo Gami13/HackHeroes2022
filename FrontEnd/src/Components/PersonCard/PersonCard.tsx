@@ -20,6 +20,7 @@ const PersonCard = (props: PersonCardProps) => {
 		<button onClick={props.action} className={style.wrapper}>
 			<Box
 				width="fit-content"
+				backgroundColor={null}
 				className={[style.personCard, props.className].join(' ')}
 			>
 				<img
@@ -32,7 +33,10 @@ const PersonCard = (props: PersonCardProps) => {
 					{props.voivodeship} - {props.county} - {props.town}
 				</span>
 				<p>{props.description}</p>
-				<Tag text={props.position ? props.position : 'Nieznany'} color="pink" />
+				<Tag
+					text={props.position ? props.position : 'Nieznany'}
+					backgroundColor="pink"
+				/>
 			</Box>
 		</button>
 	);

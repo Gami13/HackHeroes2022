@@ -6,8 +6,8 @@ import type { Property } from 'csstype';
 interface FormProps {
 	width?: string;
 	height?: string;
-	gap?: number;
-	backgroundColor?: Property.BackgroundColor;
+	gap?: number | null;
+	backgroundColor?: Property.BackgroundColor | null;
 	className?: string[] | string;
 	children?: any;
 	onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;

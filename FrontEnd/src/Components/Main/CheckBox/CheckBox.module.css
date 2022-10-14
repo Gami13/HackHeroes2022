@@ -17,13 +17,6 @@
 
 .checkbox:hover {
 	cursor: pointer;
-<<<<<<< Updated upstream
-	background-color: var(--depth2);
-}
-
-.checkbox:checked {
-	background-color: var(--primary);
-=======
 	opacity: 100%;
 	transition: opacity 0.4s ease-in-out;
 	/* 	filter: brightness(90%);
@@ -33,7 +26,6 @@
 .checkbox:checked {
 	background-color: var(--secondary);
 	border: none;
->>>>>>> Stashed changes
 }
 
 .checkbox:checked::after {
