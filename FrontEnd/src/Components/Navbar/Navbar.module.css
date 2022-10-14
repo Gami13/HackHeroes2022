@@ -24,6 +24,7 @@
 	cursor: pointer;
 	position: relative;
 	transition-duration: var(--transitionSpeed);
+	border-bottom: 1px solid var(--primary);
 }
 
 .nav li:hover {
@@ -71,7 +72,28 @@
 	transition-duration: var(--transitionSpeed);
 	white-space: nowrap;
 }
+.nav li:first-child span {
+	display: none;
+}
 
+.nav li span {
+	width: 5px;
+	position: absolute;
+	right: 5px;
+	height: 0;
+	border-radius: 5px;
+	background-color: var(--primary);
+	transition: height 0.3s ease-in-out;
+}
+.nav li:focus a,
+.nav li:hover span {
+	height: 5px;
+	transition: height 0.3s ease-in-out;
+}
+.onPage {
+	height: 40% !important;
+	transition: height 1s ease-in-out;
+}
 .nav svg {
 	width: 2rem;
 	height: 2rem;

@@ -15,7 +15,7 @@ const ReminderSettings = () => {
 	const test = new DateObject();
 	//@ts-ignore
 	test.color = 'red';
-
+	let page = 'ReminderSettings';
 	return (
 		<div className={[layouts.center].join(' ')}>
 			<Box className={style.container} width={null}>

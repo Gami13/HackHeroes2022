@@ -6,8 +6,9 @@ const PlsVerify = () => {
 	return (
 		<Box>
 			<span className={style.content}>
-				<h1>Please verify your email address.</h1> <br />
-				<a href="mailto:">(with link we send to your email)</a>
+				<h1>
+					<a href="mailto:">Zweryfikuj</a> adres email.
+				</h1>
 			</span>
 		</Box>
 	);

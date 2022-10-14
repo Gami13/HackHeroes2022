@@ -11,6 +11,8 @@
 	width: 100%;
 	min-height: 100vh;
 	transition-duration: var(--transitionSpeed);
+	display: grid;
+	place-items: center;
 }
 
 /* for screens under 900px */

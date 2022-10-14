@@ -10,7 +10,7 @@ const Test = () => {
 	return (
 		<>
 			<div className={layouts.center}>
-				<div className={!check ? style.form_input : style.form_input_checked}>
+				<div className={style.form_input}>
 					<input
 						type="checkbox"
 						className={style.checkbox}

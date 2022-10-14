@@ -3,7 +3,15 @@
 	color: var(--textPrimary);
 	font-size: 1rem;
 	word-wrap: break-word;
-	padding: 1rem;
 	border-radius: var(--roundedBig);
-	min-width: 15rem;
+	min-width: max-content;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	letter-spacing: 0.1rem;
+}
+.content h1 {
+	color: var(--textPrimary);
 }

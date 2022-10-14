@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useMatch, useResolvedPath } from 'react-router-dom';
+
 import style from './Navbar.module.css';
 import States from '../States';
-
 // import { ReactComponent as Test } from '../../assets/svgs/check-circle-fill.svg';
 
 const NavBarButton = (props: {
@@ -11,12 +11,15 @@ const NavBarButton = (props: {
 	title: string;
 	className?: string;
 }) => {
+	const resolvedPath = useResolvedPath(props.to);
+	const isActive = useMatch({ path: resolvedPath.pathname, end: true });
 	return (
 		<li className={props.className}>
 			<Link to={props.to}>
 				{props.children}
 				{props.title}
 			</Link>
+			<span className={isActive ? style.onPage : null}></span>
 		</li>
 	);
 };

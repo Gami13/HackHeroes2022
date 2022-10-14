@@ -20,6 +20,7 @@ const LoginForm = () => {
 	const [didLogin, setDidLogin] = useState(false);
 	const context = useContext(States);
 
+	let page = 'LoginForm';
 	async function loginUser() {
 		let data = {
 			email: email,

@@ -25,6 +25,7 @@ const RegisterForm = () => {
 	const [didRegister, setDidRegister] = useState(false);
 	const navigate = useNavigate();
 
+	let page = 'RegisterForm';
 	useEffect(() => {
 		if (didRegister) {
 			//TODO: redirect to login

@@ -12,6 +12,7 @@ interface PersonCardProps {
 	voivodeship?: string;
 	county?: string;
 	town?: string;
+
 	action?: (e: any) => void;
 }
 
