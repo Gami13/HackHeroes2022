@@ -1,0 +1,16 @@
+.switchLabeled {
+	width: fit-content;
+	width: -moz-fit-content;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	font-weight: bold;
+	width: 4.4rem;
+}
+.switchLabeled > button {
+	width: 100%;
+}
+.switchLabeled > *:not(button) {
+	width: 100%;
+}
