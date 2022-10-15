@@ -55,3 +55,5 @@ Content-Type: application/json
     "id": {{id}},
     "token": {{token}}
 }
+###
+GET {{url}}/test HTTP/1.1

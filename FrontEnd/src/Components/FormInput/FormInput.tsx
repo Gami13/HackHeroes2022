@@ -11,6 +11,8 @@ interface FormInputProps {
 	className?: string[] | string;
 	placeholder?: string;
 	list?: string;
+	maxLength?: number;
+	minLength?: number;
 	label?: string;
 	errors?: string | null;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;

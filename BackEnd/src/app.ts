@@ -2,6 +2,7 @@ import express, { Response } from 'express';
 import cors from 'cors';
 import { yes } from './classes/Log.js';
 import authentication from './Authentication.js';
+import insertAll from './test.js';
 
 yes();
 
@@ -71,6 +72,6 @@ app.listen(3000, () => {
 });
 authentication(app);
 app.get('/test', (req, res) => {
-	res.cookie('test', 'test', { httpOnly: true });
+	insertAll();
 	res.sendSuccess('test');
 });

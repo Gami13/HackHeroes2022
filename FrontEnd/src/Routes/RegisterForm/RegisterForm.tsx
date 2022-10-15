@@ -133,83 +133,30 @@ const RegisterForm = () => {
 		return true;
 	}
 
-	async function registerUser() {
-		validateEmail();
-		validatePassword();
-
-		if (
-			validateEmail() &&
-			validatePassword() &&
-			validatePersonalData() &&
-			validateLocalizationData()
-		) {
-			console.log('Errors in form');
-			return false;
-		}
-
-		let data = {
-			firstName: firstName,
-			lastName: lastName,
-			email: email,
-			password: password,
-			passwordConfirm: passwordConfirm,
-		};
-		let config = {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		};
-
-		const res = await fetch(`http://localhost:3000/registerUser`, config);
-		const json = await res.json();
-		console.log(json);
-		if (json.status == 'success') {
-			navigate('/plsVerify');
-		} else {
-			setResponseError(json.message);
-		}
-	}
-	function validatePersonalData() {
-		validateFirstName();
-		validateLastName(); /* validate birthday */
-		validateDateOfBirth();
-		validateGender();
-		if (
-			validateLastName() &&
-			validateFirstName() &&
-			validateDateOfBirth() &&
-			validateGender()
-		) {
-			setStep(1);
-			return true;
-		}
-		return false;
-	}
 	function validateDateOfBirth() {
 		setDateOfBirthErrors([]);
+		let currentDate = new Date();
 		if (dateOfBirth == null) {
 			setDateOfBirthErrors((oldArray: string[]) => [
 				...oldArray,
 				'- Musisz podać datę urodzenia',
 			]);
 			return false;
-		} else if ((dateOfBirth.getTime() - new Date().getTime()) < ) {
+		} else if (dateOfBirth.getTime() - currentDate.getTime() < 410240038000) {
+		}
 		return true;
 	}
 	function validateGender() {
+		console.log('test');
 		setGenderErrors([]);
-		if (gender == 'K' || gender == 'M') {
+		if (gender == '?' || gender == 'M' || gender == 'K') {
 			return true;
-		} else {
-			setGenderErrors((oldArray: string[]) => [
-				...oldArray,
-				'- Musisz wybrać płeć',
-			]);
-			return false;
 		}
+		setGenderErrors((oldArray: string[]) => [
+			...oldArray,
+			'- Musisz wybrać płeć',
+		]);
+		return false;
 	}
 	function validateVoivodeship() {
 		setVoivodeshipErrors([]);
@@ -254,10 +201,64 @@ const RegisterForm = () => {
 		}
 		return false;
 	}
+	function validatePersonalData() {
+		validateFirstName();
+		validateLastName(); /* validate birthday */
+		validateDateOfBirth();
+		validateGender();
+		if (
+			validateLastName() &&
+			validateFirstName() &&
+			validateDateOfBirth() &&
+			validateGender()
+		) {
+			setStep(1);
+			return true;
+		}
+		return false;
+	}
+	async function registerUser() {
+		validateEmail();
+		validatePassword();
+
+		if (
+			validateEmail() &&
+			validatePassword() &&
+			validatePersonalData() &&
+			validateLocalizationData()
+		) {
+			console.log('Errors in form');
+			return false;
+		}
+
+		let data = {
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			password: password,
+			passwordConfirm: passwordConfirm,
+		};
+		let config = {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		};
+
+		const res = await fetch(`http://localhost:3000/registerUser`, config);
+		const json = await res.json();
+		console.log(json);
+		if (json.status == 'success') {
+			navigate('/plsVerify');
+		} else {
+			setResponseError(json.message);
+		}
+	}
 	console.log('test');
 	return (
 		<div className={[layouts.center].join(' ')}>
-			<h1>{step}</h1>
 			<Form
 				padding="1rem"
 				className={style.registerForm}
@@ -296,14 +297,18 @@ const RegisterForm = () => {
 								id="date"
 								maxDate={new Date()}
 								value={dateOfBirth}
-								onChange={(date) => setDateOfBirth(date.toDate())}
+								onChange={(date) => {
+									setDateOfBirth(date?.toDate());
+								}}
 							></DatePicker>
 						</Label>
 						<Label className={style.gender} htmlFor="gender" label="Płeć">
 							<span className={style.error}>{genderErrors}</span>
 							<select
 								onBlur={validateGender}
-								onChange={(e) => setGender(e.target.value)}
+								onChange={(e) => {
+									setGender(e.target.value);
+								}}
 								name="gender"
 								id="gender"
 								placeholder="Wybierz płeć"

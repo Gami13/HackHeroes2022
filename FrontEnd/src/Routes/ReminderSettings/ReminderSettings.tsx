@@ -17,7 +17,7 @@ const tagValid = (tag: string) => {
 };
 
 const ReminderSettings = () => {
-	const [currentTag, setCurrentTag] = useState('');
+	const [currentTag, setCurrentTag] = useState('tak');
 
 	const [tags, setTags] = useState<{ [key: number]: string }>({});
 
@@ -43,6 +43,7 @@ const ReminderSettings = () => {
 					value={currentTag}
 					onChange={(e) => setCurrentTag(e.target.value)}
 					errors={valid ? 'Nieprawidłowa wartość' : null}
+					maxLength={20}
 				/>
 				<Calendar
 					className={style.calendar}

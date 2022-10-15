@@ -8,6 +8,8 @@ interface InputProps {
 	value?: string;
 	className?: string[] | string;
 	placeholder?: string;
+	maxLength?: number;
+	minLength?: number;
 	list?: string;
 	disabled?: boolean;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -41,6 +43,8 @@ function Input(props: InputProps) {
 			style={{ width: width }}
 			list={list}
 			form={props.form}
+			maxLength={props.maxLength}
+			minLength={props.minLength}
 		></input>
 	);
 }

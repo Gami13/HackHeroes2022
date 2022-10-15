@@ -1,46 +1,29 @@
 ```javascript
-function getGminy() {
-  let woj = document.querySelectorAll(
-    "#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr > td:nth-child(2) > b > a,#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr > td:nth-child(2) > a,#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr > td:nth-child(2) > i > a"
-  );
-  let titles = [];
-  for (let i = 0; i < woj.length; i++) {
-    titles.push(woj[i].title.replace("gmina ", "").replace("(gmina)", "").trim());
+let wojewodztwa = [];
+let powiaty = [];
+let gminy = [];
+function test() {
+  let data = document.querySelectorAll("#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr");
+  for (let i = 0; i < data.length; i++) {
+    let wojewodztwo = data[i].querySelector("td:nth-child(4)");
+    let powiat = data[i].querySelector("td:nth-child(3)");
+    let gmina = data[i].querySelector("td:nth-child(2)");
+    powiat = powiat.innerText.trim();
+    gmina = gmina.innerText.replace("gmina ", "").trim();
+    wojewodztwo = wojewodztwo.innerText.trim();
+    if (!wojewodztwa.includes(wojewodztwo)) {
+      wojewodztwa.push(wojewodztwo);
+    }
+    if (!powiaty.find((x) => x.name == powiat)) {
+      powiaty.push({ name: powiat, wojewodztwo: wojewodztwa.indexOf(wojewodztwo) });
+    }
+    if (!gminy.includes({ name: gmina, powiat: powiaty.indexOf({ name: powiat, wojewodztwo: wojewodztwo }) })) {
+      gminy.push({ name: gmina, powiat: powiaty.findIndex((x) => x.name == powiat && x.wojewodztwo == wojewodztwa.indexOf(wojewodztwo)) });
+    }
   }
-  return titles;
+  console.log(wojewodztwa);
+  console.log(powiaty);
+  console.log(gminy);
 }
-function getPowiaty() {
-  let pow = document.querySelectorAll(
-    "#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr > td:nth-child(3) > b > a,#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr > td:nth-child(3) > a,#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr > td:nth-child(3) > i > a"
-  );
-  let titles = [];
-
-  for (let i = 0; i < pow.length; i++) {
-    titles.push(pow[i].title.trim());
-  }
-  return titles;
-}
-function getWojewodztwa() {
-  let woj = document.querySelectorAll(
-    "#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr > td:nth-child(4) > b > a,#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr > td:nth-child(4) > a,#mw-content-text > div.mw-parser-output > table:nth-child(14) > tbody > tr > td:nth-child(4) > i > a"
-  );
-  let titles = [];
-
-  for (let i = 0; i < woj.length; i++) {
-    titles.push(woj[i].title.replace("Województwo ", "").trim());
-  }
-  return titles;
-}
-
-let gminy = getGminy();
-let powiaty = getPowiaty();
-let wojewodztwa = getWojewodztwa();
-let combined = [];
-for (let i = 0; i < wojewodztwa.length; i++) {
-  combined.push(`${gminy[i]} ${powiaty[i]} ${wojewodztwa[i]}`);
-}
-console.log(combined);
-document.body.innerHTML = combined.join("<br>");
-
-/* cześć :) */
+test();
 ```

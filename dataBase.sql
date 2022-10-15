@@ -20,3 +20,24 @@ CREATE TABLE IF NOT EXISTS `verifyaccount` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 ALTER TABLE `verifyaccount`
 ADD PRIMARY KEY (`id`, `userId`);
+-- create table wojewodztwa
+CREATE TABLE IF NOT EXISTS `wojewodztwa` (
+    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- create table powiaty
+CREATE TABLE IF NOT EXISTS `powiaty` (
+    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `wojId` int(11) NOT NULL -- ,FOREIGN KEY (wojId) REFERENCES wojewodztwa(id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- create table gminy
+CREATE TABLE IF NOT EXISTS `gminy` (
+    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `powId` int(11) NOT NULL -- ,FOREIGN KEY (powId) REFERENCES powiaty(id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- check if in table powiaty are any duplicates
+-- SELECT name, COUNT(*) FROM powiaty GROUP BY name HAVING COUNT(*) > 1;
+-- -- check if in table gminy are any duplicates
+-- SELECT name, COUNT(*) FROM gminy GROUP BY name HAVING COUNT(*) > 1;
