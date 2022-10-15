@@ -1,6 +1,5 @@
 .box {
 	border-radius: var(--roundedBig);
-	display: flex;
 }
 @media screen and (max-width: 900px) {
 	.center {

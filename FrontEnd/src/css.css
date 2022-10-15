@@ -35,7 +35,7 @@
 	--depth3: rgb(203, 203, 203);
 
 	/* colors */
-	--primary: rgb(50, 130, 200); /* #5865f2 - zamienione z blue*/
+	--primary: #5865f2; /* #5865f2 - zamienione z blue*/
 	--primaryHover: #4752c4;
 
 	--secondary: #ac81dd;
@@ -56,15 +56,15 @@
 	--mainFontColor: #b9bbbe;
 	--link: #4a8ca6;
 	--linkHover: rgb(3, 148, 206);
-	--red: #d83c3e;
-	--redFocused: #a12d2f;
+	/* --red: #d83c3e;
+	--redFocused: #a12d2f; */
 	--roundedSmall: 3px; /* checkbox */
 	--rounded: 5px; /* inputs */
 	--roundedBig: 8px;
 
 	--transitionSpeed: 600ms;
 	--transitionSpeedFast: 300ms;
-	--shadow: drop-shadow(0px 0px 8px rgb(28, 28, 28));
+	--shadow: drop-shadow(0px 0px 8px rgb(170, 170, 170));
 }
 
 * {
@@ -77,15 +77,15 @@
 	font-family: var(--primaryFont);
 	scroll-behavior: smooth !important;
 	border-style: none;
-	z-index: 2;
+	/* z-index: 2; */
 }
 
-/* *:focus {
+*:is(:focus, :focus-visible) {
 	outline-color: var(--primary);
 	outline-style: solid;
 	outline-width: 2px;
 	outline-offset: -1px;
-} */
+}
 
 html {
 	height: 100vh;
@@ -119,63 +119,4 @@ a {
 
 a:hover {
 	color: var(--linkHover);
-}
-
-/* animacja ładowania */
-.loading {
-	height: fit-content;
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	gap: 0.5rem;
-}
-.loading > h1 {
-	font-size: 2rem;
-}
-.loadingDots {
-	position: relative;
-	margin: 0px 15px;
-	width: 10px;
-	height: 10px;
-	border-radius: 5px;
-	background-color: var(--textPrimary);
-	color: var(--textPrimary);
-	animation: loadingDots 1s infinite linear alternate;
-	animation-delay: 0.5s;
-	margin-top: auto;
-	margin-bottom: 7px;
-}
-.loadingDots::before,
-.loadingDots::after {
-	content: '';
-	display: inline-block;
-	position: absolute;
-	top: 0;
-}
-.loadingDots::before {
-	width: 10px;
-	height: 10px;
-	border-radius: 5px;
-	left: -15px;
-	background-color: var(--textPrimary);
-	animation: loadingDots 1s infinite linear alternate;
-	animation-delay: 0s;
-}
-.loadingDots::after {
-	width: 10px;
-	height: 10px;
-	border-radius: 5px;
-	left: 15px;
-	background-color: var(--textPrimary);
-	animation: loadingDots 1s infinite linear alternate;
-	animation-delay: 1s;
-}
-@keyframes loadingDots {
-	0% {
-		background-color: var(--textPrimary);
-	}
-	50%,
-	100% {
-		background-color: #ebe6ff;
-	}
 }

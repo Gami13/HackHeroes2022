@@ -1,4 +1,57 @@
 .registerCard {
+	max-width: 36rem;
+}
+
+.title {
+	font-size: 2rem;
+}
+
+.mainData > div {
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+}
+.registerCard p {
+	color: var(--secondary);
+	margin-left: 0.5rem;
+}
+
+.mainData > div > p {
+	max-width: 20rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.secondaryData > div {
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+}
+
+.secondaryData > div:not(:first-child) {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.secondaryData > div:not(:first-child) > div {
+	display: flex;
+	flex-direction: row;
+}
+
+.secondaryData > div:first-child > p {
+	max-width: 15rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.secondaryData > div:not(:first-child) {
+	min-width: 23rem;
+}
+
+/* .registerCard {
 	width: 40%;
 	height: fit-content;
 	gap: 1rem;
@@ -25,4 +78,4 @@
 	.registerCard {
 		display: none;
 	}
-}
+} */

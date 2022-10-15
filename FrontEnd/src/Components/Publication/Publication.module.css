@@ -11,6 +11,8 @@
 }
 
 .title {
+	display: flex;
+	align-items: center;
 	grid-row: 2 / 3;
 	background-color: var(--depth2);
 	border-radius: var(--roundedBig);

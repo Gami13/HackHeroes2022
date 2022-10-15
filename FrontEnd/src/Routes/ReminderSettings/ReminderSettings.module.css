@@ -5,7 +5,15 @@
 }
 .calendar {
 	width: 100% !important;
+	max-width: 24rem;
 }
 .date {
 	width: 100%;
+}
+/* .input input {
+	width: 100%;
+} */
+.input {
+	width: 100%;
+	max-width: 24rem;
 }

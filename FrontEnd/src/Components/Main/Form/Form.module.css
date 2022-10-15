@@ -3,10 +3,11 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--depth3);
+	background-color: var(--depth1);
 	border-radius: var(--roundedBig);
 }
-@media screen and (max-width: 900px) {
+
+/* @media screen and (max-width: 900px) {
 	.form {
 		width: 90%;
 		position: relative;
@@ -14,7 +15,7 @@
 	.form > label > input {
 		width: 100% !important;
 	}
-}
+} */
 
 .form > h1 {
 	font-size: 1.75rem;

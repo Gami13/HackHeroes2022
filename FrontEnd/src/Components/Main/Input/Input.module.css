@@ -6,6 +6,6 @@
 	background-color: var(--depth2);
 	padding: 0.5rem;
 }
-.input:focus {
-	outline: 2px solid var(--primary);
+.input:disabled {
+	background-color: var(--depth3);
 }

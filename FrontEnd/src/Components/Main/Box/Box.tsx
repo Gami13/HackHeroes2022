@@ -68,7 +68,7 @@ Box.defaultProps = {
 	width: 'min-content',
 	height: 'min-content',
 	backgroundColor: getComputedStyle(document.documentElement).getPropertyValue(
-		'--depth3'
+		'--depth1'
 	),
 };
 

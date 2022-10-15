@@ -1,0 +1,17 @@
+.dataList {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+.error {
+	color: var(--textError);
+	font-weight: normal;
+	margin-left: 5px;
+}
+@media (max-width: 600px) {
+	.dataList {
+		width: 100%;
+	}
+	.dataList > label {
+		width: 100%;
+	}
+}

@@ -12,9 +12,10 @@ interface FormInputProps {
 	placeholder?: string;
 	list?: string;
 	label?: string;
-	errors?: string;
+	errors?: string | null;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+	form?: string;
 }
 
 function FormInput(props: FormInputProps) {
@@ -37,6 +38,7 @@ function FormInput(props: FormInputProps) {
 			<span className={style.error}>{errors}</span>
 
 			<Input
+				form={props.form}
 				id={id}
 				type={type}
 				width={width}

@@ -20,7 +20,6 @@ const LoginForm = () => {
 	const [didLogin, setDidLogin] = useState(false);
 	const context = useContext(States);
 
-	let page = 'LoginForm';
 	async function loginUser() {
 		let data = {
 			email: email,
@@ -63,6 +62,8 @@ const LoginForm = () => {
 	return (
 		<div className={layouts.center}>
 			<Form
+				gap={1}
+				padding="1rem"
 				className={style.loginForm}
 				onSubmit={(e) => {
 					e.preventDefault();

@@ -29,20 +29,33 @@ const Navbar = () => {
 	const [isShown, setIsShown] = useState(false);
 	function show() {
 		setIsShown(!isShown);
+		console.log('negate');
 	}
 
 	const menu: any = useRef(null);
+	const menuBtn: any = useRef(null);
 
 	const closeOpenMenus = (e: any) => {
-		if (menu.current && isShown && !menu.current.contains(e.target)) {
+		if (
+			menu.current &&
+			isShown &&
+			!menu.current.contains(e.target) &&
+			!menuBtn.current.contains(e.target)
+		) {
 			setIsShown(false);
+			console.log('close');
 		}
 	};
 	document.addEventListener('mousedown', closeOpenMenus);
 
 	return (
 		<header className={style.navWrapper}>
-			<button onClick={show} title="Show Menu" className={style.showNav}>
+			<button
+				ref={menuBtn}
+				onClick={show}
+				title="Show Menu"
+				className={style.showNav}
+			>
 				<svg
 					version="1.1"
 					id="Capa_1"
@@ -106,7 +119,7 @@ const Navbar = () => {
 							</g>
 						</svg>
 					</NavBarButton>
-					<NavBarButton to="/reminder" title="Przypominajka">
+					<NavBarButton to="/reminder" title="Kalendarz">
 						{/* <Test /> */}
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

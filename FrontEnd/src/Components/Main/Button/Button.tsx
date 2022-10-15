@@ -3,7 +3,7 @@ import style from './Button.module.css';
 
 interface ButtonProps {
 	type?: 'submit' | 'button';
-	onClick?: any;
+	onClick?: () => void;
 	children?: any;
 	className?: string[] | string;
 }

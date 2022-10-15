@@ -1,6 +1,43 @@
-.input > input {
+fieldset {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+fieldset > label {
 	width: 24rem;
 }
+
+fieldset > label > input {
+	width: 100%;
+}
+
+.dataList > div {
+	padding: 0 !important;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.dataList > div > label {
+	width: 24rem;
+	font-weight: bold;
+}
+
+.date {
+	width: 100%;
+}
+.gender > select {
+	width: 100%;
+	max-width: 24rem;
+	border-radius: var(--rounded);
+	background-color: var(--depth2);
+	padding: 0.5rem;
+}
+.error {
+	color: var(--textError);
+}
+
 @media screen and (max-width: 500px) {
 	.input > input {
 		width: 12rem;

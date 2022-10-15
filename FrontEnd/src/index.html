@@ -2,17 +2,80 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, minimum-scale=1"
+		/>
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<meta property="og:title" content="Obywatel++" />
 		<meta property="og:description" content="TODO opis" />
 		<meta property="og:site_name" content="Obywatel++" />
 		<link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
-      rel="stylesheet"
-    />
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+			rel="stylesheet"
+		/>
 		<meta property="og:locale" content="pl" />
 		<title>Obywatel++</title>
+		<style>
+			/* animacja ładowania */
+			.loading {
+				height: fit-content;
+				display: flex;
+				align-items: center;
+				flex-direction: row;
+				gap: 0.5rem;
+			}
+			.loading > h1 {
+				font-size: 2rem;
+			}
+			.loadingDots {
+				position: relative;
+				margin: 0px 15px;
+				width: 10px;
+				height: 10px;
+				border-radius: 5px;
+				background-color: var(--textPrimary);
+				color: var(--textPrimary);
+				animation: loadingDots 1s infinite linear alternate;
+				animation-delay: 0.5s;
+				margin-top: auto;
+				margin-bottom: 7px;
+			}
+			.loadingDots::before,
+			.loadingDots::after {
+				content: '';
+				display: inline-block;
+				position: absolute;
+				top: 0;
+			}
+			.loadingDots::before {
+				width: 10px;
+				height: 10px;
+				border-radius: 5px;
+				left: -15px;
+				background-color: var(--textPrimary);
+				animation: loadingDots 1s infinite linear alternate;
+				animation-delay: 0s;
+			}
+			.loadingDots::after {
+				width: 10px;
+				height: 10px;
+				border-radius: 5px;
+				left: 15px;
+				background-color: var(--textPrimary);
+				animation: loadingDots 1s infinite linear alternate;
+				animation-delay: 1s;
+			}
+			@keyframes loadingDots {
+				0% {
+					background-color: var(--textPrimary);
+				}
+				50%,
+				100% {
+					background-color: #ebe6ff;
+				}
+			}
+		</style>
 	</head>
 
 	<body>

@@ -6,6 +6,7 @@ import Tag from '../../Components/Main/Tag/Tag';
 import Calendar from '../../Components/Main/Calendar/Calendar';
 import DatePanel from 'react-multi-date-picker/plugins/date_panel';
 import Box from '../../Components/Main/Box/Box';
+import CalendarWithTags from '../../Components/CalendarWithTags/CalendarWithTags';
 const MainPage = () => {
 	const context = useContext(States);
 	return (
@@ -121,15 +122,7 @@ const MainPage = () => {
 					/>
 				</div>
 				<div className={style.additionalElements}>
-					<Calendar
-						readOnly={true}
-						value={[
-							new Date(2022, 9, 14),
-							new Date(2022, 9, 5),
-							new Date(2022, 9, 10),
-						]}
-						plugins={[<DatePanel removeButton={false} />]}
-					></Calendar>
+					<CalendarWithTags />
 				</div>
 			</main>
 		</div>

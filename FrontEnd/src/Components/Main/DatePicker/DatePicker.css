@@ -3,11 +3,11 @@
 	background-color: var(--depth2);
 }
 
-.rmdp-container.custom-calendar.ep-arrow[direction='bottom'] {
+.rmdp-container .custom-calendar.ep-arrow[direction='bottom'] {
 	border-top: 1px solid var(--depth2);
 }
 
-.rmdp-container.custom-calendar.ep-arrow[direction='top'] {
+.rmdp-container .custom-calendar.ep-arrow[direction='top'] {
 	border-bottom: 1px solid var(--depth2);
 }
 .rmdp-container.custom-calendar,

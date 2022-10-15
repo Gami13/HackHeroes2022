@@ -9,8 +9,10 @@ interface InputProps {
 	className?: string[] | string;
 	placeholder?: string;
 	list?: string;
+	disabled?: boolean;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+	form?: string;
 }
 
 function Input(props: InputProps) {
@@ -28,6 +30,7 @@ function Input(props: InputProps) {
 
 	return (
 		<input
+			disabled={props.disabled}
 			id={id}
 			type={type}
 			value={value}
@@ -37,6 +40,7 @@ function Input(props: InputProps) {
 			onBlur={onBlur}
 			style={{ width: width }}
 			list={list}
+			form={props.form}
 		></input>
 	);
 }
