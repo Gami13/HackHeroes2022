@@ -2,7 +2,8 @@ import express, { Response } from 'express';
 import cors from 'cors';
 import { yes } from './classes/Log.js';
 import authentication from './Authentication.js';
-import insertAll from './test.js';
+import db from './connection.js';
+import { RowDataPacket } from 'mysql2';
 
 yes();
 
@@ -71,7 +72,9 @@ app.listen(3000, () => {
 	//              ..,--------,*/`);
 });
 authentication(app);
-app.get('/test', (req, res) => {
-	insertAll();
-	res.sendSuccess('test');
+app.get('/wojewodztwa', async (req, res) => {
+	let query = 'SELECT * FROM wojewodztwa';
+	let [results, fields] = await db.query<RowDataPacket[]>(query);
+
+	res.sendSuccess({ wojewodztwa: results });
 });
