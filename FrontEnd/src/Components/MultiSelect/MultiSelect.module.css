@@ -1,0 +1,20 @@
+.multiSelect {
+	position: relative;
+}
+.main {
+	width: 100%;
+	max-width: 24rem;
+	border-radius: var(--rounded);
+	background-color: var(--depth2);
+	padding: 0.5rem;
+}
+.folded {
+	display: none;
+}
+.list {
+	height: 3rem;
+	width: 6rem;
+	background-color: blue;
+	position: absolute;
+	top: 100%;
+}
