@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './Publication.module.css';
+import style from './CreatePublication.module.css';
 import { useNavigate } from 'react-router-dom';
 import Box from '../Main/Box/Box';
 import Input from '../Main/Input/Input';
@@ -8,13 +8,13 @@ import TextArea from '../Main/TextArea/TextArea';
 interface PublicationProps {
 	width?: string;
 	height?: string;
-	user: string;
-	date: string;
-	title: any;
-	body: any;
-	footer: any[] | any;
+	user?: string;
+	date?: string;
+	title?: any;
+	body?: any;
+	footer?: any[] | any;
 	className?: string[] | string;
-	id: string;
+	id?: string;
 }
 
 function Publication(props: PublicationProps) {
