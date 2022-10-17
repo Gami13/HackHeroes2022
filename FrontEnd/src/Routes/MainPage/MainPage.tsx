@@ -13,11 +13,12 @@ import Input from '../../Components/Main/Input/Input';
 import FormInput from '../../Components/FormInput/FormInput';
 import Button from '../../Components/Main/Button/Button';
 import layouts from '../../layouts.module.css';
+import CreatePublication from '../../Components/CreatePublication/CreatePublication';
 
 const MainPage = () => {
 	const context = useContext(States);
 	return (
-		<div className={layouts.center}>
+		<div className={style.mainPage}>
 			{/* <h1>Cześć</h1>
 			<p>
 				{context.isLoggedIn}, {context.userEmail}, {context.userFirstName},{' '}
@@ -59,11 +60,12 @@ const MainPage = () => {
 
 			<main className={style.mainElements}>
 				<Button className={style.addPublication}>+</Button>
+				<CreatePublication></CreatePublication>
 				<Publication
 					id={'1'}
 					date="05/05/2021"
 					user="Boby Drop Tables"
-					title={'To trzeba zmienić!'}
+					title={'To trzeba zmienić! zmiana'}
 					body={
 						'Dzisiaj będąc w kawiarni zapomniałem wziąść ze sobą telefonu, który miałem na stoliku. Gdy przyszedłem następnego dnia, obsługa nie chciała mi go oddać, choć na moich oczach tego ranka jak wchodziłem to go zabierali sprzątając! 😡😡'
 					}
