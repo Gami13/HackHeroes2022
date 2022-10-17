@@ -66,7 +66,7 @@ const MainPage = () => {
 					date="05/05/2021"
 					user="Boby Drop Tables"
 					title={
-						'To trzeba zmienić! zmiana! zmiana zmiana zmiana zmiana! zmiana zmiana zmiana zmiana! zmiana zmiana zmiana zmiana! zmiana zmiana zmiana'
+						'To trzeba zmienić!'
 					}
 					body={
 						'Dzisiaj będąc w kawiarni zapomniałem wziąść ze sobą telefonu, który miałem na stoliku. Gdy przyszedłem następnego dnia, obsługa nie chciała mi go oddać, choć na moich oczach tego ranka jak wchodziłem to go zabierali sprzątając! 😡😡'

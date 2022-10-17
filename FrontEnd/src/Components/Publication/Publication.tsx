@@ -33,7 +33,7 @@ function Publication(props: PublicationProps) {
 				display="grid"
 				backgroundColor={null}
 				gridTemplateColumns="1fr"
-				gridTemplateRows="fit-content(1rem) 2rem 1fr fit-content(1rem)"
+				gridTemplateRows="fit-content(1rem) fit-content(2rem) 1fr fit-content(1rem)"
 				gap="0.5rem"
 			>
 				<div className={style.info}>

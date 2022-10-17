@@ -36,15 +36,6 @@
 	display: flex;
 }
 
-.footer > * {
-	display: flex;
-	flex-direction: row;
-	margin-right: 0.5rem;
-}
-
-.footer > * > * {
-	margin-right: 0.5rem;
-}
 .box {
 	background-color: var(--depth1);
 	transition-duration: var(--transitionSpeedFast);
@@ -68,6 +59,11 @@
 
 .actions {
 	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
+	flex-direction: row;
+	gap: 0.5rem;
+	justify-content: flex-end;
+}
+
+.multiSelect {
+	width: 100%;
 }

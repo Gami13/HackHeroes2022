@@ -4,27 +4,25 @@
 
 .main {
 	width: 100%;
-	max-width: 24rem;
 	border-radius: var(--rounded);
 	background-color: var(--depth2);
 	padding: 0.5rem;
-	min-height: 2rem;
 	cursor: pointer;
-
 	display: flex;
+	align-items: center;
 }
 .folded {
 	display: none !important;
 }
+
 .list {
 	width: 100%;
 	background-color: var(--depth3);
 	border-radius: 0.25rem;
-	margin-top: 0.25rem;
 	position: absolute;
 	top: 100%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	gap: 0.25rem;
 	list-style: none;
 }
@@ -40,7 +38,6 @@
 	background: none;
 }
 .list li {
-	width: 100%;
 	display: flex;
 	background: var(--depth2);
 	border-radius: 0.25rem;
