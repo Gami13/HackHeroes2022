@@ -7,6 +7,7 @@
 	border-radius: var(--rounded);
 	background-color: var(--depth2);
 	padding: 0.5rem;
+	cursor: pointer;
 }
 .folded {
 	display: none;
@@ -17,4 +18,10 @@
 	background-color: blue;
 	position: absolute;
 	top: 100%;
+}
+.main button {
+	cursor: pointer;
+}
+.list button {
+	cursor: pointer;
 }
