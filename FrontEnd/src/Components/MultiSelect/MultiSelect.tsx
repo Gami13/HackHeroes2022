@@ -43,42 +43,27 @@ const MultiSelect = (props: MultiSelectProps) => {
 		});
 		props.returnSetter(returnable);
 	}, [selected]);
-	const list: any = useRef(null);
-	const main: any = useRef(null);
+	const whole: any = useRef(null);
 	const children: any = useRef([]);
 	const foldMenu = (e: any) => {
-		if (main.current != null && isFolded == false) {
-			if (
-				list.current &&
-				!list.current.contains(e.target) &&
-				!children.current.some(
-					(child: any) => child.contains(e.target) && child.id == 'selected'
-				)
-			) {
+		if (children.current != null && isFolded == false) {
+			if (whole.current && !whole.current.contains(e.target)) {
 				setIsFolded(true);
-			}
-		}
-		if (main.current != null && isFolded == true) {
-			if (main.current.contains(e.target)) {
-				setIsFolded(false);
 			}
 		}
 	};
 	document.addEventListener('mousedown', foldMenu);
 
 	return (
-		<div className={[style.multiSelect, props.className].join(' ')}>
-			{'' + console.log('render')}
+		<div ref={whole} className={[style.multiSelect, props.className].join(' ')}>
 			<button
-				onKeyPress={(e) => {
+				onClick={(e) => {
 					if (
-						main.current.contains(e.target) &&
 						!children.current.some((child: any) => child.contains(e.target))
 					) {
 						setIsFolded(!isFolded);
 					}
 				}}
-				ref={main}
 				title="placeholder"
 				className={[props.classNameMain, style.main].join(' ')}
 			>
@@ -97,7 +82,6 @@ const MultiSelect = (props: MultiSelectProps) => {
 				</ul>
 			</button>
 			<ul
-				ref={list}
 				className={`${props.classNameList} ${style.list} ${
 					isFolded ? style.folded : null
 				}`}
