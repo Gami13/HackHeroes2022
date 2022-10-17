@@ -1,21 +1,21 @@
 .filters {
 	width: 100%;
 	display: flex;
-	margin :1.5rem 0 2rem ;
-	padding: 0 2rem;
+
 	align-items: center;
-	justify-content: space-between;
+	flex-direction: column;
+	padding-bottom: 2rem;
+	border-bottom: 2px solid var(--depth1);
 }
 .filters > h1 {
 	font-size: 2.5rem;
 	font-weight: bold;
 	margin: 0;
 	padding: 0;
-	width: 33%;
 }
 .filterList {
 	display: flex;
-	width: 66%;
+
 	justify-content: flex-end;
 }
 /* for screens under 700px */

@@ -5,6 +5,7 @@ import States from '../../Components/States';
 import PersonCard from '../../Components/PersonCard/PersonCard';
 import Filters from '../../Components/Filters/Filters';
 import DataList from '../../Components/DataList/DataList';
+import layouts from '../../layouts.module.css';
 
 const BookMeeting = () => {
 	function come() {
@@ -26,7 +27,7 @@ const BookMeeting = () => {
 		/* TODO: Fetch people */
 	}, [voivodeship, county, town]);
 	return (
-		<div className={style.bookMeeting}>
+		<div className={layouts.center}>
 			<Filters heading="Umów spotkanie">
 				<DataList
 					title="Województwo: "
