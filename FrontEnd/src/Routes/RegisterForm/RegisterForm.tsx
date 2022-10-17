@@ -442,14 +442,7 @@ const RegisterForm = () => {
 				></RegisterCard>
 			</div>
 
-			<Notification
-				icon="success"
-				title={'Rejestracja'}
-				body={'Zarejestrowałeś się pomyślnie'}
-				footer={'Zaloguj się'}
-			></Notification>
-
-			<h1>{responseError}</h1>
+			{/* <h1>{responseError}</h1> */}
 		</div>
 	);
 };

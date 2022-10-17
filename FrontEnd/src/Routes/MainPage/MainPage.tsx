@@ -11,26 +11,54 @@ import Filters from '../../Components/Filters/Filters';
 import DataList from '../../Components/DataList/DataList';
 import Input from '../../Components/Main/Input/Input';
 import FormInput from '../../Components/FormInput/FormInput';
+import Button from '../../Components/Main/Button/Button';
+import layouts from '../../layouts.module.css';
+
 const MainPage = () => {
 	const context = useContext(States);
 	return (
-		<div className={style.mainPage}>
+		<div className={layouts.center}>
 			{/* <h1>Cześć</h1>
 			<p>
 				{context.isLoggedIn}, {context.userEmail}, {context.userFirstName},{' '}
 				{context.userFirstName},{context.userEmail}, {context.userID},
 				{context.userRanks}
 			</p> */}
-			<Filters className={style.filters} heading="Poliż psa już dziś">
+			<Filters className={style.filters} heading="Wyszukiwanie">
 				<DataList
 					title="Tagi: "
 					id="tagi"
 					data={['frytak', 'lize', 'psy']}
 					placeholder="Tagi"
 				/>
+				<DataList
+					title="Autorzy: "
+					id="autorzy"
+					data={['frytak', 'lize', 'psy']}
+					placeholder="Autorzy"
+				/>
+				<DataList
+					title="Województwo: "
+					id="wojewodztwa"
+					data={['Małopolska', 'Śląskie', 'Mazowieckie']}
+					placeholder="Województwo"
+				/>
+				<DataList
+					title="Powiat: "
+					id="powiat"
+					data={['frytak', 'lize', 'psy']}
+					placeholder="Powiat"
+				/>
+				<DataList
+					title="Gmina: "
+					id="gmina"
+					data={['frytak', 'lize', 'psy']}
+					placeholder="Gmina"
+				/>
 			</Filters>
 
 			<main className={style.mainElements}>
+				<Button className={style.addPublication}>+</Button>
 				<Publication
 					id={'1'}
 					date="05/05/2021"

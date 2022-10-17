@@ -55,6 +55,10 @@ fieldset > label > input {
 	display: none;
 }
 
+.closeOverlay {
+	display: none;
+}
+
 @media screen and (max-width: 1350px) {
 	.box.registerCard {
 		display: none !important;
