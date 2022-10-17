@@ -1,6 +1,6 @@
 .switch {
 	aspect-ratio: 44/20;
-	width: 4.4rem;
+	width: 4rem;
 	height: 2rem;
 	border-radius: 100px;
 	cursor: pointer;
@@ -9,11 +9,12 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 100px;
-	background-color: var(--depth1);
+	background-color: var(--depth3);
 	position: relative;
+	transition-duration: var(--transitionSpeedFast);
 }
 .ball {
-	background-color: var(--depth3);
+	background-color: var(--primary);
 	width: 2rem;
 	height: 2rem;
 	border-radius: 100%;
@@ -21,6 +22,22 @@
 	transition-duration: var(--transitionSpeedFast);
 	transition-timing-function: ease-in-out;
 }
+.ball::before {
+	content: '\2713';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+	background-color: var(--primary);
+	transition-duration: var(--transitionSpeedFast);
+	transition-timing-function: ease-in-out;
+}
 .toggled {
-	translate: 120%;
+	translate: 100%;
+}
+.toggledTrack {
+	/* 	background-color: var(--green);
+ */
 }

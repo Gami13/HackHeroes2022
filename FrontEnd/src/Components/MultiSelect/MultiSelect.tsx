@@ -38,9 +38,11 @@ const MultiSelect = (props: MultiSelectProps) => {
 		>
 			<button className={[props.classNameMain, style.main].join(' ')}>
 				<ul>
-					<li>
+					{available.map((option: Option) => (
+						<li key={option.id}><button id= onClick={}></button></li>
+					{/* <li>
 						<button></button>
-					</li>
+					</li> */}
 				</ul>
 			</button>
 			<ul
