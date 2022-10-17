@@ -428,7 +428,7 @@ const RegisterForm = () => {
 					setDisplayOverlay(false);
 				}}
 			>
-				<h1>Click me to close preview.</h1>
+				<h1>Click again to close preview.</h1>
 				<RegisterCard
 					firstName={firstName}
 					lastName={lastName}

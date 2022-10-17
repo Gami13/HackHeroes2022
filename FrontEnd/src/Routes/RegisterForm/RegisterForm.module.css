@@ -50,7 +50,8 @@ fieldset > label > input {
 		min-width: 90%;
 	}
 }
-.registerCardOverlay {
+.registerCardOverlay,
+.closeOverlay > h1 {
 	display: none;
 }
 
@@ -59,13 +60,23 @@ fieldset > label > input {
 		display: none !important;
 	}
 	.registerCardOverlay {
-		display: block;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		position: absolute;
+		left: 0;
+		top: 0;
 		width: 100vw;
 		height: 100vh;
 		overflow: hidden;
 		background-color: rgba(0, 0, 0, 70%);
 		z-index: 90000;
+	}
+	.registerCardOverlay > h1 {
+		display: block;
+		padding: 5rem;
+		opacity: 1;
+		color: var(--textSecondary);
 	}
 	.closeOverlay {
 		display: none;
