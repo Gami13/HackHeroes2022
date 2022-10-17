@@ -37,11 +37,51 @@ fieldset > label > input {
 .error {
 	color: var(--textError);
 }
-
+.previewCard {
+	display: none;
+}
+.isPreviewed {
+	display: block;
+}
 @media screen and (max-width: 500px) {
 	.input > input {
 		width: 12rem;
 
 		min-width: 90%;
+	}
+}
+.registerCardOverlay {
+	display: none;
+}
+
+@media screen and (max-width: 1350px) {
+	.box.registerCard {
+		display: none !important;
+	}
+	.registerCardOverlay {
+		display: block;
+		position: absolute;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		background-color: rgba(0, 0, 0, 70%);
+		z-index: 90000;
+	}
+	.closeOverlay {
+		display: none;
+	}
+	.previewCard {
+		display: block;
+		border-radius: var(--roundedBig);
+		background-color: var(--primary);
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		scale: 0.8;
+		padding: 0.2rem;
+	}
+	.previewCard svg {
+		fill: var(--textSecondary);
+		stroke: var(--textSecondary);
 	}
 }

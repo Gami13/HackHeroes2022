@@ -11,6 +11,8 @@ interface RegisterCardProps {
 	voivodeship: string;
 	county: string;
 	town: string;
+	className?: string[] | string;
+	isPreviewed?: boolean;
 }
 
 function fillwithBlank(string: string, min = 4) {
@@ -63,7 +65,9 @@ const RegisterCard = (props: RegisterCardProps) => {
 			height="fit-content"
 			justify="start"
 			items="start"
-			className={style.registerCard}
+			className={`${
+				props.isPreviewed ? style.registerCard : style.isPreviewed
+			}`}
 		>
 			<Box backgroundColor={null} display="flex">
 				<svg

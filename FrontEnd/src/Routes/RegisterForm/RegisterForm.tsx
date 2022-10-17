@@ -41,6 +41,8 @@ const RegisterForm = () => {
 	const [voivodeshipErrors, setVoivodeshipErrors] = useState<string[]>([]);
 	const [countyErrors, setCountyErrors] = useState<string[]>([]);
 	const [townErrors, setTownErrors] = useState<string[]>([]);
+	const [isPreviewed, setIsPreviewed] = useState(false);
+	const [displayOverlay, setDisplayOverlay] = useState(false);
 
 	const [step, setStep] = useState(0);
 	const context = useContext(States);
@@ -257,6 +259,7 @@ const RegisterForm = () => {
 		}
 	}
 	console.log('test');
+	console.log(isPreviewed);
 	return (
 		<div className={[layouts.center].join(' ')}>
 			<Form
@@ -268,6 +271,18 @@ const RegisterForm = () => {
 				}}
 				id="registerForm"
 			>
+				<i
+					onClick={() => {
+						setIsPreviewed(!isPreviewed);
+						setDisplayOverlay(true);
+					}}
+					className={style.previewCard}
+				>
+					<svg height="40" width="48">
+						<path d="M24 31.5q3.55 0 6.025-2.475Q32.5 26.55 32.5 23q0-3.55-2.475-6.025Q27.55 14.5 24 14.5q-3.55 0-6.025 2.475Q15.5 19.45 15.5 23q0 3.55 2.475 6.025Q20.45 31.5 24 31.5Zm0-3.7q-2 0-3.4-1.4T19.2 23q0-2 1.4-3.4t3.4-1.4q2 0 3.4 1.4t1.4 3.4q0 2-1.4 3.4T24 27.8Zm0 11.35q-7.7 0-13.9-4.5T.85 23q3.05-7.15 9.25-11.65T24 6.85q7.7 0 13.9 4.5T47.15 23q-3.05 7.15-9.25 11.65T24 39.15ZM24 23Zm0 12q6 0 11.05-3.275Q40.1 28.45 42.75 23q-2.65-5.45-7.675-8.725Q30.05 11 24 11q-6 0-11.05 3.275Q7.9 17.55 5.2 23q2.7 5.45 7.725 8.725Q17.95 35 24 35Z" />
+					</svg>
+				</i>
+
 				<h1>Stwórz konto</h1>
 				{step == 0 ? (
 					<fieldset form="registerForm">
@@ -404,16 +419,29 @@ const RegisterForm = () => {
 				{step == 2 ? <Button type={'submit'}>Zarejestruj</Button> : null}
 			</Form>
 
-			<RegisterCard
-				firstName={firstName}
-				lastName={lastName}
-				email={email}
-				dateOfBirth={dateOfBirth}
-				gender={gender}
-				voivodeship={voivodeship}
-				county={county}
-				town={town}
-			></RegisterCard>
+			<div
+				className={`${
+					displayOverlay ? style.registerCardOverlay : style.closeOverlay
+				}`}
+				onClick={() => {
+					setIsPreviewed(!isPreviewed);
+					setDisplayOverlay(false);
+				}}
+			>
+				<h1>Click me to close preview.</h1>
+				<RegisterCard
+					firstName={firstName}
+					lastName={lastName}
+					email={email}
+					dateOfBirth={dateOfBirth}
+					gender={gender}
+					voivodeship={voivodeship}
+					county={county}
+					town={town}
+					isPreviewed={isPreviewed}
+				></RegisterCard>
+			</div>
+
 			<Notification
 				icon="success"
 				title={'Rejestracja'}

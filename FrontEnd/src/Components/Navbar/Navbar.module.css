@@ -21,6 +21,7 @@
 	list-style: none;
 	height: 100%;
 }
+
 .nav li {
 	display: flex;
 	align-items: center;
@@ -107,8 +108,6 @@
 	transition-duration: var(--transitionSpeed);
 	margin-right: 0.75rem;
 	flex-shrink: 0;
-}
-.nav li:hover svg {
 }
 
 .showNav {
