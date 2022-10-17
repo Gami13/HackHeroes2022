@@ -1,7 +1,8 @@
 textarea {
 	/* "bg-depth2 border-2 w-full rounded-sm border-accent py-1.25 px-2 focus:outline-none focus:border-text" */
 	width: 100%;
-	max-width: 24rem;
+	height: fit-content;
+	resize: none;
 	border-radius: var(--rounded);
 	background-color: var(--depth2);
 	padding: 0.5rem;

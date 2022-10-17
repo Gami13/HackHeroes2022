@@ -72,9 +72,41 @@ app.listen(3000, () => {
 	//              ..,--------,*/`);
 });
 authentication(app);
+
 app.get('/wojewodztwa', async (req, res) => {
 	let query = 'SELECT * FROM wojewodztwa';
 	let [results, fields] = await db.query<RowDataPacket[]>(query);
-
+	if (results.length == 0) return res.sendError('No results', 404);
 	res.sendSuccess({ wojewodztwa: results });
+});
+app.get('/powiaty', async (req, res) => {
+	let query = 'SELECT name,id FROM powiaty';
+	let [results, fields] = await db.query<RowDataPacket[]>(query);
+	if (results.length == 0) return res.sendError('No results', 404);
+	res.sendSuccess({ powiaty: results });
+});
+app.get('/powiaty/:wojId', async (req, res) => {
+	let wojId = req.params.wojId || 0;
+	console.log(req.params);
+	let query = 'SELECT name,id FROM powiaty WHERE wojId = ?';
+	let [results, fields] = await db.query<RowDataPacket[]>(query, [wojId]);
+	if (results.length == 0) return res.sendError('No results', 404);
+	res.sendSuccess({
+		powiat: results,
+	});
+});
+app.get('/gminy', async (req, res) => {
+	let query = 'SELECT name,id FROM gminy';
+	let [results, fields] = await db.query<RowDataPacket[]>(query);
+	if (results.length == 0) return res.sendError('No results', 404);
+	res.sendSuccess({ gminy: results });
+});
+app.get('/gminy/:powId', async (req, res) => {
+	let powId = req.params.powId || 0;
+	let query = 'SELECT name,id FROM gminy WHERE powId = ?';
+	let [results, fields] = await db.query<RowDataPacket[]>(query, [powId]);
+	if (results.length == 0) return res.sendError('No results', 404);
+	res.sendSuccess({
+		gminy: results,
+	});
 });

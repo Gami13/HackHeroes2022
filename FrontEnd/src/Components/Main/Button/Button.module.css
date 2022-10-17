@@ -4,8 +4,6 @@
 	width: fit-content;
 	padding: 0.5rem 1rem;
 	border-radius: var(--rounded);
-	/*TODO remove this*/
-	margin: 10px auto;
 	font-weight: 600;
 	transition-duration: var(--transitionSpeedFast);
 	transition-property: color, background-color;

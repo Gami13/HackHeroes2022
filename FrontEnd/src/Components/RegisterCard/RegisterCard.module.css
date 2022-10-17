@@ -1,9 +1,7 @@
 .registerCard {
 	max-width: 36rem;
 }
-.isPreviewed {
-	display: none !important;
-}
+
 .registerCardOverlay {
 	display: none;
 }
@@ -27,16 +25,14 @@
 	flex-direction: row;
 	justify-content: left;
 }
-.registerCard p {
-	color: var(--secondary);
-	margin-left: 0.5rem;
-}
 
-.mainData > div > p {
+.registerCard p {
 	max-width: 20rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	color: var(--secondary);
+	margin-left: 0.5rem;
 }
 
 .secondaryData > div {

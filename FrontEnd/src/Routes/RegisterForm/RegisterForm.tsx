@@ -144,14 +144,21 @@ const RegisterForm = () => {
 				'- Musisz podać datę urodzenia',
 			]);
 			return false;
-		} else if (dateOfBirth.getTime() - currentDate.getTime() < 410240038000) {
 		}
+		//check if date is 13 years ago from now
+		if (dateOfBirth.getFullYear() > currentDate.getFullYear() - 13) {
+			setDateOfBirthErrors((oldArray: string[]) => [
+				...oldArray,
+				'- Musisz mieć przynajmniej 13 lat',
+			]);
+			return false;
+		}
+
 		return true;
 	}
 	function validateGender() {
-		console.log('test');
 		setGenderErrors([]);
-		if (gender == '?' || gender == 'M' || gender == 'K') {
+		if (gender == 'M' || gender == 'K') {
 			return true;
 		}
 		setGenderErrors((oldArray: string[]) => [
@@ -224,10 +231,10 @@ const RegisterForm = () => {
 		validatePassword();
 
 		if (
-			validateEmail() &&
-			validatePassword() &&
-			validatePersonalData() &&
-			validateLocalizationData()
+			!validateEmail() &&
+			!validatePassword() &&
+			!validatePersonalData() &&
+			!validateLocalizationData()
 		) {
 			console.log('Errors in form');
 			return false;
@@ -314,6 +321,7 @@ const RegisterForm = () => {
 								value={dateOfBirth}
 								onChange={(date) => {
 									setDateOfBirth(date?.toDate());
+									validateDateOfBirth();
 								}}
 							></DatePicker>
 						</Label>

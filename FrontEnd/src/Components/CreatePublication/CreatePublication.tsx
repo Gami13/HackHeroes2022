@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Box from '../Main/Box/Box';
 import Input from '../Main/Input/Input';
 import TextArea from '../Main/TextArea/TextArea';
+import Button from '../Main/Button/Button';
+import MultiSelect from '../MultiSelect/MultiSelect';
 
 interface PublicationProps {
 	width?: string;
@@ -19,6 +21,13 @@ interface PublicationProps {
 
 function Publication(props: PublicationProps) {
 	const { width, height, user, date, title, body, footer, className } = props;
+	const [selections, setSelections] = React.useState<any>([]);
+
+	selections.map((x: any) => (
+		<p>
+			{x.value}- {x.label}
+		</p>
+	));
 
 	return (
 		<Box
@@ -28,17 +37,29 @@ function Publication(props: PublicationProps) {
 			display="grid"
 			backgroundColor={null}
 			gridTemplateColumns="1fr"
-			gridTemplateRows="fit-content(1rem) 2rem 1fr fit-content(1rem)"
+			gridTemplateRows="fit-content(1rem) fit-content(4rem) 1fr fit-content(1rem)"
 			gap="0.5rem"
 		>
 			<div className={style.info}>
-				<TextArea>Test</TextArea>
-				<TextArea>Test</TextArea>
-				{/* Jeszcze nie skończone! */}
+				<p>12/12/2022</p>
+				<p>Boby Drop Tables</p>
 			</div>
-			<h1 className={style.title}>{title}</h1>
-			<div className={style.body}>{body}</div>
-			<div className={style.footer}>{footer}</div>
+			<Input className={style.title} type="text" width="100%" maxLength={64} />
+			<TextArea className={style.body} rows={8} maxLength={500}>
+				Test
+			</TextArea>
+			<div className={style.footer}>
+				<MultiSelect
+					options={[
+						{ value: 'test1', label: 'test1' },
+						{ value: 'test2', label: 'test2' },
+					]}
+					returnSetter={setSelections}
+				></MultiSelect>
+			</div>
+			<div className={style.actions}>
+				<Button>Submit</Button>
+			</div>
 		</Box>
 	);
 }

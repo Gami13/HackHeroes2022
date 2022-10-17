@@ -4,6 +4,7 @@ import style from './TextArea.module.css';
 interface TextAreaProps {
 	id?: string;
 	text?: string;
+	rows?: number;
 	className?: string[] | string;
 	placeholder?: string;
 	maxLength?: number;
@@ -20,6 +21,7 @@ function TextArea(props: TextAreaProps) {
 		placeholder,
 		disabled,
 		form,
+		rows,
 		maxLength,
 		minLength,
 		children,
@@ -32,6 +34,7 @@ function TextArea(props: TextAreaProps) {
 			className={[style.input, className].join(' ')}
 			placeholder={placeholder}
 			form={form}
+			rows={rows}
 			maxLength={maxLength}
 			minLength={minLength}
 		>

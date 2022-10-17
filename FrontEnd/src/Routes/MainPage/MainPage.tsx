@@ -18,7 +18,7 @@ import CreatePublication from '../../Components/CreatePublication/CreatePublicat
 const MainPage = () => {
 	const context = useContext(States);
 	return (
-		<div className={style.mainPage}>
+		<div className={layouts.center}>
 			{/* <h1>Cześć</h1>
 			<p>
 				{context.isLoggedIn}, {context.userEmail}, {context.userFirstName},{' '}
@@ -60,12 +60,14 @@ const MainPage = () => {
 
 			<main className={style.mainElements}>
 				<Button className={style.addPublication}>+</Button>
-				<CreatePublication></CreatePublication>
+				<CreatePublication height="fit-content"></CreatePublication>
 				<Publication
 					id={'1'}
 					date="05/05/2021"
 					user="Boby Drop Tables"
-					title={'To trzeba zmienić! zmiana'}
+					title={
+						'To trzeba zmienić! zmiana! zmiana zmiana zmiana zmiana! zmiana zmiana zmiana zmiana! zmiana zmiana zmiana zmiana! zmiana zmiana zmiana'
+					}
 					body={
 						'Dzisiaj będąc w kawiarni zapomniałem wziąść ze sobą telefonu, który miałem na stoliku. Gdy przyszedłem następnego dnia, obsługa nie chciała mi go oddać, choć na moich oczach tego ranka jak wchodziłem to go zabierali sprzątając! 😡😡'
 					}

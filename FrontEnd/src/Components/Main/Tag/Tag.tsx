@@ -7,6 +7,8 @@ interface TagProps {
 	emoji?: string;
 	backgroundColor?: Property.BackgroundColor | null;
 	className?: string[] | string;
+	onClick?: (event: any) => void;
+	id?: string;
 }
 
 function Tag(props: TagProps) {
@@ -15,6 +17,8 @@ function Tag(props: TagProps) {
 	return (
 		<div
 			className={[className, style.tag].join(' ')}
+			id={props.id}
+			onClick={props.onClick}
 			style={{ backgroundColor: backgroundColor } as CSSProperties}
 		>
 			<div className={style.emoji}>{emoji}</div>

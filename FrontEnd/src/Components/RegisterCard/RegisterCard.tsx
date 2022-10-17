@@ -65,9 +65,7 @@ const RegisterCard = (props: RegisterCardProps) => {
 			height="fit-content"
 			justify="start"
 			items="start"
-			className={`${
-				props.isPreviewed ? style.registerCard : style.isPreviewed
-			}`}
+			className={`${props.isPreviewed ? style.registerCard : null}`}
 		>
 			<Box backgroundColor={null} display="flex">
 				<svg

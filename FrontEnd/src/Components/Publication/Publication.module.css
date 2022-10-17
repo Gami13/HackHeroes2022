@@ -13,6 +13,7 @@
 .title {
 	display: flex;
 	align-items: center;
+	text-align: left;
 	grid-row: 2 / 3;
 	background-color: var(--depth2);
 	border-radius: var(--roundedBig);

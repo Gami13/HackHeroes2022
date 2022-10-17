@@ -29,10 +29,11 @@
 	--depth4: ;
 	--depth5: ; */
 
-	--depth0: rgb(241, 242, 241);
-	--depth1: rgb(229, 231, 229);
-	--depth2: rgb(219, 219, 219);
-	--depth3: rgb(203, 203, 203);
+	--depth0: rgb(241, 241, 241);
+	--depth1: rgb(226, 226, 226);
+	--depth2: rgb(211, 211, 211);
+	--depth3: rgb(196, 196, 196);
+	--depth4: rgb(181, 181, 181);
 
 	/* colors */
 	--primary: #5865f2; /* #5865f2 - zamienione z blue*/
@@ -51,7 +52,7 @@
 	--textPrimaryHover: #6e6e6e;
 	--textSecondary: #f0feff;
 	--textSecondaryHover: #dae7ea;
-	--textError: #df3638;
+	--textError: rgb(220, 56, 56);
 
 	--mainFontColor: #b9bbbe;
 	--link: #4a8ca6;

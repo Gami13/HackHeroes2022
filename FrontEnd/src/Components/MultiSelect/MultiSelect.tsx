@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import Tag from '../Main/Tag/Tag';
 import style from './MultiSelect.module.css';
 type Option = {
 	value: string;
@@ -67,7 +68,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 				title="placeholder"
 				className={[props.classNameMain, style.main].join(' ')}
 			>
-				<ul>
+				<ul className={style.selectedList}>
 					{selected.map((option: Option) => (
 						<li
 							ref={(el) => (children.current[option.id] = el)}
@@ -75,16 +76,21 @@ const MultiSelect = (props: MultiSelectProps) => {
 							id="selected"
 						>
 							<button id={option.id} onClick={unselect}>
-								x {option.label}
+								<Tag text={`${option.label} x`} />
 							</button>
 						</li>
 					))}
 				</ul>
+				<svg height="48" width="48">
+					<path d="m24 31.2-12.05-12h24.1Z" />
+				</svg>
 			</button>
 			<ul
-				className={`${props.classNameList} ${style.list} ${
-					isFolded ? style.folded : null
-				}`}
+				className={[
+					props.classNameList,
+					style.list,
+					isFolded ? style.folded : null,
+				].join(' ')}
 			>
 				{available.map((option: Option) => (
 					<li
@@ -93,7 +99,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 						key={option.id}
 					>
 						<button id={option.id} onClick={select}>
-							{option.label}
+							<Tag text={option.label} />
 						</button>
 					</li>
 				))}
