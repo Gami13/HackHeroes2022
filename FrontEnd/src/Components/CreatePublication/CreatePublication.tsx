@@ -44,12 +44,22 @@ function Publication(props: PublicationProps) {
 				<p>12/12/2022</p>
 				<p>Boby Drop Tables</p>
 			</div>
-			<Input className={style.title} type="text" width="100%" maxLength={64} placeholder="Tytuł"/>
-			<TextArea className={style.body} rows={8} maxLength={500} placeholder="Zawartość...">
-				
-			</TextArea>
+			<Input
+				className={style.title}
+				type="text"
+				width="100%"
+				maxLength={64}
+				placeholder="Tytuł"
+			/>
+			<TextArea
+				className={style.body}
+				rows={8}
+				maxLength={500}
+				placeholder="Zawartość..."
+			></TextArea>
 			<div className={style.footer}>
-				<MultiSelect className={style.multiSelect}
+				<MultiSelect
+					className={style.multiSelect}
 					options={[
 						{ value: 'test1', label: 'test1' },
 						{ value: 'test2', label: 'test2' },
@@ -58,7 +68,7 @@ function Publication(props: PublicationProps) {
 				></MultiSelect>
 			</div>
 			<div className={style.actions}>
-				<Button>Anuluj</Button>
+				<Button className={style.cancelButton}>Anuluj</Button>
 				<Button>Opublikuj</Button>
 			</div>
 		</Box>
