@@ -10,17 +10,7 @@ const Test = () => {
 	return (
 		<>
 			<div className={layouts.center}>
-				<div className={style.form_input}>
-					<input
-						type="checkbox"
-						className={style.checkbox}
-						id="chk"
-						onChange={() => setCheck(!check)}
-					/>
-					<span className={style.wrapper}>
-						<span className={check ? style.tick : null}></span>
-					</span>
-				</div>
+				<div className={style.loadingCircle}></div>
 			</div>
 		</>
 	);

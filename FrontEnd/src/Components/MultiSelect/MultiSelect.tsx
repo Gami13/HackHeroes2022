@@ -82,14 +82,9 @@ const MultiSelect = (props: MultiSelectProps) => {
 						</li>
 					))}
 				</ul>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="40"
-					height="40"
-					fill="currentColor"
-					viewBox="0 0 16 16"
-				>
-					<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+
+				<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+					<path d="m24 30.8-12-12 2.15-2.15L24 26.5l9.85-9.85L36 18.8Z" />
 				</svg>
 			</button>
 			<ul

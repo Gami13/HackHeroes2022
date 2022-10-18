@@ -9,12 +9,18 @@
 	height: fit-content;
 	min-height: 40px;
 	border-radius: var(--rounded);
-	background-color: var(--depth2);
+	background-color: var(--depth3);
 	display: flex;
 	flex-direction: row;
 }
+
 .main svg {
 	fill: var(--primary);
+	transition: rotate 0.5s;
+}
+.main svg:hover {
+	rotate: 1980deg;
+	transition: rotate 0.5s;
 }
 .folded {
 	height: 0 !important;
@@ -94,11 +100,13 @@
 	list-style: none;
 	margin: 0.1rem 0.2rem;
 	background-color: var(--primary);
-
-	padding: 0.1rem;
+	cursor: pointer;
+	padding: 0.2rem;
 	border-radius: var(--roundedBig);
 }
 .selectedList li button {
 	background: none;
 	color: white;
+	border-radius: var(--roundedBig);
+	cursor: pointer;
 }
