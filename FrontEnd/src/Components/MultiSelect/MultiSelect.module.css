@@ -93,7 +93,12 @@
 .selectedList li {
 	list-style: none;
 	margin: 0.1rem 0.2rem;
+	background-color: var(--primary);
+
+	padding: 0.1rem;
+	border-radius: var(--roundedBig);
 }
 .selectedList li button {
 	background: none;
+	color: white;
 }

@@ -45,9 +45,6 @@
 	margin-right: 0.5rem;
 }
 
-.footer > * > * {
-	margin-right: 0.5rem;
-}
 .box {
 	background-color: var(--depth1);
 	transition-duration: var(--transitionSpeedFast);
