@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS `users` (
     `email` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `salt` varchar(255) NOT NULL,
-    `tokens` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '[]',
-    `ranks` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '["user"]',
+    `tokens` JSON NOT NULL DEFAULT '[]',
+    `ranks` JSON NOT NULL DEFAULT '["user"]',
     `isBanned` tinyint(1) NOT NULL,
     `isActivated` tinyint(1) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `publication` (
     `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `title` varchar(255) NOT NULL,
     `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-    `footer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+    `footer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 

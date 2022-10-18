@@ -6,6 +6,7 @@ import Input from '../Main/Input/Input';
 import TextArea from '../Main/TextArea/TextArea';
 import Button from '../Main/Button/Button';
 import MultiSelect from '../MultiSelect/MultiSelect';
+import Tag from '../Main/Tag/Tag';
 
 interface PublicationProps {
 	width?: string;
@@ -61,8 +62,8 @@ function Publication(props: PublicationProps) {
 				<MultiSelect
 					className={style.multiSelect}
 					options={[
-						{ value: 'test1', label: 'test1' },
-						{ value: 'test2', label: 'test2' },
+						{ value: 'test1', label: <Tag text="test1" emoji="🕸" /> },
+						{ value: 'test2', label: <Tag text="test2" emoji="🕸" /> },
 					]}
 					returnSetter={setSelections}
 				></MultiSelect>

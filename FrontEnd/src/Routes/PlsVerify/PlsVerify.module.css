@@ -15,3 +15,8 @@
 .content h1 {
 	color: var(--textPrimary);
 }
+
+.text {
+	margin-top: 1rem;
+	text-align: center;
+}

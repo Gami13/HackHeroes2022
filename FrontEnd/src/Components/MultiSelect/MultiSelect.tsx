@@ -3,7 +3,7 @@ import Tag from '../Main/Tag/Tag';
 import style from './MultiSelect.module.css';
 type Option = {
 	value: string;
-	label: ReactNode;
+	label: ReactNode | string;
 	id?: any;
 };
 interface MultiSelectProps {

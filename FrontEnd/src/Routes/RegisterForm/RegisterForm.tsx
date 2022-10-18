@@ -158,7 +158,7 @@ const RegisterForm = () => {
 	}
 	function validateGender() {
 		setGenderErrors([]);
-		if (gender == 'M' || gender == 'K') {
+		if (gender == 'M' || gender == 'K' || gender == '👽') {
 			return true;
 		}
 		setGenderErrors((oldArray: string[]) => [

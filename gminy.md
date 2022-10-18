@@ -56,7 +56,7 @@ for (let i = 0; i < wojewodztwa.length; i++) {
 querries.push(insertQuery);
 insertQuery = "INSERT INTO powiaty (name, wojId) VALUES ";
 for (let i = 0; i < powiaty.length; i++) {
-  insertQuery += `('${powiaty[i].name}', (SELECT id FROM wojewodztwa WHERE name = '${wojewodztwa[powiaty[i].wojewodztwo]}' LIMIT 1))`;
+  insertQuery += `('${powiaty[i].name}', ${powiaty[i].wojewodztwo})`;
   if (i !== powiaty.length - 1) {
     insertQuery += ", ";
   }
@@ -64,7 +64,7 @@ for (let i = 0; i < powiaty.length; i++) {
 querries.push(insertQuery);
 insertQuery = "INSERT INTO gminy (name, powId) VALUES ";
 for (let i = 0; i < gminy.length; i++) {
-  insertQuery += `('${gminy[i].name}', (SELECT id FROM powiaty WHERE name = '${powiaty[gminy[i].powiat].name}'  LIMIT 1))`;
+  insertQuery += `('${gminy[i].name}', ${gminy[i].powiat})`;
   if (i !== gminy.length - 1) {
     insertQuery += ", ";
   }
