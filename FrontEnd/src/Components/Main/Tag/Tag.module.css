@@ -13,6 +13,7 @@
 	color: var(--textSecondary);
 	font-size: 0.8rem;
 	text-align: left;
+	white-space: nowrap;
 }
 
 .emoji {
