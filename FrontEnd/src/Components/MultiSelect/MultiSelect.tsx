@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef } from 'react';
 import Tag from '../Main/Tag/Tag';
 import style from './MultiSelect.module.css';
 type Option = {
 	value: string;
-	label: string;
+	label: ReactNode;
 	id?: any;
 };
 interface MultiSelectProps {
@@ -57,6 +57,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 
 	return (
 		<div ref={whole} className={[style.multiSelect, props.className].join(' ')}>
+			<span>Multi Select</span>
 			<button
 				onClick={(e) => {
 					if (
@@ -68,6 +69,15 @@ const MultiSelect = (props: MultiSelectProps) => {
 				title="placeholder"
 				className={[props.classNameMain, style.main].join(' ')}
 			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="40"
+					height="40"
+					fill="currentColor"
+					viewBox="0 0 16 16"
+				>
+					<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+				</svg>
 				<ul className={style.selectedList}>
 					{selected.map((option: Option) => (
 						<li
@@ -76,14 +86,11 @@ const MultiSelect = (props: MultiSelectProps) => {
 							id="selected"
 						>
 							<button id={option.id} onClick={unselect}>
-								<Tag text={`${option.label} x`} />
+								{option.label}
 							</button>
 						</li>
 					))}
 				</ul>
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-					<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-				</svg>
 			</button>
 			<ul
 				className={[
@@ -99,7 +106,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 						key={option.id}
 					>
 						<button id={option.id} onClick={select}>
-							<Tag text={option.label} />
+							{option.label}
 						</button>
 					</li>
 				))}

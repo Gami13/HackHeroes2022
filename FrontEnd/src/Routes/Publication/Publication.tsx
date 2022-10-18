@@ -4,6 +4,9 @@ import style from './Publication.module.css';
 import Switch from '../../Components/Switch/Switch';
 import SwitchLabeled from '../../Components/SwitchLabeled/SwitchLabeled';
 import MultiSelect from '../../Components/MultiSelect/MultiSelect';
+import Tag from '../../Components/Main/Tag/Tag';
+import DataList from '../../Components/DataList/DataList';
+import layouts from '../../layouts.module.css';
 
 const Publication = () => {
 	const { id } = useParams();
@@ -14,7 +17,7 @@ const Publication = () => {
 	}
 
 	return (
-		<div className={style.publication}>
+		<div className={layouts.center}>
 			<h1>MultiSelect selections</h1>
 			{selections.map((x: any) => (
 				<p>
@@ -30,10 +33,23 @@ const Publication = () => {
 				title="le switch"
 				label="le switch"
 			/>
+			<DataList
+				title="Województwo: "
+				id="wojewodztwa"
+				data={['Małopolska', 'Śląskie', 'Mazowieckie']}
+				placeholder="Województwo"
+			/>
 			<MultiSelect
 				options={[
-					{ value: 'test1', label: 'test1' },
-					{ value: 'test2', label: 'test2' },
+					{ value: 'test1', label: <Tag text="Zgone" emoji="🕸" /> },
+					{ value: 'test2', label: <Tag text="Zgubhhione" emoji="🕸" /> },
+					{ value: 'test1', label: <Tag text="Zgubione" emoji="🕸" /> },
+					{ value: 'test2', label: <Tag text="Zgubione" emoji="🕸" /> },
+					{
+						value: 'test1',
+						label: <Tag text="Zgufjghjggdfgf fbione" emoji="🕸" />,
+					},
+					{ value: 'test2', label: <Tag text="Zone" emoji="🕸" /> },
 				]}
 				returnSetter={setSelections}
 			/>
