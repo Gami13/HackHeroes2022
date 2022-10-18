@@ -63,5 +63,5 @@ GET {{url}}/wojewodztwa HTTP/1.1
 @wojId = 6
 GET {{url}}/powiaty/{{wojId}} HTTP/1.1
 ###
-@powId = 1
+@powId = 6
 GET {{url}}/gminy/{{powId}} HTTP/1.1
