@@ -7,6 +7,8 @@ import MultiSelect from '../../Components/MultiSelect/MultiSelect';
 import Tag from '../../Components/Main/Tag/Tag';
 import DataList from '../../Components/DataList/DataList';
 import layouts from '../../layouts.module.css';
+import Box from '../../Components/Main/Box/Box';
+import Article from '../../Components/Publication/Publication';
 
 const Publication = () => {
 	const { id } = useParams();
@@ -16,21 +18,15 @@ const Publication = () => {
 		setTest(!test);
 	}
 
-	const [options, setOptions] = React.useState([
-		{ value: 'test1', label: <Tag text="Zgone" emoji="🕸" /> },
-		{ value: 'test2', label: <Tag text="Zgubhhione" emoji="🕸" /> },
-		{ value: 'test1', label: <Tag text="Zgubione" emoji="🕸" /> },
-		{ value: 'test2', label: <Tag text="Zgubione" emoji="🕸" /> },
-		{
-			value: 'test1',
-			label: <Tag text="Zgufjghjggdfgf fbione" emoji="🕸" />,
-		},
-		{ value: 'test2', label: <Tag text="Zone" emoji="🕸" /> },
-	]);
-
 	return (
 		<div className={layouts.center}>
-			<h1>MultiSelect selections</h1>
+			<Box>
+				<div className={style.info}>
+					<p>{'date'}</p>
+					<p>{'user'}</p>
+				</div>
+			</Box>
+			{/* <h1>MultiSelect selections</h1>
 			{selections.map((x: any) => (
 				<p>
 					{x.value}- {x.label}
@@ -49,153 +45,7 @@ const Publication = () => {
 				id="wojewodztwa"
 				data={['Małopolska', 'Śląskie', 'Mazowieckie']}
 				placeholder="Województwo"
-			/>
-			<MultiSelect options={options} returnSetter={setSelections} />
-			<MultiSelect options={options} returnSetter={setSelections} />
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />{' '}
-			<MultiSelect options={options} returnSetter={setSelections} />
-			<h1>{id}</h1>
+			/> */}
 		</div>
 	);
 };

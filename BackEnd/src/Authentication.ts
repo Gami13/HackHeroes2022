@@ -8,20 +8,24 @@ import db from './connection.js';
 
 export default function authentication(app: Express) {
 	app.post('/registerUser', async (req: Request, res: Response) => {
-		/* TODO: CHANGE USERNAME TO FIRST NAME AND LAST NAME !!!!VERY IMPORTANT!!!! */
 		let firstName = req.body.firstName;
 		let lastName = req.body.lastName;
+		let dateOfBirth = new Date(req.body.dateOfBirth);
+		let gminaId = req.body.gminaId;
 		let email = req.body.email;
 		let password = req.body.password;
 		let passwordConfirm = req.body.passwordConfirm;
 
+		console.log(req.body);
+		console.log('test', new Date(dateOfBirth));
 		//TODO add validation for first name and last name
 		if (
 			!DataValidation.isUserDataValid(
 				firstName,
 				email,
 				password,
-				passwordConfirm
+				passwordConfirm,
+				dateOfBirth
 			)
 		) {
 			res.sendError('Invalid form data');
@@ -30,6 +34,16 @@ export default function authentication(app: Express) {
 
 		let { hashedPassword, salt } = await UserManagement.hashPassword(password);
 		let ID = SnowflakeID.createID('000');
+
+		//check if gmina exists
+		let [gminaResults, gminaFields] = await db.execute<RowDataPacket[]>(
+			'SELECT id FROM gminy WHERE id = ? LIMIT 1',
+			[gminaId]
+		);
+		if (gminaResults.length == 0) {
+			res.sendError('Invalid gmina');
+			return false;
+		}
 
 		/* 	console.log(
             `Username: ${username} | E-Mail: ${email} | Password: | ${password} | PasswordCofirm: ${passwordConfirm} | HashedPassword: ${hashedPassword} | Salt: ${salt} | ID: ${ID} }`

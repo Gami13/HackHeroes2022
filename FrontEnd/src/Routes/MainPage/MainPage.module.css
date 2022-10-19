@@ -2,16 +2,18 @@
 	flex-direction: column;
 
 	gap: 2rem;
-	align-items: center;
+	align-items: flex-end;
 
 	display: flex;
 	width: fit-content;
 }
 
+.addPublicationInvis {
+	display: none !important;
+}
+
 .addPublication {
-	aspect-ratio: 1/1;
 	margin: 0;
-	border-radius: 100%;
 }
 
 .additionalElements {

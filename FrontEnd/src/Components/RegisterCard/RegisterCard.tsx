@@ -90,36 +90,39 @@ const RegisterCard = (props: RegisterCardProps) => {
 				<div className={style.mainData}>
 					<div className={style.firstName}>
 						<span>Imie:</span>
-						<p>{cardFirstName}</p>
+						<p className={style.registerCardText}>{cardFirstName}</p>
 					</div>
 					<div className={style.lastName}>
 						<span>Nazwisko:</span>
-						<p>{cardLastName}</p>
+						<p className={style.registerCardText}>{cardLastName}</p>
 					</div>
 					<div className={style.email}>
 						<span>E-Mail:</span>
-						<p>{cardEmail}</p>
+						<p className={style.registerCardText}>{cardEmail}</p>
 					</div>
 				</div>
 
 				<div className={style.secondaryData}>
 					<div>
 						<span>Zamieszkanie:</span>
-						<p title={cardVoivodeship + ' - ' + cardCounty + ' - ' + cardTown}>
+						<p
+							title={cardVoivodeship + ' - ' + cardCounty + ' - ' + cardTown}
+							className={style.registerCardText}
+						>
 							{cardVoivodeship} - {cardCounty} - {cardTown}
 						</p>
 					</div>
 					<div>
 						<div>
 							<span>Data Urodzenia:</span>
-							<p>
+							<p className={style.registerCardText}>
 								{new Intl.DateTimeFormat('en-UK').format(props.dateOfBirth)}
 							</p>
 						</div>
 
 						<div>
 							<span>Płeć:</span>
-							<p>{props.gender}</p>
+							<p className={style.registerCardText}>{props.gender}</p>
 						</div>
 					</div>
 				</div>

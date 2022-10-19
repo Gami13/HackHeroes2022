@@ -4,24 +4,37 @@ class DataValidation {
 		username: string,
 		email: string,
 		password: string,
-		passwordConfirm: string
+		passwordConfirm: string,
+		dateOfBirth: Date
 	) {
 		if (
 			DataValidation.validateUsername(username).length == 0 &&
 			DataValidation.validateEmail(email).length == 0 &&
-			DataValidation.validatePassword(password, passwordConfirm).length == 0
+			DataValidation.validatePassword(password, passwordConfirm).length == 0 &&
+			DataValidation.validateDateOfBirth(dateOfBirth).length == 0
 		) {
 			return true;
 		}
 	}
+	static validateDateOfBirth(dateOfBirth: Date) {
+		let errors: string[] = [];
+		if (dateOfBirth == null) {
+			errors.push('Date of birth is required');
+		}
+		if (dateOfBirth.getTime() > Date.now() - 1000 * 60 * 60 * 24 * 365 * 13) {
+			errors.push('You must be at least 13 years old');
+		}
+		return errors;
+	}
+
 	static validateUsername(username: string) {
 		let usernameErrors: string[] = [];
 		if (username.includes('#')) {
 			usernameErrors.push('- Cannot contain #');
 		}
-		if (username.length < 3 || username.length > 32) {
-			usernameErrors.push('- Must be between 3 and 32 characters');
-		}
+		// if (username.length < 3 || username.length > 32) {
+		// 	usernameErrors.push('- Must be between 3 and 32 characters');
+		// }
 		return usernameErrors;
 	}
 	static validateEmail(email: string) {

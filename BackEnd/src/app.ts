@@ -1,46 +1,14 @@
+import * as dotenv from 'dotenv';
+dotenv.config({ path: './.env' });
 import express, { Response } from 'express';
 import cors from 'cors';
-import { yes } from './classes/Log.js';
+
 import authentication from './Authentication.js';
 import db from './connection.js';
 import { RowDataPacket } from 'mysql2';
-
-yes();
-
-declare global {
-	namespace Express {
-		interface Response {
-			sendError: (
-				message: string | any,
-				errorCode?: number | 404 | 401 | 500
-			) => express.Response;
-			sendSuccess: (message: string | any, ...data: any) => express.Response;
-		}
-	}
-}
-class extend {
-	static sendError(
-		message: string,
-		errorCode: number | 404 | 401 | 500 = 500
-	): express.Response {
-		let response = this as unknown as Response;
-		return response
-			.status(errorCode)
-			.send({ status: 'error', success: false, message });
-	}
-	static sendSuccess(message: string, data: any = null): express.Response {
-		let response = this as unknown as Response;
-		let msg: string | undefined = message;
-
-		if (typeof message === 'object') {
-			data = message;
-			msg = undefined;
-		}
-		return response.send({ status: 'success', succes: true, msg, ...data });
-	}
-}
-express.response.sendError = extend.sendError;
-express.response.sendSuccess = extend.sendSuccess;
+import load from './classes/extensions.js';
+import publications from './classes/publications.js';
+load();
 
 const app = express();
 app.use(express.json());
@@ -72,6 +40,7 @@ app.listen(3000, () => {
 	//              ..,--------,*/`);
 });
 authentication(app);
+publications(app);
 
 app.get('/wojewodztwa', async (req, res) => {
 	let query = 'SELECT * FROM wojewodztwa';
@@ -87,12 +56,11 @@ app.get('/powiaty', async (req, res) => {
 });
 app.get('/powiaty/:wojId', async (req, res) => {
 	let wojId = req.params.wojId || 0;
-	console.log(req.params);
 	let query = 'SELECT name,id FROM powiaty WHERE wojId = ?';
 	let [results, fields] = await db.query<RowDataPacket[]>(query, [wojId]);
 	if (results.length == 0) return res.sendError('No results', 404);
 	res.sendSuccess({
-		powiat: results,
+		powiaty: results,
 	});
 });
 app.get('/gminy', async (req, res) => {

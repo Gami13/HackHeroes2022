@@ -34,6 +34,7 @@ const DataList = (props: DataListProps) => {
 					id={props.id}
 					list={props.id + 'List'}
 					onChange={props.onChange}
+					onBlur={props.onBlur}
 				/>
 				<datalist id={props.id + 'List'}>
 					{props.data.map((item, index) => (

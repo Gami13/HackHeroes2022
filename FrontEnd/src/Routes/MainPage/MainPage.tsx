@@ -14,9 +14,73 @@ import FormInput from '../../Components/FormInput/FormInput';
 import Button from '../../Components/Main/Button/Button';
 import layouts from '../../layouts.module.css';
 import CreatePublication from '../../Components/CreatePublication/CreatePublication';
+import useIsFirstRender from '../../isFirstRender';
+interface tak {
+	id: number;
+	name: string;
+}
+
+async function fetchPowiaty(wojId: number) {
+	const res = await fetch(`http://localhost:3000/powiaty/${wojId}`);
+	const json = await res.json();
+	return json;
+}
+async function fetchGminy(powId: number) {
+	const res = await fetch(`http://localhost:3000/gminy/${powId}`);
+	const json = await res.json();
+	return json;
+}
 
 const MainPage = () => {
 	const context = useContext(States);
+
+	const [publications, setPublications] = useState([]);
+
+	const [isAddPublicationOpen, setIsAddPublicationOpen] = useState(false);
+
+	const [wojewodztwa, setWojewodztwa] = useState<tak[]>([]);
+	const [wojewodztwaSelected, setWojewodztwaSelected] = useState<
+		tak | undefined
+	>();
+	const [powiaty, setPowiaty] = useState<tak[]>([]);
+	const [powiatySelected, setPowiatySelected] = useState<tak | undefined>();
+
+	const [gminy, setGminy] = useState<tak[]>([]);
+	const [gminySelected, setGminySelected] = useState<tak | undefined>();
+
+	const isFirstRender = useIsFirstRender();
+	if (isFirstRender) {
+		let w = async () => {
+			let res = await fetch('http://localhost:3000/wojewodztwa');
+			let json = await res.json();
+			setWojewodztwa(json.wojewodztwa);
+
+			let res2 = await fetch(`http://localhost:3000/publications`);
+			let json2 = await res2.json();
+			setPublications(json2.publications);
+		};
+		w();
+		console.log('first render');
+	}
+	useEffect(() => {
+		if (isFirstRender) return;
+		console.log(wojewodztwa);
+
+		fetchPowiaty(wojewodztwaSelected?.id || 0).then((res) => {
+			console.log(res);
+			if (res.powiaty) setPowiaty(res.powiaty);
+		});
+	}, [wojewodztwaSelected]);
+
+	useEffect(() => {
+		if (isFirstRender) return;
+		console.log(powiaty);
+		fetchGminy(powiatySelected?.id || 0).then((res) => {
+			console.log(res);
+			if (res.gminy) setGminy(res.gminy);
+		});
+	}, [powiatySelected]);
+
 	return (
 		<div className={layouts.center}>
 			{/* <h1>Cześć</h1>
@@ -38,36 +102,69 @@ const MainPage = () => {
 					data={['frytak', 'lize', 'psy']}
 					placeholder="Autorzy"
 				/>
+
 				<DataList
 					title="Województwo: "
 					id="wojewodztwa"
-					data={['Małopolska', 'Śląskie', 'Mazowieckie']}
-					placeholder="Województwo"
+					data={wojewodztwa.map((woj) => woj.name)}
+					placeholder="Województwa"
+					onChange={(e) =>
+						setWojewodztwaSelected(
+							wojewodztwa.find((woj) => woj.name == e.target.value)
+						)
+					}
 				/>
 				<DataList
 					title="Powiat: "
 					id="powiat"
-					data={['frytak', 'lize', 'psy']}
+					data={powiaty.map((pow) => pow.name)}
 					placeholder="Powiat"
+					onChange={(e) =>
+						setPowiatySelected(
+							powiaty.find((pow) => pow.name == e.target.value)
+						)
+					}
 				/>
 				<DataList
 					title="Gmina: "
 					id="gmina"
-					data={['frytak', 'lize', 'psy']}
+					data={gminy.map((gmin) => gmin.name)}
+					onChange={(e) =>
+						setGminySelected(gminy.find((gmin) => gmin.name == e.target.value))
+					}
 					placeholder="Gmina"
 				/>
 			</Filters>
 
 			<main className={style.mainElements}>
-				<Button className={style.addPublication}>+</Button>
-				<CreatePublication height="fit-content"></CreatePublication>
+				<Button
+					className={style.addPublication}
+					onClick={() => {
+						setIsAddPublicationOpen(!isAddPublicationOpen);
+					}}
+				>
+					{isAddPublicationOpen ? 'Ukryj' : 'Dodaj'} publikację
+				</Button>
+				<CreatePublication
+					className={isAddPublicationOpen ? null : style.addPublicationInvis}
+					height="fit-content"
+				></CreatePublication>
+				{publications.map((pub: any) => (
+					<Publication
+						id={pub.id}
+						date={new Intl.DateTimeFormat('en-Gb').format(new Date(pub.date))}
+						user={pub.userId}
+						title={pub.title}
+						body={pub.body}
+						footer={pub.footer}
+					></Publication>
+				))}
+
 				<Publication
 					id={'1'}
 					date="05/05/2021"
 					user="Boby Drop Tables"
-					title={
-						'To trzeba zmienić!'
-					}
+					title={'To trzeba zmienić!'}
 					body={
 						'Dzisiaj będąc w kawiarni zapomniałem wziąść ze sobą telefonu, który miałem na stoliku. Gdy przyszedłem następnego dnia, obsługa nie chciała mi go oddać, choć na moich oczach tego ranka jak wchodziłem to go zabierali sprzątając! 😡😡'
 					}

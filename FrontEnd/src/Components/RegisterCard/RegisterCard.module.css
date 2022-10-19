@@ -5,6 +5,7 @@
 .registerCardOverlay {
 	display: none;
 }
+
 @media screen and (max-width: 1350px) {
 	.registerCardOverlay {
 		display: block;
@@ -26,7 +27,7 @@
 	justify-content: left;
 }
 
-.registerCard p {
+.registerCardText {
 	max-width: 20rem;
 	overflow: hidden;
 	text-overflow: ellipsis;

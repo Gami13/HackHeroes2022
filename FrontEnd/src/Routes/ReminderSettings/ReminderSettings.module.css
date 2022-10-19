@@ -17,3 +17,55 @@
 	width: 100%;
 	max-width: 24rem;
 }
+.data ul {
+	overflow: hidden !important;
+	gap: 5px;
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 5px;
+}
+.data:nth-child(2) div::-webkit-scrollbar {
+	width: 5px;
+	border-radius: var(--roundedSmall);
+}
+.data:nth-child(2) div::-webkit-scrollbar-thumb {
+	border-radius: var(--roundedSmall);
+	background: var(--secondary);
+}
+.data ul li {
+	margin: 0;
+	padding: 0 2px;
+}
+.data ul li > span {
+	display: grid;
+	place-items: center;
+	grid-template-columns: 1fr 16px;
+	margin: 0;
+	width: 100%;
+}
+.panel-body {
+	overflow: hidden !important;
+}
+.panelDate {
+	width: 100%;
+	overflow: hidden;
+	margin: 0 !important;
+}
+.panelDate p {
+	color: var(--textSecondary);
+	overflow: hidden;
+}
+.panelDate svg {
+	width: 16px;
+	height: 16px;
+}
+.tooltiptext {
+	visibility: hidden;
+	position: absolute;
+	height: 20px;
+	width: fit-content;
+	overflow: visible;
+}
+.panelDate:first-child:hover ~ .tooltiptext {
+	visibility: visible;
+}

@@ -19,18 +19,20 @@
 	fill: var(--primary);
 	transition: rotate 0.5s;
 }
-.main svg:hover {
-	rotate: 1980deg;
+.svgOpen {
+	rotate: 180deg;
 	transition: rotate 0.5s;
 }
 .folded {
-	height: 0 !important;
-	padding: 0 !important;
+	display: none !important;
+	/* height: 0 !important;
+	padding: 0 !important; */
+	transition: all;
 	transition: height 0.5s;
 }
-.folded > * {
+/* .folded > * {
 	display: none !important;
-}
+} */
 
 .list {
 	width: 100%;

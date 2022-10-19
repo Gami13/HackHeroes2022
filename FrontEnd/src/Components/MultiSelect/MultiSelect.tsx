@@ -35,6 +35,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 		const id = event.currentTarget.id;
 		const unselectedOption = selected.find((option: any) => option.id == id);
 		setAvailable([...available, unselectedOption]);
+		setIsFolded(false);
 		setSelected(selected.filter((option: any) => option.id != id));
 	}
 
@@ -55,6 +56,12 @@ const MultiSelect = (props: MultiSelectProps) => {
 		}
 	};
 	document.addEventListener('mousedown', foldMenu);
+
+	useEffect(() => {
+		if (available.length == 0) {
+			setIsFolded(true);
+		}
+	}, [available]);
 
 	return (
 		<div ref={whole} className={[style.multiSelect, props.className].join(' ')}>
@@ -84,7 +91,12 @@ const MultiSelect = (props: MultiSelectProps) => {
 					))}
 				</ul>
 
-				<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					height="48"
+					width="48"
+					className={isFolded || available.length == 0 ? null : style.svgOpen}
+				>
 					<path d="m24 30.8-12-12 2.15-2.15L24 26.5l9.85-9.85L36 18.8Z" />
 				</svg>
 			</button>

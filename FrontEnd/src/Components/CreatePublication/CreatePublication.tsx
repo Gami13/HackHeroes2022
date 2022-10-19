@@ -32,7 +32,7 @@ function Publication(props: PublicationProps) {
 
 	return (
 		<Box
-			className={style.box}
+			className={[props.className, style.box].join(' ')}
 			width={width}
 			height={'fit-content'}
 			display="grid"

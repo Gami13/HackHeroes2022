@@ -13,6 +13,13 @@ import Label from '../../Components/Main/Label/Label';
 
 import layouts from '../../layouts.module.css';
 import DatePicker from '../../Components/Main/DatePicker/DatePicker';
+import Select from '../../Components/Main/Select/Select';
+import useIsFirstRender from '../../isFirstRender';
+
+interface tak {
+	id: number;
+	name: string;
+}
 
 const RegisterForm = () => {
 	const [firstNameErrors, setFirstNameErrors] = useState<string[]>([]);
@@ -29,11 +36,12 @@ const RegisterForm = () => {
 	const [didRegister, setDidRegister] = useState(false);
 	const navigate = useNavigate();
 
-	const [voivodeship, setVoivodeship] = useState('');
-	const [county, setCounty] = useState('');
-	const [town, setTown] = useState('');
-	const [countyList, setCountyList] = useState(['test', 'test2', 'test3']);
-	const [townList, setTownList] = useState(['test4', 'test5', 'test6']);
+	const [voivodeship, setVoivodeship] = useState<tak | undefined>();
+	const [county, setCounty] = useState<tak | undefined>();
+	const [town, setTown] = useState<tak | undefined>();
+	const [voivodeshipList, setVoivodeshipList] = useState<tak[]>([]);
+	const [countyList, setCountyList] = useState<tak[]>([]);
+	const [townList, setTownList] = useState<tak[]>([]);
 	const [dateOfBirth, setDateOfBirth] = useState(new Date());
 	const [dateOfBirthErrors, setDateOfBirthErrors] = useState<string[]>([]);
 	const [gender, setGender] = useState('?');
@@ -46,6 +54,17 @@ const RegisterForm = () => {
 
 	const [step, setStep] = useState(0);
 	const context = useContext(States);
+
+	const isFirstRender = useIsFirstRender();
+	if (isFirstRender) {
+		let w = async () => {
+			let res = await fetch('http://localhost:3000/wojewodztwa');
+			let json = await res.json();
+			setVoivodeshipList(json.wojewodztwa);
+		};
+		w();
+		console.log('first render');
+	}
 
 	function validateFirstName() {
 		setFirstNameErrors([]);
@@ -72,11 +91,19 @@ const RegisterForm = () => {
 		return true;
 	}
 
-	function fetchCounties() {
-		/* TODO: Fetch counties */
+	async function fetchCounties() {
+		console.log('fetching counties');
+		if (!voivodeship) return;
+		const res = await fetch(`http://localhost:3000/powiaty/${voivodeship.id}`);
+		const json = await res.json();
+		if (json.powiaty) setCountyList(json.powiaty);
 	}
-	function fetchTowns() {
-		/* TODO: Fetch towns */
+	async function fetchTowns() {
+		console.log('fetching towns');
+		if (!county) return;
+		const res = await fetch(`http://localhost:3000/gminy/${county.id}`);
+		const json = await res.json();
+		if (json.gminy) setTownList(json.gminy);
 	}
 	useEffect(() => {
 		/* TODO: Fetch people */
@@ -169,7 +196,7 @@ const RegisterForm = () => {
 	}
 	function validateVoivodeship() {
 		setVoivodeshipErrors([]);
-		if (voivodeship.length < 4) {
+		if (!voivodeship) {
 			setVoivodeshipErrors((oldArray: string[]) => [
 				...oldArray,
 				'- Musisz wybrać województwo',
@@ -180,7 +207,7 @@ const RegisterForm = () => {
 	}
 	function validateCounty() {
 		setCountyErrors([]);
-		if (county.length < 4) {
+		if (!county) {
 			setCountyErrors((oldArray: string[]) => [
 				...oldArray,
 				'- Musisz wybrać powiat',
@@ -191,7 +218,7 @@ const RegisterForm = () => {
 	}
 	function validateTown() {
 		setTownErrors([]);
-		if (town.length < 4) {
+		if (!town) {
 			setTownErrors((oldArray: string[]) => [
 				...oldArray,
 				'- Musisz wybrać gminę',
@@ -234,7 +261,10 @@ const RegisterForm = () => {
 			!validateEmail() &&
 			!validatePassword() &&
 			!validatePersonalData() &&
-			!validateLocalizationData()
+			!validateLocalizationData() &&
+			!validateVoivodeship() &&
+			!validateCounty() &&
+			!validateTown()
 		) {
 			console.log('Errors in form');
 			return false;
@@ -246,6 +276,11 @@ const RegisterForm = () => {
 			email: email,
 			password: password,
 			passwordConfirm: passwordConfirm,
+			dateOfBirth: dateOfBirth,
+			gender: gender,
+			voivodeship: voivodeship,
+			county: county,
+			town: town,
 		};
 		let config = {
 			method: 'POST',
@@ -265,8 +300,6 @@ const RegisterForm = () => {
 			setResponseError(json.message);
 		}
 	}
-	console.log('test');
-	console.log(isPreviewed);
 	return (
 		<div className={[layouts.center].join(' ')}>
 			<Form
@@ -327,7 +360,13 @@ const RegisterForm = () => {
 						</Label>
 						<Label className={style.gender} htmlFor="gender" label="Płeć">
 							<span className={style.error}>{genderErrors}</span>
-							<select
+							<Select
+								options={[
+									{ title: 'Kobieta', value: 'K' },
+									{ title: 'Mężczyzna', value: 'M' },
+									{ title: '👽 Starożytny kosmita 👽', value: '👽' },
+								]}
+								startValue="Wybierz płeć"
 								onBlur={validateGender}
 								onChange={(e) => {
 									setGender(e.target.value);
@@ -336,14 +375,7 @@ const RegisterForm = () => {
 								id="gender"
 								placeholder="Wybierz płeć"
 								value={gender}
-							>
-								<option style={{ display: 'none' }} defaultValue="?">
-									Wybierz płeć
-								</option>
-								<option value="K">Kobieta</option>
-								<option value="M">Mężczyzna</option>
-								<option value="👽">👽 Starożytny kosmita 👽</option>
-							</select>
+							/>
 						</Label>
 
 						<Button
@@ -359,28 +391,36 @@ const RegisterForm = () => {
 					<fieldset className={style.dataList} form="registerForm">
 						<DataList
 							errors={voivodeshipErrors}
+							data={voivodeshipList.map((c) => c.name)}
 							title="Województwo"
 							id="wojewodztwa"
-							data={['Małopolska', 'Śląskie', 'Mazowieckie']}
-							onChange={(e) => setVoivodeship(e.target.value)}
+							onChange={(e) =>
+								setVoivodeship(
+									voivodeshipList?.find((v) => v.name == e.target.value)
+								)
+							}
 							onBlur={fetchCounties}
 						/>
 						<DataList
 							errors={countyErrors}
 							title="Powiat"
 							id="powiat"
-							data={countyList}
-							onChange={(e) => setCounty(e.target.value)}
-							disabled={voivodeship == ''}
+							data={countyList.map((c) => c.name)}
+							onChange={(e) =>
+								setCounty(countyList?.find((c) => c.name == e.target.value))
+							}
+							disabled={!voivodeship}
 							onBlur={fetchTowns}
 						/>
 						<DataList
 							errors={townErrors}
 							title="Gmina"
 							id="gmina"
-							data={townList}
-							onChange={(e) => setTown(e.target.value)}
-							disabled={county == ''}
+							data={townList.map((c) => c.name)}
+							onChange={(e) =>
+								setTown(townList?.find((c) => c.name == e.target.value))
+							}
+							disabled={!county}
 						/>
 						<Button
 							type="button"
@@ -443,9 +483,9 @@ const RegisterForm = () => {
 					email={email}
 					dateOfBirth={dateOfBirth}
 					gender={gender}
-					voivodeship={voivodeship}
-					county={county}
-					town={town}
+					voivodeship={voivodeship?.name || ''}
+					county={county?.name || ''}
+					town={town?.name || ''}
 					isPreviewed={isPreviewed}
 				></RegisterCard>
 			</div>

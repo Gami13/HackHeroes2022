@@ -1,0 +1,10 @@
+.disabled {
+	display: none;
+}
+.select {
+	width: 100%;
+	max-width: 24rem;
+	border-radius: var(--rounded);
+	background-color: var(--depth2);
+	padding: 0.5rem;
+}

@@ -21,6 +21,8 @@ const ReminderSettings = () => {
 
 	const [tags, setTags] = useState<{ [key: number]: string }>({});
 
+	const [date, setDate] = useState<DateObject[]>([]);
+
 	const valid = tagValid(currentTag);
 
 	return (
@@ -64,18 +66,39 @@ const ReminderSettings = () => {
 							else newTags[time] = tags[time];
 						}
 						setTags(newTags);
+						setDate(dates);
 					}}
+					value={date}
 					plugins={[
 						<DatePanel
 							position="right"
 							sort="color"
 							className={style.data}
+							removeButton={false}
 							formatFunction={(data) => {
 								return (
 									<>
-										{tags[data.date?.toDate().getTime() || 0] +
-											' ' +
-											data.date?.toString()}
+										<span className={style.panelDate}>
+											<p>{tags[data.date?.toDate().getTime() || 0]}</p>
+											<p>{data.date?.toString()}</p>
+										</span>
+										<svg
+											width="16"
+											height="16"
+											fill="rgb(255, 255, 255)"
+											viewBox="0 0 16 16"
+											onClick={() => {
+												setDate(
+													date.filter(
+														(d) =>
+															d.toDate().getTime() !==
+															data.date?.toDate().getTime()
+													)
+												);
+											}}
+										>
+											<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+										</svg>
 									</>
 								);
 							}}

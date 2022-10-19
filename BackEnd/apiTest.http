@@ -6,6 +6,10 @@
 @lastName = ""
 @password = "🦶🦶🦶🦶🦶🦶🦶420tak "
 @email = "🐴🐓@.backdoor.com"
+
+@date = "2005-10-18T22:00:00.000Z"
+
+@gminaId = 1
 #Register a new user
 
 
@@ -18,7 +22,9 @@ Content-Type: application/json
     "lastName": {{lastName}},
     "password": {{password}},
     "passwordConfirm":{{password}},
-    "email": {{email}}
+    "email": {{email}},
+    "dateOfBirth": {{date}},
+    "gminaId": {{gminaId}}
 }
 ###
 # code from email
@@ -65,3 +71,5 @@ GET {{url}}/powiaty/{{wojId}} HTTP/1.1
 ###
 @powId = 6
 GET {{url}}/gminy/{{powId}} HTTP/1.1
+###
+GET {{url}}/publications HTTP/1.1
