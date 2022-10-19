@@ -55,17 +55,21 @@ class UserManagement {
 		ID: string,
 		firstName: string,
 		lastName: string,
+		dateOfBirth: Date,
+		gminaId: string,
 		email: string,
 		hashedPassword: string,
 		salt: string
 	) {
 		let query =
-			"INSERT INTO users (id, firstName,lastName, email, password, salt, isactivated,tokens) VALUES (?,?,?,?,?,?,false,'[]');";
+			"INSERT INTO users (id, firstName,lastName,dateOfBirth,gminaId, email, password, salt, isactivated,tokens) VALUES (?,?,?,?,?,?,?,?,false,'[]');";
 
 		let [results, fields] = await db.execute<OkPacket>(query, [
 			ID,
 			firstName,
 			lastName,
+			dateOfBirth,
+			gminaId,
 			email,
 			hashedPassword,
 			salt,

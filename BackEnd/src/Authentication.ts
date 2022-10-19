@@ -62,6 +62,8 @@ export default function authentication(app: Express) {
 				ID,
 				firstName,
 				lastName,
+				dateOfBirth,
+				gminaId,
 				email,
 				hashedPassword,
 				salt
