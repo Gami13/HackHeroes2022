@@ -23,6 +23,9 @@ function test() {
     let gmina = data[i].querySelector("td:nth-child(2)");
     wojewodztwo = getName(wojewodztwo).replace("Województwo ", "");
     powiat = getName(powiat);
+    if (powiat.startsWith("Powiat ")) {
+      powiat = powiat.replace("Powiat ", "");
+    }
     gmina = getName(gmina).replace(" (gmina)", "").trim();
     //powiat = powiat.innerText.trim()
     //gmina = gmina.innerText.replace("gmina ","").trim()
@@ -56,7 +59,7 @@ for (let i = 0; i < wojewodztwa.length; i++) {
 querries.push(insertQuery);
 insertQuery = "INSERT INTO powiaty (name, wojId) VALUES ";
 for (let i = 0; i < powiaty.length; i++) {
-  insertQuery += `('${powiaty[i].name}', ${powiaty[i].wojewodztwo})`;
+  insertQuery += `('${powiaty[i].name}', ${powiaty[i].wojewodztwo + 1})`;
   if (i !== powiaty.length - 1) {
     insertQuery += ", ";
   }
@@ -64,7 +67,7 @@ for (let i = 0; i < powiaty.length; i++) {
 querries.push(insertQuery);
 insertQuery = "INSERT INTO gminy (name, powId) VALUES ";
 for (let i = 0; i < gminy.length; i++) {
-  insertQuery += `('${gminy[i].name}', ${gminy[i].powiat})`;
+  insertQuery += `('${gminy[i].name}', ${gminy[i].powiat + 1})`;
   if (i !== gminy.length - 1) {
     insertQuery += ", ";
   }
