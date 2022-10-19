@@ -1,11 +1,12 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import Tag from '../Main/Tag/Tag';
 import style from './MultiSelect.module.css';
-type Option = {
+interface Option {
 	value: string;
 	label: ReactNode | string;
 	id?: any;
-};
+}
+
 interface MultiSelectProps {
 	className?: string[] | string;
 	classNameList?: string[] | string;
@@ -20,9 +21,9 @@ const MultiSelect = (props: MultiSelectProps) => {
 	/* TODO: USTAWIC POPRAWNE TYPY */
 
 	const [isFolded, setIsFolded] = React.useState(true);
-	const [selected, setSelected] = React.useState<any>([]);
-	const [available, setAvailable] = React.useState<any>(
-		props.options.map((option, index) => ({ ...option, id: index }))
+	const [selected, setSelected] = React.useState<Option[] | any>([]);
+	const [available, setAvailable] = React.useState<Option[] | any>(
+		props.options.map((option, index) => ({ ...option, id: index })) || []
 	);
 	function select(event: any) {
 		const id = event.currentTarget.id;

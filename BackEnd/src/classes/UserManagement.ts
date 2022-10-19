@@ -12,9 +12,9 @@ type tokens = string[];
 class UserManagement {
 	static SHOULD_SEND_EMAIL = false;
 
-	static mail = nodemailer.createTransport<Options>({
+	static mail = nodemailer.createTransport({
 		//TODO: change to service with no limits
-		//@ts-ignore
+
 		host: 'smtp.office365.com',
 		port: 587,
 		secure: false,
@@ -22,8 +22,8 @@ class UserManagement {
 			user: 'gamiifrytak@outlook.com',
 			pass: 'haslo123',
 		},
-		supportBigNumbers: true,
-		bigNumberStrings: true,
+		//supportBigNumbers: true,
+		//bigNumberStrings: true,
 	});
 	static async insertVerificationCode(ID: string, email: string) {
 		return new Promise(async (resolve, reject) => {
@@ -60,7 +60,7 @@ class UserManagement {
 		salt: string
 	) {
 		let query =
-			'INSERT INTO users (id, firstName,lastName, email, password, salt, isactivated) VALUES (?,?,?,?,?,?,false);';
+			"INSERT INTO users (id, firstName,lastName, email, password, salt, isactivated,tokens) VALUES (?,?,?,?,?,?,false,'[]');";
 
 		let [results, fields] = await db.execute<OkPacket>(query, [
 			ID,

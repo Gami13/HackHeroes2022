@@ -57,7 +57,7 @@ function Publication(props: PublicationProps) {
 				rows={8}
 				maxLength={500}
 				placeholder="Zawartość..."
-			></TextArea>
+			/>
 			<div className={style.footer}>
 				<MultiSelect
 					className={style.multiSelect}
@@ -66,7 +66,7 @@ function Publication(props: PublicationProps) {
 						{ value: 'test2', label: <Tag text="test2" emoji="🕸" /> },
 					]}
 					returnSetter={setSelections}
-				></MultiSelect>
+				/>
 			</div>
 			<div className={style.actions}>
 				<Button className={style.cancelButton}>Anuluj</Button>

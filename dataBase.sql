@@ -46,6 +46,12 @@ CREATE TABLE IF NOT EXISTS `gminy` (
     `name` varchar(255) NOT NULL,
     `powId` int(11) NOT NULL -- ,FOREIGN KEY (powId) REFERENCES powiaty(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- answers
+CREATE TABLE IF NOT EXISTS `answers` (
+    `id` bigint(20) NOT NULL PRIMARY KEY,
+    `publicationId` bigint(20) NOT NULL,
+    `publicationReplyId` bigint(20) NOT NULL,
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- get powiaty.name and wojewodztwa.name from gminy where id = 1
 SELECT gminy.name,
     powiaty.name,
