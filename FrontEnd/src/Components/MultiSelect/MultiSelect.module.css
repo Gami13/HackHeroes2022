@@ -6,12 +6,13 @@
 
 .main {
 	width: 100%;
-	height: fit-content;
 	min-height: 40px;
+	height: 40px;
 	border-radius: var(--rounded);
 	background-color: var(--depth3);
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 
 .main svg {
@@ -34,7 +35,7 @@
 .list {
 	width: 100%;
 	list-style: none;
-	background-color: var(--depth1);
+	background-color: var(--depth2);
 	padding: 0.5rem;
 	gap: 0.2rem;
 	display: flex;
@@ -99,7 +100,6 @@
 .selectedList li {
 	list-style: none;
 	margin: 0.1rem 0.2rem;
-	background-color: var(--primary);
 	cursor: pointer;
 	padding: 0.2rem;
 	border-radius: var(--roundedBig);
