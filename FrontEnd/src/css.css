@@ -53,6 +53,8 @@
 	--textSecondary: #f0feff;
 	--textSecondaryHover: #dae7ea;
 	--textError: rgb(220, 56, 56);
+	--primaryDisabled: #b3b3b3;
+	--textSecondaryDisabled: #f0feff;
 
 	--mainFontColor: #b9bbbe;
 	--link: #4a8ca6;

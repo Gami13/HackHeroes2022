@@ -14,7 +14,9 @@ function Button(props: ButtonProps) {
 	return (
 		<button
 			type={type}
-			className={[style.button, props.className].join(' ')}
+			className={[style.button, style.buttonDisabled, props.className].join(
+				' '
+			)}
 			onClick={onClick}
 		>
 			{children}
