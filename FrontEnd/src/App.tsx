@@ -18,6 +18,7 @@ import PlsVerify from './Routes/PlsVerify/PlsVerify';
 import { getCookie } from './cookies';
 import BookMeeting from './Routes/BookMeeting/BookMeeting';
 import Publication from './Routes/Publication/Publication';
+import Mail from './Routes/Mail/Mail';
 
 const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -100,6 +101,8 @@ const App = () => {
 					<aside className={style.navbarPadder}></aside>
 					<div className={style.routes}>
 						<Routes>
+							<Route path="/mail" element={<Mail />} />
+
 							<Route path="/publication/:id" element={<Publication />} />
 							<Route path="/verify/:token" element={<ActivateAccount />} />
 							<Route path="/register" element={<RegisterForm />} />
