@@ -71,6 +71,7 @@ const MainPage = () => {
 			let res2 = await fetch(`http://localhost:3000/publications`);
 			let json2 = await res2.json();
 			setPublications(json2.publications);
+			console.log(json2.publications);
 		};
 		w();
 		console.log('first render');
@@ -167,27 +168,16 @@ const MainPage = () => {
 						user={pub.firstName + ' ' + pub.lastName}
 						title={pub.title}
 						body={pub.body}
-						footer={null}
-						// footer={fetchTags(pub.footer)}
+						footer={pub.footer.map((f: any, i: number) => (
+							<Tag
+								key={i}
+								text={f.text}
+								backgroundColor={'var(--' + f.color + ')'}
+							/>
+						))}
 					></Publication>
 				))}
 
-				<Publication
-					id={'1'}
-					date="05/05/2021"
-					user="Boby Drop Tables"
-					title={'To trzeba zmienić!'}
-					body={
-						'Dzisiaj będąc w kawiarni zapomniałem wziąść ze sobą telefonu, który miałem na stoliku. Gdy przyszedłem następnego dnia, obsługa nie chciała mi go oddać, choć na moich oczach tego ranka jak wchodziłem to go zabierali sprzątając! 😡😡'
-					}
-					footer={
-						<>
-							<Tag text="Zgubione" emoji="🕸" />
-							<Tag text="Skarga" emoji="💢" />
-							<Tag text="Kawusia" emoji="☕" backgroundColor={'var(--blue)'} />
-						</>
-					}
-				/>
 				<Publication
 					id={'114234'}
 					date="04/05/2021"
@@ -198,8 +188,8 @@ const MainPage = () => {
 					}
 					footer={
 						<>
-							<Tag text="Placki" emoji="🥞" backgroundColor={'var(--green)'} />
-							<Tag text="Skarga" emoji="💢" />
+							<Tag text="🥞 Placki" backgroundColor={'var(--green)'} />
+							<Tag text="💢 Skarga" />
 						</>
 					}
 				/>
@@ -211,9 +201,7 @@ const MainPage = () => {
 					body={
 						'Szybki zarobek za skoszenie trawnika. Zapłacę 1zł za każdy metr kwadratowy. Koszenie trawnika w okolicy ul. Kolejowej 12. Zainteresowanych proszę o kontakt.'
 					}
-					footer={
-						<Tag text="Money" emoji="💸" backgroundColor={'var(--green)'} />
-					}
+					footer={<Tag text="💸 Money" backgroundColor={'var(--green)'} />}
 				/>
 			</main>
 

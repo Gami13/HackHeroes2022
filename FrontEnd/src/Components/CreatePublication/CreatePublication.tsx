@@ -7,6 +7,7 @@ import TextArea from '../Main/TextArea/TextArea';
 import Button from '../Main/Button/Button';
 import MultiSelect from '../MultiSelect/MultiSelect';
 import Tag from '../Main/Tag/Tag';
+import useIsFirstRender from '../../isFirstRender';
 
 interface PublicationProps {
 	width?: string;
@@ -23,12 +24,23 @@ interface PublicationProps {
 function Publication(props: PublicationProps) {
 	const { width, height, user, date, title, body, footer, className } = props;
 	const [selections, setSelections] = React.useState<any>([]);
+	const [tags, setTags] = React.useState<any>([]);
 
 	selections.map((x: any) => (
 		<p>
 			{x.value}- {x.label}
 		</p>
 	));
+
+	const isFirstRender = useIsFirstRender();
+	if (isFirstRender) {
+		let w = async () => {
+			let res = await fetch('http://localhost:3000/tags');
+			let json = await res.json();
+			setTags(json.tags);
+		};
+		w();
+	}
 
 	return (
 		<Box
@@ -61,10 +73,14 @@ function Publication(props: PublicationProps) {
 			<div className={style.footer}>
 				<MultiSelect
 					className={style.multiSelect}
-					options={[
-						{ value: 'test1', label: <Tag text="test1" emoji="🕸" /> },
-						{ value: 'test2', label: <Tag text="test2" emoji="🕸" /> },
-					]}
+					options={tags.map((x: any) => {
+						return {
+							value: x.id,
+							label: (
+								<Tag text={x.name} backgroundColor={'var(--' + x.color + ')'} />
+							),
+						};
+					})}
 					returnSetter={setSelections}
 				/>
 			</div>

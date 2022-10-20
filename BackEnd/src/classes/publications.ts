@@ -9,25 +9,29 @@ export default function publications(app: Express) {
 			'SELECT `publication`.*, `users`.`firstName`, `users`.`lastName` FROM `publication`, `users` WHERE `users`.`id` = `publication`.`userId`;';
 		let [results] = await db.query<RowDataPacket[]>(query);
 		if (results.length == 0) return res.sendError('No results', 404);
-		console.log(results);
+
 		let r = results.map((a) => {
 			return { ...a, footer: JSON.parse(a.footer) };
 		});
+		//query tags
+		query = 'SELECT * FROM `tags` WHERE id = ?';
+		for (let a of r) {
+			for (let i = 0; i < a.footer.length; i++) {
+				let [results] = await db.query<RowDataPacket[]>(query, [a.footer[i]]);
+				a.footer[i] = results[0];
+			}
+		}
 
 		res.sendSuccess({ publications: r });
 	});
 
-	app.post('/tags/', async (req, res) => {
-		let tags = req.body.tags || [];
-		console.log(typeof req.body.tags);
-		let queryAddon = tags.map((tag: any) => {
-			return `\`id\` = '${tag}'`;
-		});
-		let query = 'SELECT * FROM `tags` WHERE ' + queryAddon.join(' OR');
+	app.get('/tags', async (req, res) => {
+		let query = 'SELECT * FROM `tags`';
 		let [results] = await db.query<RowDataPacket[]>(query);
 		if (results.length == 0) return res.sendError('No results', 404);
 		res.sendSuccess({ tags: results });
 	});
+
 	app.post('/publication', (req, res) => {
 		let title = req.body.title;
 		let body = req.body.body;

@@ -1,43 +1,57 @@
-.loadingCircle {
-	height: 100px;
-	width: 100px;
+.loading {
+	height: fit-content;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	gap: 0.5rem;
+}
+.loading > h1 {
+	font-size: 2rem;
+}
+.loadingDots {
+	position: relative;
+	margin: 0px 15px;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: var(--textPrimary);
+	color: var(--textPrimary);
+	animation: loadingDots 1s infinite linear alternate;
+	animation-delay: 0.5s;
+	margin-top: auto;
+	margin-bottom: 7px;
+}
+.loadingDots::before,
+.loadingDots::after {
+	content: '';
+	display: inline-block;
 	position: absolute;
-	margin: auto;
 	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	border-radius: 100%;
-	overflow: hidden;
-	background-color: var(--depth0);
 }
-.loadingCircle:before {
-	content: '';
-	background-image: conic-gradient(var(--secondary) 40deg, var(--depth0));
-	height: 150%;
-	width: 150%;
-	position: absolute;
-	left: -25%;
-	top: -25%;
-	animation: rotate 2s infinite linear;
+.loadingDots::before {
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	left: -15px;
+	background-color: var(--textPrimary);
+	animation: loadingDots 1s infinite linear alternate;
+	animation-delay: 0s;
 }
-@keyframes rotate {
-	100% {
-		transform: rotate(-360deg);
+.loadingDots::after {
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	left: 15px;
+	background-color: var(--textPrimary);
+	animation: loadingDots 1s infinite linear alternate;
+	animation-delay: 1s;
+}
+@keyframes loadingDots {
+	0% {
+		background-color: var(--textPrimary);
 	}
-}
-.loadingCircle:after {
-	content: '';
-	height: 70%;
-	width: 70%;
-	position: absolute;
-	background-color: var(--depth0);
-	border-radius: 100%;
-	top: 15%;
-	left: 15%;
-	color: #04b0ee;
-	display: grid;
-	place-items: center;
-	font-size: 20px;
-	letter-spacing: 6px;
+	50%,
+	100% {
+		background-color: #ebe6ff;
+	}
 }

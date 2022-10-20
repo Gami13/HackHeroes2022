@@ -16,6 +16,7 @@ interface PersonCardProps {
 	county?: string;
 	town?: string;
 	id?: number;
+	noButtons?: boolean;
 
 	action?: (e: any) => void;
 }
@@ -24,13 +25,13 @@ const PersonCard = (props: PersonCardProps) => {
 	const navigate = useNavigate();
 	function bookMeeting(id: number) {
 		console.log(id);
-		navigate('booking');
+		navigate('booking/' + id.toString());
 
 		alert('rezerwacja');
 	}
 	function askQuestion(id: number) {
 		console.log(id);
-		navigate('askQuestion');
+		navigate('askQuestion/' + id.toString());
 		alert('pytanie');
 	}
 	const context = React.useContext(States);
@@ -54,26 +55,28 @@ const PersonCard = (props: PersonCardProps) => {
 				text={props.position ? props.position : 'Nieznany'}
 				backgroundColor="pink"
 			/>
-			<div className={style.buttons}>
-				<Button
-					className={style.askQuestion}
-					onClick={() => {
-						askQuestion(props.id!);
-					}}
-					disabled={!context.isLoggedIn}
-				>
-					Zadaj Pytanie
-				</Button>
-				<Button
-					className={style.bookMeeting}
-					onClick={() => {
-						bookMeeting(props.id!);
-					}}
-					disabled={!context.isLoggedIn}
-				>
-					Umów spotkanie
-				</Button>
-			</div>
+			{props.noButtons ? null : (
+				<div className={style.buttons}>
+					<Button
+						className={style.askQuestion}
+						onClick={() => {
+							askQuestion(props.id!);
+						}}
+						disabled={!context.isLoggedIn}
+					>
+						Zadaj Pytanie
+					</Button>
+					<Button
+						className={style.bookMeeting}
+						onClick={() => {
+							bookMeeting(props.id!);
+						}}
+						disabled={!context.isLoggedIn}
+					>
+						Umów spotkanie
+					</Button>
+				</div>
+			)}
 		</Box>
 	);
 };

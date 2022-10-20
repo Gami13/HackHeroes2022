@@ -7,7 +7,7 @@ interface PublicationProps {
 	width?: string;
 	height?: string;
 	user: string;
-	date: string;
+	date: string | null;
 	title: any;
 	body: any;
 	footer: any[] | any;

@@ -20,11 +20,15 @@ interface MultiSelectProps {
 const MultiSelect = (props: MultiSelectProps) => {
 	/* TODO: USTAWIC POPRAWNE TYPY */
 
+	const [options, setOptions] = React.useState<any>(props.options);
 	const [isFolded, setIsFolded] = React.useState(true);
 	const [selected, setSelected] = React.useState<Option[] | any>([]);
 	const [available, setAvailable] = React.useState<Option[] | any>(
 		props.options.map((option, index) => ({ ...option, id: index })) || []
 	);
+
+	// todo pass fetch
+
 	function select(event: any) {
 		const id = event.currentTarget.id;
 		const selectedOption = available.find((option: any) => option.id == id);

@@ -12,6 +12,8 @@ export default function authentication(app: Express) {
 		let lastName = req.body.lastName;
 		let dateOfBirth = new Date(req.body.dateOfBirth);
 		let gminaId = req.body.town.id;
+		let powiatId = req.body.county.id;
+		let wojewodztwoId = req.body.voivodeship.id;
 		let email = req.body.email;
 		let password = req.body.password;
 		let passwordConfirm = req.body.passwordConfirm;
@@ -64,6 +66,8 @@ export default function authentication(app: Express) {
 				lastName,
 				dateOfBirth,
 				gminaId,
+				powiatId,
+				wojewodztwoId,
 				email,
 				hashedPassword,
 				salt
@@ -78,8 +82,6 @@ export default function authentication(app: Express) {
 	});
 
 	app.get('/verify/:id', async (req, res) => {
-		//ADD CHECKING IF ACCOUNT ALREADY VERIFIED
-
 		const hash = req.params.id;
 		console.log(hash);
 

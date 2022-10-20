@@ -10,7 +10,10 @@ const Test = () => {
 	return (
 		<>
 			<div className={layouts.center}>
-				<div className={style.loadingCircle}></div>
+				<span className={style.loading}>
+					<h1>Ładowanie</h1>
+					<h1 className={style.loadingDots}></h1>
+				</span>
 			</div>
 		</>
 	);

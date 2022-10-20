@@ -2,7 +2,6 @@
 	background-color: var(--primary);
 	color: var(--textSecondary);
 	width: fit-content;
-	height: fit-content;
 	padding: 0.5rem 1rem;
 	border-radius: var(--rounded);
 	font-weight: 600;
@@ -14,9 +13,8 @@
 	background-color: var(--primaryHover);
 	transition-duration: var(--transitionSpeedFast);
 }
-.buttonDisabled,
-.buttonDisabled:focus,
-.buttonDisabled:hover {
+.button:disabled,
+button:disabled:hover {
 	background-color: var(--primaryDisabled);
 	color: var(--textSecondaryDisabled);
 	cursor: not-allowed;

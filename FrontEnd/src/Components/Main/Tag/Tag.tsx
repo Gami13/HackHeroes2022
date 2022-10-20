@@ -4,7 +4,6 @@ import style from './Tag.module.css';
 
 interface TagProps {
 	text: string;
-	emoji?: string;
 	backgroundColor?: Property.BackgroundColor | null;
 	className?: string[] | string;
 	onClick?: (event: any) => void;
@@ -12,7 +11,7 @@ interface TagProps {
 }
 
 function Tag(props: TagProps) {
-	const { text, emoji, backgroundColor, className } = props;
+	const { text, backgroundColor, className } = props;
 
 	return (
 		<div
@@ -21,7 +20,6 @@ function Tag(props: TagProps) {
 			onClick={props.onClick}
 			style={{ backgroundColor: backgroundColor } as CSSProperties}
 		>
-			<div className={style.emoji}>{emoji}</div>
 			<p className={style.text}>{text}</p>
 		</div>
 	);

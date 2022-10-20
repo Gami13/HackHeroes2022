@@ -6,18 +6,18 @@ interface ButtonProps {
 	onClick?: () => void;
 	children?: any;
 	className?: string[] | string;
+	disabled?: boolean;
 }
 
 function Button(props: ButtonProps) {
-	const { type, onClick, children } = props;
+	const { type, onClick, children, disabled } = props;
 
 	return (
 		<button
 			type={type}
-			className={[style.button, style.buttonDisabled, props.className].join(
-				' '
-			)}
+			className={[style.button, props.className].join(' ')}
 			onClick={onClick}
+			disabled={disabled}
 		>
 			{children}
 		</button>
