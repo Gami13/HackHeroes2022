@@ -24,7 +24,6 @@ const CalendarWithTags = (props: CalendarWithTagsProps) => {
 					removeButton={false}
 					// className={style.data}
 					formatFunction={(data) => {
-						console.log(data.date?.toDate().getTime());
 						return (
 							<>
 								{tags[data.date?.toDate().getTime() || 0] +

@@ -32,15 +32,20 @@ function Publication(props: PublicationProps) {
 		</p>
 	));
 
-	const isFirstRender = useIsFirstRender();
-	if (isFirstRender) {
-		let w = async () => {
-			let res = await fetch('http://localhost:3000/tags');
-			let json = await res.json();
-			setTags(json.tags);
-		};
-		w();
-	}
+	// const isFirstRender = useIsFirstRender();
+	// if (isFirstRender) {
+	// 	let w = async (setTags) => {
+	// 		let res = await fetch('http://localhost:3000/tags');
+	// 		let json = await res.json();
+	// 		setTags(
+	// 			json.tags.map((option: any, index: number) => ({
+	// 				...option,
+	// 				id: index,
+	// 			})) || []
+	// 		);
+	// 	};
+	// 	//w();
+	// }
 
 	return (
 		<Box
@@ -73,14 +78,30 @@ function Publication(props: PublicationProps) {
 			<div className={style.footer}>
 				<MultiSelect
 					className={style.multiSelect}
-					options={tags.map((x: any) => {
-						return {
-							value: x.id,
-							label: (
-								<Tag text={x.name} backgroundColor={'var(--' + x.color + ')'} />
-							),
-						};
-					})}
+					getFuncton={async (setTags) => {
+						let res = await fetch('http://localhost:3000/tags');
+						let json = await res.json();
+						console.log(json);
+						let data = json.tags.map((option: any, index: number) => ({
+							value: option.id,
+							label: <Tag className={style.tag} text={option.text} />,
+						}));
+						setTags(
+							data.map((option: any, index: number) => ({
+								...option,
+								id: index,
+							})) || []
+						);
+					}}
+					options={[]}
+					// options={tags.map((x: any) => {
+					// 	return {
+					// 		value: x.id,
+					// 		label: (
+					// 			<Tag text={x.name} backgroundColor={'var(--' + x.color + ')'} />
+					// 		),
+					// 	};
+					// })}
 					returnSetter={setSelections}
 				/>
 			</div>

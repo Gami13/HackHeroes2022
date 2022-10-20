@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
+import useIsFirstRender from '../../isFirstRender';
 import Tag from '../Main/Tag/Tag';
 import style from './MultiSelect.module.css';
 interface Option {
@@ -15,6 +16,7 @@ interface MultiSelectProps {
 	options: Option[];
 	title?: string;
 	returnSetter: (value: any) => void;
+	getFuncton?: (value: any) => void;
 }
 
 const MultiSelect = (props: MultiSelectProps) => {
@@ -26,6 +28,11 @@ const MultiSelect = (props: MultiSelectProps) => {
 	const [available, setAvailable] = React.useState<Option[] | any>(
 		props.options.map((option, index) => ({ ...option, id: index })) || []
 	);
+	if (props.getFuncton) {
+		if (useIsFirstRender()) {
+			props.getFuncton(setAvailable);
+		}
+	}
 
 	// todo pass fetch
 
