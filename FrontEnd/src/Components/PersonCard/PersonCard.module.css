@@ -3,6 +3,7 @@
 	transition-duration: var(--transitionSpeedFast);
 	width: 100% !important;
 	margin-top: 0px;
+	justify-content: center;
 }
 .personCard > img {
 	width: 10rem;
@@ -29,7 +30,7 @@
 }
 .wrapper {
 	border-radius: var(--roundedBig);
-	cursor: pointer;
+
 	background-color: var(--depth1);
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
@@ -41,6 +42,19 @@
 	width: fit-content;
 }
 
-.wrapper:hover {
-	background-color: var(--depth2);
+.buttons {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+.bookMeeting {
+	background-color: var(--primary);
+}
+.askQuestion {
+	background-color: var(--secondary);
+}
+.askQuestion:hover {
+	background-color: var(--secondaryHover);
 }

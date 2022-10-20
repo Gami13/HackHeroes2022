@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '../Main/Box/Box';
 import style from './PersonCard.module.css';
 import Tag from '../Main/Tag/Tag';
+import Button from '../Main/Button/Button';
+import States from '../States';
 interface PersonCardProps {
 	className?: string[] | string;
 
@@ -12,34 +15,66 @@ interface PersonCardProps {
 	voivodeship?: string;
 	county?: string;
 	town?: string;
+	id?: number;
 
 	action?: (e: any) => void;
 }
 
 const PersonCard = (props: PersonCardProps) => {
+	const navigate = useNavigate();
+	function bookMeeting(id: number) {
+		console.log(id);
+		navigate('booking');
+
+		alert('rezerwacja');
+	}
+	function askQuestion(id: number) {
+		console.log(id);
+		navigate('askQuestion');
+		alert('pytanie');
+	}
+	const context = React.useContext(States);
 	return (
-		<button onClick={props.action} className={style.wrapper}>
-			<Box
-				width="fit-content"
-				backgroundColor={null}
-				className={[style.personCard, props.className].join(' ')}
-			>
-				<img
-					src={props.image}
-					alt={props.name}
-					className={style['clip-animation']}
-				/>
-				<h2>{props.name}</h2>
-				<span>
-					{props.voivodeship} - {props.county} - {props.town}
-				</span>
-				<p>{props.description}</p>
-				<Tag
-					text={props.position ? props.position : 'Nieznany'}
-					backgroundColor="pink"
-				/>
-			</Box>
-		</button>
+		<Box
+			width="fit-content"
+			backgroundColor={null}
+			className={[style.personCard, props.className, style.wrapper].join(' ')}
+		>
+			<img
+				src={props.image}
+				alt={props.name}
+				className={style['clip-animation']}
+			/>
+			<h2>{props.name}</h2>
+			<span>
+				{props.voivodeship} - {props.county} - {props.town}
+			</span>
+			<p>{props.description}</p>
+			<Tag
+				text={props.position ? props.position : 'Nieznany'}
+				backgroundColor="pink"
+			/>
+			<div className={style.buttons}>
+				<Button
+					className={style.askQuestion}
+					onClick={() => {
+						askQuestion(props.id!);
+					}}
+					disabled={!context.isLoggedIn}
+				>
+					Zadaj Pytanie
+				</Button>
+				<Button
+					className={style.bookMeeting}
+					onClick={() => {
+						bookMeeting(props.id!);
+					}}
+					disabled={!context.isLoggedIn}
+				>
+					Umów spotkanie
+				</Button>
+			</div>
+		</Box>
 	);
 };
 export default PersonCard;

@@ -11,7 +11,7 @@ export default function authentication(app: Express) {
 		let firstName = req.body.firstName;
 		let lastName = req.body.lastName;
 		let dateOfBirth = new Date(req.body.dateOfBirth);
-		let gminaId = req.body.gminaId;
+		let gminaId = req.body.town.id;
 		let email = req.body.email;
 		let password = req.body.password;
 		let passwordConfirm = req.body.passwordConfirm;

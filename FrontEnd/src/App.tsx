@@ -18,6 +18,8 @@ import PlsVerify from './Routes/PlsVerify/PlsVerify';
 import { getCookie } from './cookies';
 import BookMeeting from './Routes/BookMeeting/BookMeeting';
 import Publication from './Routes/Publication/Publication';
+import Booking from './Routes/Booking/Booking';
+import AskQuestion from './Routes/AskQuestion/AskQuestion';
 import Mail from './Routes/Mail/Mail';
 
 const App = () => {
@@ -101,8 +103,9 @@ const App = () => {
 					<aside className={style.navbarPadder}></aside>
 					<div className={style.routes}>
 						<Routes>
+							<Route path="/booking/:id" element={<Booking />} />
 							<Route path="/mail" element={<Mail />} />
-
+							<Route path="/askQuestion/:id" element={<AskQuestion />} />
 							<Route path="/publication/:id" element={<Publication />} />
 							<Route path="/verify/:token" element={<ActivateAccount />} />
 							<Route path="/register" element={<RegisterForm />} />
@@ -113,6 +116,10 @@ const App = () => {
 							<Route path="/plsVerify" element={<PlsVerify />} />
 							<Route path="/logout" element={<Logout />} />
 							<Route path="/bookMeeting" element={<BookMeeting />} />
+							<Route
+								path="/*"
+								element={<h1>404 Nie znalazlem tego czego szukales OwO</h1>}
+							/>
 						</Routes>
 					</div>
 				</BrowserRouter>

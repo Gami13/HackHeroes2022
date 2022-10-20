@@ -66,7 +66,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 	return (
 		<div ref={whole} className={[style.multiSelect, props.className].join(' ')}>
 			<span>Multi Select</span>
-			<button
+			<div
 				onClick={(e) => {
 					if (
 						!children.current.some((child: any) => child.contains(e.target))
@@ -99,7 +99,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 				>
 					<path d="m24 30.8-12-12 2.15-2.15L24 26.5l9.85-9.85L36 18.8Z" />
 				</svg>
-			</button>
+			</div>
 			<ul
 				className={[
 					props.classNameList,

@@ -92,12 +92,12 @@ const LoginForm = () => {
 					// onBlur={validatePassword}
 					// errors={passwordErrors}
 				/>
-				<label htmlFor="rememberMe" className={style.rememberMe}>
+				{/* <label htmlFor="rememberMe" className={style.rememberMe}>
 					<h1>
 						Zapamiętaj mnie
 						<CheckBox id="rememberMe"></CheckBox>
 					</h1>
-				</label>
+				</label> */}
 				<Button type="submit">Zaloguj</Button>
 				<Link to="/register">Nie masz konta?</Link>
 			</Form>

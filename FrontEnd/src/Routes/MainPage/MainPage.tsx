@@ -31,6 +31,19 @@ async function fetchGminy(powId: number) {
 	return json;
 }
 
+async function fetchTags(ids: number[]) {
+	console.log(typeof ids, ids);
+	const res = await fetch(`http://localhost:3000/tags`, {
+		method: 'POST',
+		body: JSON.stringify({ tags: ids }),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+	const json = await res.json();
+	return json;
+}
+
 const MainPage = () => {
 	const context = useContext(States);
 
@@ -62,7 +75,7 @@ const MainPage = () => {
 		w();
 		console.log('first render');
 	}
-	useEffect(() => {
+	function updatePowiaty() {
 		if (isFirstRender) return;
 		console.log(wojewodztwa);
 
@@ -70,25 +83,19 @@ const MainPage = () => {
 			console.log(res);
 			if (res.powiaty) setPowiaty(res.powiaty);
 		});
-	}, [wojewodztwaSelected]);
+	}
 
-	useEffect(() => {
+	function updateGminy() {
 		if (isFirstRender) return;
 		console.log(powiaty);
 		fetchGminy(powiatySelected?.id || 0).then((res) => {
 			console.log(res);
 			if (res.gminy) setGminy(res.gminy);
 		});
-	}, [powiatySelected]);
+	}
 
 	return (
 		<div className={layouts.center}>
-			{/* <h1>Cześć</h1>
-			<p>
-				{context.isLoggedIn}, {context.userEmail}, {context.userFirstName},{' '}
-				{context.userFirstName},{context.userEmail}, {context.userID},
-				{context.userRanks}
-			</p> */}
 			<Filters className={style.filters} heading="Wyszukiwanie">
 				<DataList
 					title="Tagi: "
@@ -108,22 +115,26 @@ const MainPage = () => {
 					id="wojewodztwa"
 					data={wojewodztwa.map((woj) => woj.name)}
 					placeholder="Województwa"
-					onChange={(e) =>
+					onChange={(e) => {
 						setWojewodztwaSelected(
 							wojewodztwa.find((woj) => woj.name == e.target.value)
-						)
-					}
+						);
+						if (wojewodztwaSelected) updatePowiaty();
+					}}
 				/>
 				<DataList
 					title="Powiat: "
 					id="powiat"
 					data={powiaty.map((pow) => pow.name)}
 					placeholder="Powiat"
-					onChange={(e) =>
+					onChange={(e) => {
 						setPowiatySelected(
 							powiaty.find((pow) => pow.name == e.target.value)
-						)
-					}
+						);
+						if (powiatySelected) {
+							updateGminy();
+						}
+					}}
 				/>
 				<DataList
 					title="Gmina: "
@@ -153,10 +164,11 @@ const MainPage = () => {
 					<Publication
 						id={pub.id}
 						date={new Intl.DateTimeFormat('en-Gb').format(new Date(pub.date))}
-						user={pub.userId}
+						user={pub.firstName + ' ' + pub.lastName}
 						title={pub.title}
 						body={pub.body}
-						footer={pub.footer}
+						footer={null}
+						// footer={fetchTags(pub.footer)}
 					></Publication>
 				))}
 

@@ -72,4 +72,5 @@ GET {{url}}/powiaty/{{wojId}} HTTP/1.1
 @powId = 6
 GET {{url}}/gminy/{{powId}} HTTP/1.1
 ###
-GET {{url}}/publications HTTP/1.1
+@tagsId = 1
+GET {{url}}/tags/{{tagsId}} HTTP/1.1
