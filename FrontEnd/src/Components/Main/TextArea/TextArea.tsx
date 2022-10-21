@@ -12,6 +12,7 @@ interface TextAreaProps {
 	disabled?: boolean;
 	form?: string;
 	children?: any;
+	onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 function TextArea(props: TextAreaProps) {
@@ -37,6 +38,7 @@ function TextArea(props: TextAreaProps) {
 			rows={rows}
 			maxLength={maxLength}
 			minLength={minLength}
+			onChange={props.onChange}
 		>
 			{children}
 		</textarea>

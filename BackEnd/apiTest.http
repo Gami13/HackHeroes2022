@@ -43,7 +43,7 @@ Content-Type: application/json
 }
 ### is logged in
 @id = "102680768177781416"
-@token = "cZJ9ocdCzwNRk7V1uzU1jmFcxQr9UYMebcEdAnlzKsf7LMKlSBVDX1oZEyJS4EWZdsHSsds6bnZx_xU0_S_xEK-is9WuyNFdv85om1pWUJhJgNbwOdrx1dIPB0mOvxH6hAY6sQ"
+@token = "wSlljbgDaiM8PXwGJk8botFv4sHR6w1l6mQpM6Dh-xikENWJDAs2Pez3s_WzYsfhVmDEY6oSMndV2RcibSPCfTj0Pxdr_riuBcNGn1bkXe31JyN0_dn0ib2T4zq8mov0UU-HHA"
 POST {{url}}/isLoggedIn HTTP/1.1
 Content-Type: application/json
 
@@ -76,3 +76,17 @@ GET {{url}}/gminy/{{powId}} HTTP/1.1
 GET {{url}}/tags/{{tagsId}} HTTP/1.1
 ###
 GET {{url}}/publications HTTP/1.1
+###
+POST {{url}}/publication HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "🐱‍👤🐱‍👤🐱‍👤",
+    "body": "🐱‍👤🐱‍👤🐱‍👤",
+    "tags": [1,2,3],
+    "gminaId": 1,
+    "userId": {{id}},
+    "email": {{email}},
+    "id": {{id}},
+    "token": {{token}}
+}

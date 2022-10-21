@@ -5,26 +5,45 @@ import style from './ReminderSettings.module.css';
 import layouts from '../../layouts.module.css';
 import Form from '../../Components/Main/Form/Form';
 import Box from '../../Components/Main/Box/Box';
-import { useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Calendar from '../../Components/Main/Calendar/Calendar';
 import DatePanel from 'react-multi-date-picker/plugins/date_panel';
 import FormInput from '../../Components/FormInput/FormInput';
 import colors from 'react-multi-date-picker/plugins/colors';
 import { DateObject } from 'react-multi-date-picker';
+import DataList from '../../Components/DataList/DataList';
+import Button from '../../Components/Main/Button/Button';
+import States from '../../Components/States';
 
 const tagValid = (tag: string) => {
 	return tag.trim().length === 0;
 };
 
 const ReminderSettings = () => {
-	const [currentTag, setCurrentTag] = useState('tak');
+	const [currentTitle, setCurrentTitle] = useState('tak');
 
-	const [tags, setTags] = useState<{ [key: number]: string }>({});
+	const [titles, setTitles] = useState<{ [key: number]: string }>({});
 
 	const [date, setDate] = useState<DateObject[]>([]);
 
-	const valid = tagValid(currentTag);
+	const invalid = tagValid(currentTitle);
 
+	const context = useContext(States);
+
+	async function saveReminders() {
+		const response = await fetch('http://localhost:3000/reminders', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				data: titles,
+				email: context.userEmail,
+				token: context.userToken,
+				userId: context.userID,
+			}),
+		});
+	}
 	return (
 		<div className={[layouts.center].join(' ')}>
 			<Box className={style.container} width={null}>
@@ -32,40 +51,44 @@ const ReminderSettings = () => {
 				{/* <Calendar className={style.calendar} /> */}
 				<datalist id="list">
 					<option value="KYS"></option>
-					{Object.keys(tags).map((key) => (
-						<option value={tags[parseInt(key)]} key={parseInt(key)}></option>
+					{Object.keys(titles).map((key) => (
+						<option value={titles[parseInt(key)]} key={parseInt(key)}></option>
 					))}
 				</datalist>
+				{/* <DataList/> */}
 				<FormInput
 					className={style.input}
 					id="Data"
-					label="TEST"
+					label="Tytuł"
 					type="text"
 					list="list"
-					value={currentTag}
-					onChange={(e) => setCurrentTag(e.target.value)}
-					errors={valid ? 'Nieprawidłowa wartość' : null}
+					value={currentTitle}
+					onChange={(e) => setCurrentTitle(e.target.value)}
+					errors={invalid ? 'Nieprawidłowa wartość' : null}
 					maxLength={20}
 				/>
 				<Calendar
 					className={style.calendar}
-					readOnly={valid && Object.keys(tags).length === 0}
+					readOnly={invalid && Object.keys(titles).length === 0}
 					onChange={(dates) => {
 						if (!Array.isArray(dates)) return;
+						// if (invalid && date.length < dates.length) return;
 						console.log(
-							dates,
+							invalid,
+							date.length,
 							dates.length,
 							dates.map((date) => date.toDate().getTime())
 						);
+
 						//replace all tags with new ones
 						let newTags: { [key: number]: string } = {};
 						for (let i = 0; i < dates.length; i++) {
 							let time = dates[i].toDate().getTime();
-							console.log(time, tags[time]);
-							if (tags[time] === undefined) newTags[time] = currentTag;
-							else newTags[time] = tags[time];
+							console.log(time, titles[time]);
+							if (titles[time] === undefined) newTags[time] = currentTitle;
+							else newTags[time] = titles[time];
 						}
-						setTags(newTags);
+						setTitles(newTags);
 						setDate(dates);
 					}}
 					value={date}
@@ -79,7 +102,7 @@ const ReminderSettings = () => {
 								return (
 									<>
 										<span className={style.panelDate}>
-											<p>{tags[data.date?.toDate().getTime() || 0]}</p>
+											<p>{titles[data.date?.toDate().getTime() || 0]}</p>
 											<p>{data.date?.toString()}</p>
 										</span>
 										<svg
@@ -105,6 +128,7 @@ const ReminderSettings = () => {
 						/>,
 					]}
 				/>
+				<Button onClick={saveReminders}>zapisz</Button>
 			</Box>
 		</div>
 	);

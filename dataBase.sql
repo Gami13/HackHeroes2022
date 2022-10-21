@@ -26,12 +26,26 @@ ADD PRIMARY KEY (`id`, `userId`);
 CREATE TABLE IF NOT EXISTS `publication` (
     `id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `userId` bigint(20) NOT NULL,
-    `recipientId` bigint(20) NOT NULL,
     `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `title` varchar(255) NOT NULL,
     `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
     `footer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- comments
+CREATE TABLE IF NOT EXISTS `comments` (
+    `id` bigint(20) NOT NULL PRIMARY KEY,
+    `userId` bigint(20) NOT NULL,
+    `publicationId` bigint(20) NOT NULL,
+    `publicationReplyId` bigint(20) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- reminders
+CREATE TABLE IF NOT EXISTS `reminders` (
+    `id` int(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `userId` bigint(20) NOT NULL,
+    `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `title` varchar(255) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
 -- create table wojewodztwa
 CREATE TABLE IF NOT EXISTS `wojewodztwa` (
     `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,

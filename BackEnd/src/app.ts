@@ -7,7 +7,9 @@ import authentication from './Authentication.js';
 import db from './connection.js';
 import { RowDataPacket } from 'mysql2';
 import load from './classes/extensions.js';
-import publications from './classes/publications.js';
+import publications from './publications.js';
+import reminders from './reminders.js';
+import comments from './comments.js';
 load();
 
 const app = express();
@@ -41,6 +43,8 @@ app.listen(3000, () => {
 });
 authentication(app);
 publications(app);
+reminders(app);
+comments(app);
 
 app.get('/wojewodztwa', async (req, res) => {
 	let query = 'SELECT * FROM wojewodztwa';

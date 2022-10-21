@@ -159,10 +159,13 @@ const MainPage = () => {
 				</Button>
 				<CreatePublication
 					className={isAddPublicationOpen ? null : style.addPublicationInvis}
+					date={new Date()}
+					user={context.userFirstName + ' ' + context.userLastName}
 					height="fit-content"
 				></CreatePublication>
-				{publications.map((pub: any) => (
+				{publications.map((pub: any, index: number) => (
 					<Publication
+						key={index}
 						id={pub.id}
 						date={new Intl.DateTimeFormat('en-Gb').format(new Date(pub.date))}
 						user={pub.firstName + ' ' + pub.lastName}

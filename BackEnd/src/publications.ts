@@ -1,7 +1,8 @@
-import { RowDataPacket } from 'mysql2';
+import { OkPacket, RowDataPacket } from 'mysql2';
 import express, { Express, Request, Response } from 'express';
-import db from '../connection.js';
-import UserManagement from './UserManagement.js';
+import db from './connection.js';
+import UserManagement from './classes/UserManagement.js';
+import SnowflakeID from './classes/Snowflake.js';
 
 export default function publications(app: Express) {
 	app.get('/publications', async (req, res) => {
@@ -32,10 +33,10 @@ export default function publications(app: Express) {
 		res.sendSuccess({ tags: results });
 	});
 
-	app.post('/publication', (req, res) => {
+	app.post('/publication', async (req, res) => {
 		let title = req.body.title;
 		let body = req.body.body;
-		let date = req.body.date;
+		let date = new Date();
 		let tags = req.body.tags || [];
 		let userId = req.body.userId;
 		let email = req.body.email;
@@ -49,10 +50,21 @@ export default function publications(app: Express) {
 			res.sendError('Invalid tags', 400);
 			return false;
 		}
-
+		let snowflake = SnowflakeID.createID('010');
 		let query =
-			'INSERT INTO `publication` (`title`, `body`, `date`, `userId`,`footer`) VALUES (?, ?, ?, ?, ?)';
-		db.query(query, [title, body, date, userId, tags]);
+			'INSERT INTO `publication` (`id`,`title`, `body`, `date`, `userId`,`footer`) VALUES (?,?, ?, ?, ?, ?)';
+
+		let [results] = await db.query<OkPacket>(query, [
+			snowflake,
+			title,
+			body,
+			date,
+			userId,
+			JSON.stringify(tags),
+		]);
+		if (results.affectedRows == 0)
+			return res.sendError('Failed to create publication', 500);
+		res.sendSuccess({ message: 'Publication created' });
 	});
 	console.green('Publications Routes Loaded ✔');
 }
