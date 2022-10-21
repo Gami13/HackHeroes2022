@@ -4,9 +4,16 @@ import db from './connection.js';
 import SnowflakeID from './classes/Snowflake.js';
 import UserManagement from './classes/UserManagement.js';
 export default function reminders(app: Express) {
-	app.get('/reminders', async (req, res) => {
-		let query = 'SELECT * FROM `reminders`';
-		let [results] = await db.query<RowDataPacket[]>(query);
+	app.post('/getReminders', async (req, res) => {
+		let email = req.body.email || '';
+		let token = req.body.token || '';
+		let userId = req.body.userId || '0';
+		if (!UserManagement.isLoggedIn(email, token, userId)) {
+			res.sendError('Not logged in', 401);
+			return false;
+		}
+		let query = 'SELECT * FROM `reminders` WHERE `userId` = ?';
+		let [results] = await db.query<RowDataPacket[]>(query, [userId]);
 		if (results.length == 0) return res.sendError('No results', 404);
 		res.sendSuccess({ reminders: results });
 	});

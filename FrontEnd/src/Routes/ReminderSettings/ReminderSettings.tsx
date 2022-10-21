@@ -14,6 +14,7 @@ import { DateObject } from 'react-multi-date-picker';
 import DataList from '../../Components/DataList/DataList';
 import Button from '../../Components/Main/Button/Button';
 import States from '../../Components/States';
+import useIsFirstRender from '../../isFirstRender';
 
 const tagValid = (tag: string) => {
 	return tag.trim().length === 0;
@@ -30,6 +31,26 @@ const ReminderSettings = () => {
 
 	const context = useContext(States);
 
+	async function getReminders() {
+		let res = await fetch('http://localhost:3000/getReminders', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				userId: context.userID,
+				email: context.userEmail,
+				token: context.userToken,
+			}),
+		});
+		let data = await res.json();
+		console.log(data);
+	}
+
+	if (useIsFirstRender()) {
+		getReminders();
+	}
+
 	async function saveReminders() {
 		const response = await fetch('http://localhost:3000/reminders', {
 			method: 'POST',
@@ -43,6 +64,8 @@ const ReminderSettings = () => {
 				userId: context.userID,
 			}),
 		});
+		const data = await response.json();
+		console.log(data);
 	}
 	return (
 		<div className={[layouts.center].join(' ')}>
