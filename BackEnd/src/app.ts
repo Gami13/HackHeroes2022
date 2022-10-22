@@ -11,11 +11,16 @@ import publications from './publications.js';
 import reminders from './reminders.js';
 import comments from './comments.js';
 import messages from './messages.js';
+import fileUpload from 'express-fileupload';
+import fetch from 'node-fetch';
 load();
 
 const app = express();
 app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
 app.use(cors());
+app.use(fileUpload());
 
 app.listen(3000, () => {
 	console.green('Server started on port 3000');
@@ -85,13 +90,25 @@ app.get('/gminy/:powId', async (req, res) => {
 	});
 });
 
-app.get('/user/:userId', async (req, res) => {
+app.get('/userProfileImage/:userId', async (req, res) => {
 	let userId = req.params.userId || 0;
-	let query =
-		'SELECT users.id,users.firstName,users.lastName,(SELECT name FROM wojewodztwa WHERE wojewodztwoId = users.wojewodztwoId LIMIT 1) as wojewodztwo,(SELECT name FROM powiaty WHERE powiatId = users.powiatId LIMIT 1) as powiat,(SELECT name FROM gminy WHERE gminaId = users.gminaId LIMIT 1) as gmina FROM users WHERE id = ?';
+	let query = 'SELECT photo FROM users WHERE id = ?';
 	let [results, fields] = await db.query<RowDataPacket[]>(query, [userId]);
-	if (results.length == 0) return res.sendError('No results', 404);
-	res.sendSuccess({
-		user: results[0],
-	});
+
+	if (results.length == 0) {
+		let urls = [
+			'https://media.tenor.com/d8-MHhSV7OAAAAAS/dream-dream-smp.gif',
+			'https://media.tenor.com/yQNEexfp7oUAAAAS/dream-dream-minecraft.gif',
+			'https://media.tenor.com/03kIzIohoBUAAAAC/dream-team-dream-minecraft.gif',
+			'https://tenor.com/view/this-is-my-kingdom-come-gif-22105215.gif',
+		];
+		let buffer = await (
+			await fetch(urls[Math.floor(Math.random() * urls.length)])
+		).arrayBuffer();
+		res.setHeader('Content-Type', 'image/gif');
+		res.send(Buffer.from(buffer));
+		return;
+	}
+	res.send(results[0].photo);
+	//send get content type from buffer
 });

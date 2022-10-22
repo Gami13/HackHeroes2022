@@ -15,7 +15,9 @@ import Button from '../../Components/Main/Button/Button';
 import TextArea from '../../Components/Main/TextArea/TextArea';
 
 const Booking = () => {
-	const [personImage, setPersonImage] = useState('');
+	const [personImage, setPersonImage] = useState(
+		'https://media.tenor.com/d8-MHhSV7OAAAAAS/dream-dream-smp.gif'
+	);
 	const [personName, setPersonName] = useState('');
 	const [personPosition, setPersonPosition] = useState('');
 	const [personDescription, setPersonDescription] = useState('');
@@ -30,23 +32,26 @@ const Booking = () => {
 
 	async function fetchPerson() {
 		///TODO: fetch person data
-		let res = await fetch(`http://localhost:3000/user/${id}`, {
-			method: 'GET',
+		let res = await fetch(`http://localhost:3000/getUserData`, {
+			method: 'POST',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
+			body: JSON.stringify({
+				id: id,
+			}),
 		});
 		let json = await res.json();
-		let user = json.user;
 
-		setPersonImage(user.image);
-		setPersonName(user.firstName + ' ' + user.lastName);
+		//url to imgur image
+		setPersonImage('http://localhost:3000/userProfileImage/' + json.userId);
+		setPersonName(json.firstName + ' ' + json.lastName);
 		setPersonPosition('monitor');
-		setPersonDescription(user.description);
-		setpersonVoivodeship(user.wojewodztwo);
-		setPersonCounty(user.powiat);
-		setPersonTown(user.gmina);
+		setPersonDescription(json.description);
+		setpersonVoivodeship(json.wojewodztwo);
+		setPersonCounty(json.powiat);
+		setPersonTown(json.gmina);
 	}
 	if (isFirstRender) {
 		fetchPerson();
@@ -63,7 +68,7 @@ const Booking = () => {
 				voivodeship={personVoivodeship}
 				county={personCounty}
 				town={personTown}
-				id={5834527345}
+				id={id}
 				noButtons={true}
 			/>
 			<div className={style.controls}>

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '../Main/Box/Box';
-import style from './PersonCard.module.css';
+import style from './MessagesUserCard.module.css';
 import Tag from '../Main/Tag/Tag';
 import Button from '../Main/Button/Button';
 import States from '../States';
-interface PersonCardProps {
+interface MessagesUserCardProps {
 	className?: string[] | string;
 
 	name?: string;
@@ -21,7 +21,7 @@ interface PersonCardProps {
 	action?: (e: any) => void;
 }
 
-const PersonCard = (props: PersonCardProps) => {
+const MessagesUserCard = (props: MessagesUserCardProps) => {
 	const navigate = useNavigate();
 	function bookMeeting(id: string) {
 		console.log(id);
@@ -37,7 +37,7 @@ const PersonCard = (props: PersonCardProps) => {
 		<Box
 			width="fit-content"
 			backgroundColor={null}
-			className={[style.personCard, props.className, style.wrapper]
+			className={[style.MessagesUserCard, props.className, style.wrapper]
 				.flat()
 				.join(' ')}
 		>
@@ -55,29 +55,7 @@ const PersonCard = (props: PersonCardProps) => {
 				text={props.position ? props.position : 'Nieznany'}
 				backgroundColor="pink"
 			/>
-			{props.noButtons ? null : (
-				<div className={style.buttons}>
-					<Button
-						className={style.askQuestion}
-						onClick={() => {
-							askQuestion(props.id!);
-						}}
-						disabled={!context.isLoggedIn}
-					>
-						Zadaj Pytanie
-					</Button>
-					<Button
-						className={style.bookMeeting}
-						onClick={() => {
-							bookMeeting(props.id!);
-						}}
-						disabled={!context.isLoggedIn}
-					>
-						Umów spotkanie
-					</Button>
-				</div>
-			)}
 		</Box>
 	);
 };
-export default PersonCard;
+export default MessagesUserCard;

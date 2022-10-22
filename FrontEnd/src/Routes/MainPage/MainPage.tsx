@@ -67,6 +67,8 @@ const MainPage = () => {
 	const [selections, setSelections] = React.useState<any>([]);
 	const [tags, setTags] = React.useState<any>([]);
 
+	const [calendarData, setCalendarData] = useState<any>({});
+
 	const isFirstRender = useIsFirstRender();
 	if (isFirstRender) {
 		let w = async () => {
@@ -78,6 +80,27 @@ const MainPage = () => {
 			let json2 = await res2.json();
 			setPublications(json2.publications);
 			console.log(json2.publications);
+
+			res = await fetch('http://localhost:3000/getReminders', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					userId: context.userID,
+					email: context.userEmail,
+					token: context.userToken,
+				}),
+			});
+			let data = await res.json();
+			let titles = data.reminders.reduce(
+				(acc: any, reminder: any, index: any) => {
+					acc[new Date(reminder.date).getTime()] = reminder.title;
+					return acc;
+				},
+				{}
+			);
+			setCalendarData(titles);
 		};
 		w();
 		console.log('first render');
@@ -194,7 +217,7 @@ const MainPage = () => {
 					<Publication
 						key={index}
 						id={pub.id}
-						className={style.publication}
+						className={[style.publication, style.pub]}
 						date={new Intl.DateTimeFormat('en-Gb').format(new Date(pub.date))}
 						user={pub.firstName + ' ' + pub.lastName}
 						title={pub.title}
@@ -211,7 +234,7 @@ const MainPage = () => {
 			</main>
 
 			<div className={style.additionalElements}>
-				<CalendarWithTags />
+				<CalendarWithTags tags={calendarData} />
 			</div>
 		</div>
 	);

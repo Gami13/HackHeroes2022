@@ -34,6 +34,18 @@
 /* .custom-calendar .rmdp-panel-body span {
 	color: var(--textSecondary);
 } */
+.rmdp-wrapper.custom-calendar .rmdp-panel-body {
+	background-color: var(--depth2);
+}
+.custom-calendar .rmdp-panel > :nth-child(2)::-webkit-scrollbar {
+	width: 5px;
+	border-radius: var(--roundedSmall);
+}
+.custom-calendar .rmdp-panel > :nth-child(2)::-webkit-scrollbar-thumb {
+	border-radius: var(--roundedSmall);
+	background: var(--secondary);
+}
+
 .custom-calendar .rmdp-panel-body li.bg-yellow span {
 	color: var(--textPrimary);
 }

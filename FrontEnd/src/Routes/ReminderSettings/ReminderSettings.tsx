@@ -45,9 +45,22 @@ const ReminderSettings = () => {
 		});
 		let data = await res.json();
 		console.log(data);
+		let date = data.reminders.map((reminder: any) => {
+			return new Date(reminder.date);
+		});
+		let titles = data.reminders.reduce(
+			(acc: any, reminder: any, index: any) => {
+				acc[new Date(reminder.date).getTime()] = reminder.title;
+				return acc;
+			},
+			{}
+		);
+		setDate(date);
+		setTitles(titles);
 	}
 
 	if (useIsFirstRender()) {
+		console.log(context);
 		getReminders();
 	}
 
@@ -93,7 +106,7 @@ const ReminderSettings = () => {
 				<Calendar
 					className={style.calendar}
 					readOnly={invalid && Object.keys(titles).length === 0}
-					onChange={(dates) => {
+					onChange={(dates: any) => {
 						if (!Array.isArray(dates)) return;
 						// if (invalid && date.length < dates.length) return;
 						console.log(

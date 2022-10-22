@@ -108,6 +108,7 @@
 }
 
 .message[data-from='other'] > span {
+	text-align: left;
 	grid-column-start: 1;
 	grid-column-end: 2;
 }

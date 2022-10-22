@@ -5,14 +5,14 @@ import Calendar from '../Main/Calendar/Calendar';
 interface CalendarWithTagsProps {
 	className?: string[] | string;
 	tags?: { [key: number]: string };
+	updateTags?: (tags: { [key: number]: string }) => void;
 }
 const CalendarWithTags = (props: CalendarWithTagsProps) => {
 	const { className } = props;
-	let [tags, setTags] = useState<{ [key: number]: string }>(
-		props.tags || {
-			1665834090446: 'KYS',
-		}
-	);
+	const tags = props.tags || {
+		1665834090446: 'KYS',
+	};
+
 	return (
 		<Calendar
 			readOnly={true}

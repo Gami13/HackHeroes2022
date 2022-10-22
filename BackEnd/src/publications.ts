@@ -12,7 +12,11 @@ export default function publications(app: Express) {
 		if (results.length == 0) return res.sendError('No results', 404);
 
 		let r = results.map((a) => {
-			return { ...a, footer: JSON.parse(a.footer) };
+			return {
+				...a,
+				footer: JSON.parse(a.footer),
+				date: SnowflakeID.getDataFromID(a.id).date,
+			};
 		});
 		//query tags
 		query = 'SELECT * FROM `tags` WHERE id = ?';
@@ -27,13 +31,18 @@ export default function publications(app: Express) {
 	});
 
 	app.get('/publicationes/:id', async (req, res) => {
-		let query = 'SELECT * FROM `publication` WHERE id = ?';
+		let query =
+			'SELECT `publication`.*, `users`.`firstName`, `users`.`lastName` FROM `publication`, `users` WHERE `publication`.`id` = ? AND `publication`.`userId` = `users`.`id`';
 		let [results] = await db.query<RowDataPacket[]>(query, [req.params.id]);
 
 		if (results.length == 0) return res.sendError('No results', 404);
 
 		let r = results.map((a) => {
-			return { ...a, footer: JSON.parse(a.footer) };
+			return {
+				...a,
+				footer: JSON.parse(a.footer),
+				date: SnowflakeID.getDataFromID(a.id).date,
+			};
 		});
 		//query tags
 		query = 'SELECT * FROM `tags` WHERE id = ?';

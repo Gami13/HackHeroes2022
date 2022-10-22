@@ -30,7 +30,6 @@ function Publication(props: PublicationProps) {
 	const [bodyValue, setBodyValue] = React.useState<any>(body || '');
 
 	const context = useContext(States);
-
 	selections.map((x: any) => (
 		<p>
 			{x.value}- {x.label}

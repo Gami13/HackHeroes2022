@@ -53,13 +53,14 @@ const Mail = () => {
 		const data = await response.json();
 		console.log(data);
 		///TODO: fetch person data
-		setPersonImage(data.photo);
+
+		setPersonImage('http://localhost:3000/userProfileImage/' + data.userId);
 		setPersonName(data.firstName + ' ' + data.lastName);
 		setPersonPosition(data.tags);
 		setPersonDescription(data.description);
-		setpersonVoivodeship('Malopolska');
-		setPersonCounty('Kraków');
-		setPersonTown('Kraków');
+		setpersonVoivodeship(data.voivodeship);
+		setPersonCounty(data.county);
+		setPersonTown(data.town);
 	}
 	if (isFirstRender) {
 		fetchPerson();
@@ -174,7 +175,7 @@ const Mail = () => {
 					voivodeship={personVoivodeship}
 					county={personCounty}
 					town={personTown}
-					id={5834527345}
+					id={id}
 					noButtons={true}
 				/>
 			</aside>

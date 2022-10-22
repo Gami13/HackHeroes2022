@@ -6,8 +6,8 @@
 }
 
 .info > * {
-	font-size: 0.8rem;
-	color: var(--textPrimaryHover);
+	font-size: 0.9rem;
+	color: var(--secondary);
 }
 
 .title {
@@ -48,19 +48,27 @@
 	transition-duration: var(--transitionSpeedFast);
 	width: 40rem;
 	height: fit-content;
+	cursor: default;
 }
+
 .wrapper {
 	border-radius: var(--roundedBig);
 	cursor: pointer;
 	height: fit-content;
 	width: fit-content;
 }
-.wrapper:hover .body {
+
+.wrapper:hover .box .body {
 	background-color: var(--depth3);
 }
-.wrapper:hover .title {
+.wrapper:hover .box .title {
 	background-color: var(--depth3);
 }
-.wrapper:hover .box {
+.wrapper:disabled:hover .box {
+	background-color: var(--depth1);
+}
+.wrapper:hover .box,
+.wrapper:disabled:hover .box .title,
+.wrapper:disabled:hover .box .body {
 	background-color: var(--depth2);
 }

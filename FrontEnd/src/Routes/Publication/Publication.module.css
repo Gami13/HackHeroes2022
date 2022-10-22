@@ -1,0 +1,36 @@
+.main {
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.commentInput {
+	width: 40rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: flex-end;
+}
+
+.textarea {
+	background-color: var(--depth1);
+}
+
+.commentSection {
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+.commentSection > p {
+	width: 100%;
+	position: relative;
+}
+.commentSection > p::before {
+	position: absolute;
+	top: 100%;
+	background-color: var(--depth3);
+	content: '';
+	height: 2px;
+	width: 100%;
+}

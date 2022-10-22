@@ -25,14 +25,7 @@
 	flex-direction: column;
 	padding-bottom: 5px;
 }
-.data:nth-child(2) div::-webkit-scrollbar {
-	width: 5px;
-	border-radius: var(--roundedSmall);
-}
-.data:nth-child(2) div::-webkit-scrollbar-thumb {
-	border-radius: var(--roundedSmall);
-	background: var(--secondary);
-}
+
 .data ul li {
 	margin: 0;
 	padding: 0 2px;

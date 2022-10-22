@@ -28,14 +28,66 @@ export default function reminders(app: Express) {
 	});
 	app.post('/reminders', async (req, res) => {
 		console.log(req.body);
-		let reminders = req.body.data;
+		let data = req.body.data;
 		let email = req.body.email;
 		let token = req.body.token;
 		let userId = req.body.userId;
 		if (!(await UserManagement.isLoggedIn(email, token, userId))) {
 			return res.sendError('You are not logged in', 401);
 		}
-		// insert into database or update if exists
+		let reminders: { date: string; title: string }[] = [];
+		Object.keys(data).forEach(async (key) => {
+			reminders.push({ date: key, title: data[key] });
+		});
+		// check if reminder exists
+
+		let q = 'SELECT * FROM `reminders` WHERE `userId` = ?';
+		let [results] = await db.query<RowDataPacket[]>(q, [userId]);
+		if (results.length > 0) {
+			// if reminder is not in reminders array, delete it
+			results.forEach(async (reminder) => {
+				let found = false;
+				reminders.forEach((r) => {
+					if (r.date == reminder.date) {
+						found = true;
+					}
+				});
+				if (!found) {
+					let query = 'DELETE FROM `reminders` WHERE `id` = ?';
+					await db.query<OkPacket>(query, [reminder.id]);
+				}
+			});
+		}
+
+		let query = 'SELECT * FROM `reminders` WHERE `date` = ?';
+		let left = [];
+		for (let i = 0; i < reminders.length; i++) {
+			let [results] = await db.query<RowDataPacket[]>(query, [
+				new Date(parseInt(reminders[i].date)),
+			]);
+			if (results.length == 0) {
+				left.push(reminders[i]);
+			} else {
+				let query = 'UPDATE `reminders` SET `title` = ? WHERE `date` = ?';
+				let [results] = await db.query<OkPacket>(query, [
+					reminders[i].title,
+					new Date(parseInt(reminders[i].date)),
+				]);
+			}
+		}
+		console.log(left);
+		// add new reminders
+		for (let i = 0; i < left.length; i++) {
+			let query =
+				'INSERT INTO `reminders` (`title`, `date`,`userId`) VALUES (?,?,?)';
+			let [results] = await db.query<OkPacket>(query, [
+				left[i].title,
+				new Date(parseInt(left[i].date)),
+				userId,
+			]);
+		}
+		console.log(left);
+
 		res.sendSuccess('ok');
 	});
 	app.delete('/reminder', async (req, res) => {

@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 ###
 # code from email
-@code = z444wVjK9n4D29q9bj_E-VoIX9uxq7EJQdTze8gGWRozHjSeKORX2FmheYj9yHQmUqblwWh0hYyjU1zBRldCfp1Yu9C1SXJRXbP_cdqpMmZ04JJ7p48biNXFZsetffWHjJPaIQ
+@code = x5Y2w9hf0q-BCD0xfZn859gVIi8EahNRdgh4FYNOBsY_hoJvMYyiyxV6JDwrsb282WwvXw6XqaIfttkxp6alRqh5E8X6JHohNkEow5DdtBPnrzTFLCQhuXUyaEuiZOeheq_2aA
 GET {{url}}/verify/{{code}} HTTP/1.1
 
 #Login
@@ -93,3 +93,6 @@ Content-Type: application/json
 ###
 @id = 106751257766542312
 GET {{url}}/user/{{id}} HTTP/1.1
+
+###
+POST {{url}}/getUserData HTTP/1.1

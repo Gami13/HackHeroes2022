@@ -1,0 +1,60 @@
+.personCard {
+	border-radius: var(--roundedBig);
+	transition-duration: var(--transitionSpeedFast);
+	width: 100% !important;
+	margin-top: 0px;
+	justify-content: center;
+}
+.personCard > img {
+	width: 10rem;
+	aspect-ratio: 1/1;
+	border-radius: 100%;
+	object-fit: cover;
+	border: 5px solid var(--textPrimary);
+}
+.personCard > h2 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin: 0;
+	padding: 0.25rem;
+}
+.personCard > span {
+	font-size: 0.8rem;
+	color: var(--textPrimaryHover);
+	padding-bottom: 0.25rem;
+}
+.personCard > p {
+	padding: 0.25rem;
+	padding-bottom: 1rem;
+	max-width: 32ch;
+}
+.wrapper {
+	border-radius: var(--roundedBig);
+
+	background-color: var(--depth1);
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	margin-bottom: 1rem;
+	transition-duration: var(--transitionSpeedFast);
+	transition-timing-function: ease-in-out;
+	transition-property: background-color, transform;
+	max-width: fit-content;
+	width: fit-content;
+}
+
+.buttons {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+.bookMeeting {
+	background-color: var(--primary);
+}
+.askQuestion {
+	background-color: var(--secondary);
+}
+.askQuestion:hover {
+	background-color: var(--secondaryHover);
+}

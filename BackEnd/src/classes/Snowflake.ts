@@ -63,7 +63,7 @@ class SnowflakeID {
 				idType = 'message';
 				break;
 			case '110':
-				idType = 'other';
+				idType = 'comment';
 				break;
 			case '111':
 				idType = 'other';

@@ -5,9 +5,9 @@
 - [OBYWATEL++](#obywatel)
 - [Table of Content](#table-of-content)
 - [Założenia projektu](#założenia-projektu)
+  - [<span style="color:Red;">🚨**TODO**🚨</span>](#todo)
   - [obywatel może:](#obywatel-może)
   - [Osoba z dostępem samorządowym może:](#osoba-z-dostępem-samorządowym-może)
-- [To Do](#to-do)
   - [Komponenty](#komponenty)
     - [Główne](#główne)
     - [Złożone](#złożone)
@@ -20,6 +20,30 @@
   - [Przypominajka](#przypominajka)
 
 # Założenia projektu
+
+## <span style="color:Red;">🚨**TODO**🚨</span>
+
+- [ ] Zrobić styl powiadomień i animacje
+- [ ] Informacja o nie poprawnym zalogowaniu
+- [ ] Informacja o nie poprawnym zarejestrowaniu
+- [ ] Informacja o nie poprawnym dodaniu komentarza
+- [ ] Informacja o nie poprawnym dodaniu post
+- [ ] Wyszukiwarka na głównej stronie
+- [ ] Wyszukiwarka w wiadomościach
+- [ ] Skalowanie komentarzy
+- [ ] Skalowanie kalendarza
+- [ ] Skalowanie multiselecta
+- [ ] Naprawić skalowanie Filtera (to takie co oddziela go od reszty elementów szare a jest za daleko np. na stronie "Umów spotkanie")
+- [ ] Naprawić tło w kalendarzu na głównej stronie (to za guzikami)
+- [ ] Sortowanie komentarzy i postów po użytkowniku który dodał i dacie
+- [ ] Przypinanie postów
+- [ ] Bazę danych przenieść do radzika
+- [ ] Przenieść projekt na Vercela
+- [ ] Wszystko od strony samorządu
+- [ ] Poprawne dodawanie dodatkowych informacji dla osób z samorządu
+- [ ] Wyświetlanie wiadomości
+- [ ] Wyświetlanie rozpoczętych rozmów
+- [ ] Umówienie spotkań
 
 ## obywatel może:
 
@@ -35,11 +59,6 @@
 - akceptować spotkania/rozmowy z obywatelami
 - organizować zbiórki, a także je weryfikować i nimi zarządzać
 - rozpatrywać problemy, petycje, pomysły zgłaszane przez obywateli
-
-# To Do
-
-- Rozdzielić Forma na komponenty
-- Naprawić <span style="color:Red;">🚨**WSZYSTKO**🚨</span>
 
 ## Komponenty
 

@@ -49,8 +49,8 @@ function Publication(props: PublicationProps) {
 				gap="0.5rem"
 			>
 				<div className={style.info}>
-					<p>{date}</p>
 					<p>{user}</p>
+					<p>{date}</p>
 				</div>
 				<h1 className={style.title}>{title}</h1>
 				<div className={style.body}>{body}</div>

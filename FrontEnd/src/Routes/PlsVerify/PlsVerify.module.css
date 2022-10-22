@@ -20,3 +20,9 @@
 	margin-top: 1rem;
 	text-align: center;
 }
+.svg {
+	fill: var(--primary);
+}
+.svg:last-child {
+	fill: var(--yellow);
+}

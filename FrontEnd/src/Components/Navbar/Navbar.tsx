@@ -100,15 +100,9 @@ const Navbar = () => {
 							</g>
 						</svg>
 					</NavBarButton>
-					<NavBarButton to="/mail" title="Mailbox">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							viewBox="0 0 16 16"
-							strokeWidth={0}
-						>
-							<path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+					<NavBarButton to="/mail" title="Wiadomości">
+						<svg width="16" height="16" viewBox="0 0 16 16" strokeWidth={0}>
+							<path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
 						</svg>
 					</NavBarButton>
 					<NavBarButton to="/bookMeeting" title="Umów spotkanie">

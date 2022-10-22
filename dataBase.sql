@@ -40,9 +40,8 @@ ALTER TABLE `messages`
 ADD PRIMARY KEY (`id`);
 -- publication
 CREATE TABLE IF NOT EXISTS `publication` (
-    `id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `id` bigint(20) NOT NULL PRIMARY KEY,
     `userId` bigint(20) NOT NULL,
-    `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `title` varchar(255) NOT NULL,
     `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
     `footer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
@@ -55,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
     `id` bigint(20) NOT NULL PRIMARY KEY,
     `userId` bigint(20) NOT NULL,
     `publicationId` bigint(20) NOT NULL,
-    `publicationReplyId` bigint(20) NOT NULL
+    `text` text(2000) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- reminders
 CREATE TABLE IF NOT EXISTS `reminders` (
@@ -116,6 +115,46 @@ VALUES ('dolnośląskie'),
     ('warmińsko-mazurskie'),
     ('wielkopolskie'),
     ('zachodniopomorskie');
+INSERT INTO `users` (
+        `id`,
+        `firstName`,
+        `lastName`,
+        `gminaId`,
+        `powiatId`,
+        `wojewodztwoId`,
+        `dateOfBirth`,
+        `email`,
+        `password`,
+        `salt`,
+        `tokens`,
+        `ranks`,
+        `isBanned`,
+        `isActivated`,
+        `phoneNumber`,
+        `description`,
+        `tags`,
+        `address`
+    )
+VALUES (
+        '106798720795811136',
+        'Harry',
+        'Potter',
+        '814',
+        '120',
+        '6',
+        '1981-07-31',
+        'hedwiga@hp.com',
+        '$argon2id$v=19$m=4096,t=3,p=1$vqSdoyEDMpSW1w3AV6shPg$ymRjPRK+dxPeUXU+wzIRvjOzwkJxRG3loTdx4f7SZHI',
+        'U501EEzDgJAHcHCUH9VFgd0NXj4SjquYqdjx+eaH6gg=',
+        '[]',
+        '[\"user\"]',
+        '0',
+        '1',
+        '123456789',
+        'Cześć :) jestem super wójtem i mieszkam w twoich ścianach 🙃 i wiem co robisz po nocach 😈',
+        '[11, 5]',
+        'Gorlice 420'
+    );
 INSERT INTO powiaty (name, wojId)
 VALUES ('bolesławiecki', 1),
     ('dzierżoniowski', 1),

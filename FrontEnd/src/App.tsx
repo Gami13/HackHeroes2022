@@ -41,7 +41,9 @@ const App = () => {
 			if (!cookie) {
 				return;
 			}
-
+			setUserEmail(cookie.email);
+			setUserID(cookie.id);
+			setUserToken(cookie.token);
 			let data = {
 				id: cookie.id,
 				email: cookie.email,
