@@ -26,6 +26,27 @@ export default function publications(app: Express) {
 		res.sendSuccess({ publications: r });
 	});
 
+	app.get('/publicationes/:id', async (req, res) => {
+		let query = 'SELECT * FROM `publication` WHERE id = ?';
+		let [results] = await db.query<RowDataPacket[]>(query, [req.params.id]);
+
+		if (results.length == 0) return res.sendError('No results', 404);
+
+		let r = results.map((a) => {
+			return { ...a, footer: JSON.parse(a.footer) };
+		});
+		//query tags
+		query = 'SELECT * FROM `tags` WHERE id = ?';
+		for (let a of r) {
+			for (let i = 0; i < a.footer.length; i++) {
+				let [results] = await db.query<RowDataPacket[]>(query, [a.footer[i]]);
+				a.footer[i] = results[0];
+			}
+		}
+
+		res.sendSuccess({ publication: r[0] });
+	});
+
 	app.get('/tags', async (req, res) => {
 		let query = 'SELECT * FROM `tags`';
 		let [results] = await db.query<RowDataPacket[]>(query);
@@ -42,7 +63,7 @@ export default function publications(app: Express) {
 		let email = req.body.email;
 		let token = req.body.token;
 
-		if (!UserManagement.isLoggedIn(email, token, userId)) {
+		if (!(await UserManagement.isLoggedIn(email, token, userId))) {
 			res.sendError('Not logged in', 401);
 			return false;
 		}

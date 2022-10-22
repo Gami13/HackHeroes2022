@@ -5,7 +5,7 @@ interface SelectProps {
 	value?: string;
 	placeholder?: string;
 	className?: string | string[];
-	options: any[];
+	options: { value: string; title: string }[];
 	startValue?: string;
 	onBlur?: (e: React.FocusEvent<HTMLSelectElement>) => void;
 	onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -16,7 +16,7 @@ const Select = (props: SelectProps) => {
 	return (
 		<select
 			id={id}
-			className={[style.select, className].join(' ')}
+			className={[style.select, className].flat().join(' ')}
 			onBlur={onBlur}
 			onChange={onChange}
 		>

@@ -22,7 +22,7 @@ class SnowflakeID {
 			randomness += Math.round(Math.random()).toString();
 		}
 		ID += randomness;
-		ID += idType; // 000 = user, 001=verification, 010=article, 011=comment, 100=other
+		ID += idType; // 000 = user, 001=verification, 010=article, 011=comment, 100=other, 101= message
 		ID = BigInt(`0b${ID}`).toString();
 		return ID;
 	}
@@ -60,7 +60,7 @@ class SnowflakeID {
 				idType = 'password reset';
 				break;
 			case '101':
-				idType = 'other';
+				idType = 'message';
 				break;
 			case '110':
 				idType = 'other';

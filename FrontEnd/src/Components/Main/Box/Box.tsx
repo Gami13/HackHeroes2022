@@ -37,7 +37,7 @@ function Box(props: BoxProps) {
 
 	return (
 		<div
-			className={[style.box, className].join(' ')}
+			className={[style.box, className].flat().join(' ')}
 			style={
 				{
 					display,
@@ -58,18 +58,4 @@ function Box(props: BoxProps) {
 		</div>
 	);
 }
-
-Box.defaultProps = {
-	display: 'flex',
-	justify: 'center',
-	items: 'center',
-	direction: 'column',
-	padding: '1rem',
-	width: 'min-content',
-	height: 'min-content',
-	backgroundColor: getComputedStyle(document.documentElement).getPropertyValue(
-		'--depth1'
-	),
-};
-
 export default Box;

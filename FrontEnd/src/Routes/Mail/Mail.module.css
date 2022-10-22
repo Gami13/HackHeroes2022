@@ -1,2 +1,113 @@
 .mail {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 5fr 2fr;
+}
+.mainWrapper {
+	grid-column-start: 1;
+	grid-column-end: 2;
+	height: 100%;
+	padding: 2rem;
+}
+.person {
+	grid-column-start: 2;
+	grid-column-end: 3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	position: relative;
+}
+.input {
+	padding: 1rem;
+	display: flex;
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	background-color: var(--depth1);
+	border-bottom-left-radius: var(--roundedBig);
+	border-bottom-right-radius: var(--roundedBig);
+}
+.input > input {
+	width: 100%;
+	height: 3rem;
+	border: none;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+}
+.input > button {
+	width: 3rem;
+	height: 3rem;
+	border: none;
+	border-radius: 0.5rem;
+	background-color: var(--primary);
+	color: white;
+	margin-left: 1rem;
+	padding: 0.7rem;
+}
+.input > button > svg {
+	width: 100%;
+	height: 100%;
+	fill: var(--depth0);
+}
+.messages {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	overflow-y: auto;
+	list-style: none;
+	width: 100%;
+	height: calc(100vh - 4rem - 4rem);
+}
+.message:last-child {
+	margin-bottom: 4rem;
+}
+.message {
+	height: fit-content;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: fit-content;
+	width: 100%;
+	padding: 0.5rem;
+	border-radius: var(--roundedBig);
+	position: relative;
+}
+.message > p {
+	color: var(--textSecondary);
+	width: fit-content;
+	max-width: 95%;
+	padding: 0.5rem;
+	border-radius: var(--roundedBig);
+}
+.message > span {
+	font-size: 0.8rem;
+	color: var(--textPrimaryHover);
+}
+.message[data-from='me'] > p {
+	background-color: var(--primary);
+	grid-column-start: 2;
+	grid-column-end: 3;
+	margin-left: auto;
+}
+.message[data-from='me'] > span {
+	grid-column-start: 2;
+	grid-column-end: 3;
+	text-align: right;
+}
+.message[data-from='other'] > p {
+	background-color: var(--secondary);
+	grid-column-start: 1;
+	grid-column-end: 2;
+}
+
+.message[data-from='other'] > span {
+	grid-column-start: 1;
+	grid-column-end: 2;
 }

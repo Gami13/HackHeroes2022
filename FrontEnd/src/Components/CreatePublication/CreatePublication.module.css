@@ -38,11 +38,13 @@
 	display: flex;
 }
 .footer .multiSelect {
-	width: 100% !important;
+	width: 100%;
 }
 .box {
 	background-color: var(--depth1);
 	transition-duration: var(--transitionSpeedFast);
+	width: 40rem;
+	height: fit-content;
 }
 .wrapper {
 	border-radius: var(--roundedBig);

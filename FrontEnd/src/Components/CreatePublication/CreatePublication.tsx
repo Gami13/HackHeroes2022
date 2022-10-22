@@ -79,9 +79,9 @@ function Publication(props: PublicationProps) {
 
 	return (
 		<Box
-			className={[props.className, style.box].join(' ')}
+			className={[props.className, style.box].flat().join(' ')}
 			width={width}
-			height={'fit-content'}
+			height={height}
 			display="grid"
 			backgroundColor={null}
 			gridTemplateColumns="1fr"
@@ -152,10 +152,5 @@ function Publication(props: PublicationProps) {
 		</Box>
 	);
 }
-
-Publication.defaultProps = {
-	width: '40rem',
-	height: '12rem',
-};
 
 export default Publication;

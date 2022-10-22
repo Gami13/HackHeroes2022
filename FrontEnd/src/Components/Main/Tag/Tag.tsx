@@ -15,7 +15,7 @@ function Tag(props: TagProps) {
 
 	return (
 		<div
-			className={[className, style.tag].join(' ')}
+			className={[className, style.tag].flat().join(' ')}
 			id={props.id}
 			onClick={props.onClick}
 			style={{ backgroundColor: backgroundColor } as CSSProperties}

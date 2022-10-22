@@ -39,7 +39,7 @@
 	--primary: #5865f2; /* #5865f2 - zamienione z blue*/
 	--primaryHover: #4752c4;
 
-	--secondary: #ac81dd;
+	--secondary: rgb(187, 142, 255);
 	--secondaryHover: #a07bcb;
 
 	--red: rgb(200, 50, 50);

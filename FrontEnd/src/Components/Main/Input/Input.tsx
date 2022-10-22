@@ -36,7 +36,7 @@ function Input(props: InputProps) {
 			id={id}
 			type={type}
 			value={value}
-			className={[style.input, className].join(' ')}
+			className={[style.input, className].flat().join(' ')}
 			placeholder={placeholder}
 			onChange={onChange}
 			onBlur={onBlur}

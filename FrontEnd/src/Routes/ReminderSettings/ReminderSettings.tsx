@@ -68,7 +68,7 @@ const ReminderSettings = () => {
 		console.log(data);
 	}
 	return (
-		<div className={[layouts.center].join(' ')}>
+		<div className={[layouts.center].flat().join(' ')}>
 			<Box className={style.container} width={null}>
 				<h1>Przypominajka</h1>
 				{/* <Calendar className={style.calendar} /> */}

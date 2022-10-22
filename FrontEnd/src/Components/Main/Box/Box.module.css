@@ -1,8 +1,16 @@
 .box {
 	border-radius: var(--roundedBig);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 1rem;
+	width: min-content;
+	height: min-content;
+	background-color: var(--depth1);
 }
-@media screen and (max-width: 900px) {
-	.center {
+@media screen and (max-width: 1000px) {
+	/* .center {
 		justify-content: center;
 	}
 	.box {
@@ -13,11 +21,10 @@
 		width: 100% !important;
 		display: flex;
 		flex-direction: column;
-	}
+	} */
 }
 @media screen and (max-width: 500px) {
-	.box {
-		width: 90% !important;
-		padding: 0 !important;
-	}
+	/* .box {
+		width: 100%;
+	} */
 }

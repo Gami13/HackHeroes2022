@@ -25,9 +25,7 @@ const PersonCard = (props: PersonCardProps) => {
 	const navigate = useNavigate();
 	function bookMeeting(id: number) {
 		console.log(id);
-		navigate('booking/' + id.toString());
-
-		alert('rezerwacja');
+		navigate('/booking/' + id.toString());
 	}
 	function askQuestion(id: number) {
 		console.log(id);
@@ -39,7 +37,9 @@ const PersonCard = (props: PersonCardProps) => {
 		<Box
 			width="fit-content"
 			backgroundColor={null}
-			className={[style.personCard, props.className, style.wrapper].join(' ')}
+			className={[style.personCard, props.className, style.wrapper]
+				.flat()
+				.join(' ')}
 		>
 			<img
 				src={props.image}

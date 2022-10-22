@@ -4,22 +4,48 @@ import layouts from '../../layouts.module.css';
 import Button from '../../Components/Main/Button/Button';
 import style from './MailBox.module.css';
 import Input from '../../Components/Main/Input/Input';
+import Box from '../../Components/Main/Box/Box';
+import CheckBox from '../../Components/Main/CheckBox/CheckBox';
 
 const MailBox = () => {
 	return (
 		<>
-			<div className={layouts.center}>
-				<span className={style.search}>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="16"
-						height="16"
-						viewBox="0 0 16 16"
-					>
-						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-					</svg>
+			<div className={[layouts.center, style.center].flat().join(' ')}>
+				<span>
+					<h1>Lista Kontaktów</h1>
 				</span>
-				<Button type="button">Dalej</Button>
+				<ul className={style.contactList}>
+					<li className={style.contact}>
+						<img
+							src="https://api.time.com/wp-content/uploads/2014/07/301386_full1.jpg"
+							alt={'chuj w dupe frytaka'}
+						/>
+						<div>
+							<p>name</p>
+							<p>tagi-</p>
+						</div>
+					</li>
+					<li className={style.contact}>
+						<img
+							src="https://api.time.com/wp-content/uploads/2014/07/301386_full1.jpg"
+							alt={'chuj w dupe frytaka'}
+						/>
+						<div>
+							<p>name</p>
+							<p>tagi-</p>
+						</div>
+					</li>
+					<li className={style.contact}>
+						<img
+							src="https://api.time.com/wp-content/uploads/2014/07/301386_full1.jpg"
+							alt={'chuj w dupe frytaka'}
+						/>
+						<div>
+							<p>name</p>
+							<p>tagi-</p>
+						</div>
+					</li>
+				</ul>
 			</div>
 		</>
 	);

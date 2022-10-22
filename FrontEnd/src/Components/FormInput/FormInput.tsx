@@ -36,7 +36,7 @@ function FormInput(props: FormInputProps) {
 	} = props;
 
 	return (
-		<Label htmlFor={id} className={[className].join(' ')} label={label}>
+		<Label htmlFor={id} className={[className].flat().join(' ')} label={label}>
 			<span className={style.error}>{errors}</span>
 
 			<Input

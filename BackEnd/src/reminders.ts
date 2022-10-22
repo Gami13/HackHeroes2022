@@ -8,7 +8,7 @@ export default function reminders(app: Express) {
 		let email = req.body.email || '';
 		let token = req.body.token || '';
 		let userId = req.body.userId || '0';
-		if (!UserManagement.isLoggedIn(email, token, userId)) {
+		if (!(await UserManagement.isLoggedIn(email, token, userId))) {
 			res.sendError('Not logged in', 401);
 			return false;
 		}
@@ -32,7 +32,7 @@ export default function reminders(app: Express) {
 		let email = req.body.email;
 		let token = req.body.token;
 		let userId = req.body.userId;
-		if (!UserManagement.isLoggedIn(email, token, userId)) {
+		if (!(await UserManagement.isLoggedIn(email, token, userId))) {
 			return res.sendError('You are not logged in', 401);
 		}
 		// insert into database or update if exists

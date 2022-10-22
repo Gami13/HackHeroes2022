@@ -7,7 +7,7 @@ interface FiltersProps {
 }
 const Filters = (props: FiltersProps) => {
 	return (
-		<div className={[style.filters, props.className].join(' ')}>
+		<div className={[style.filters, props.className].flat().join(' ')}>
 			<h1>{props.heading}</h1>
 			<div className={style.filterList}>{props.children}</div>
 		</div>

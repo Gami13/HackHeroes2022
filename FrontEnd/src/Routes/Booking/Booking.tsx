@@ -3,6 +3,16 @@ import { useParams } from 'react-router-dom';
 import PersonCard from '../../Components/PersonCard/PersonCard';
 import style from './Booking.module.css';
 import useIsFirstRender from '../../isFirstRender';
+import Calendar from '../../Components/Main/Calendar/Calendar';
+import TimePicker from 'react-multi-date-picker/plugins/time_picker';
+import AnalogTimePicker from 'react-multi-date-picker/plugins/analog_time_picker';
+import layouts from '../../layouts.module.css';
+import Input from '../../Components/Main/Input/Input';
+import FormInput from '../../Components/FormInput/FormInput';
+import Label from '../../Components/Main/Label/Label';
+import Select from '../../Components/Main/Select/Select';
+import Button from '../../Components/Main/Button/Button';
+import TextArea from '../../Components/Main/TextArea/TextArea';
 
 const Booking = () => {
 	const [personImage, setPersonImage] = useState('');
@@ -14,28 +24,38 @@ const Booking = () => {
 	const [personTown, setPersonTown] = useState('');
 	const isFirstRender = useIsFirstRender();
 	const { id } = useParams();
-	function fetchPerson() {
+
+	const [meatingReason, setMeatingReason] = useState('');
+	const [meatingDate, setMeatingDate] = useState(new Date());
+
+	async function fetchPerson() {
 		///TODO: fetch person data
-		setPersonImage(
-			'https://api.time.com/wp-content/uploads/2014/07/301386_full1.jpg'
-		);
-		setPersonName('Harry Potter');
+		let res = await fetch(`http://localhost:3000/user/${id}`, {
+			method: 'GET',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+		});
+		let json = await res.json();
+		let user = json.user;
+
+		setPersonImage(user.image);
+		setPersonName(user.firstName + ' ' + user.lastName);
 		setPersonPosition('monitor');
-		setPersonDescription(
-			'Cześć :) jestem super wójtem i mieszkam w twoich ścianach 🙃 i wiem co robisz po nocach 😈'
-		);
-		setpersonVoivodeship('Malopolska');
-		setPersonCounty('Kraków');
-		setPersonTown('Kraków');
+		setPersonDescription(user.description);
+		setpersonVoivodeship(user.wojewodztwo);
+		setPersonCounty(user.powiat);
+		setPersonTown(user.gmina);
 	}
 	if (isFirstRender) {
 		fetchPerson();
 	}
 	/* TODO: Add day picker, add time picker, check if that time is available */
 	return (
-		<div className={style.booking}>
-			<h1>Lubie miód: {id}</h1>
+		<div className={[layouts.center, style.booking].flat().join(' ')}>
 			<PersonCard
+				className={style.person}
 				image={personImage}
 				name={personName}
 				position={personPosition}
@@ -46,6 +66,33 @@ const Booking = () => {
 				id={5834527345}
 				noButtons={true}
 			/>
+			<div className={style.controls}>
+				<Calendar
+					className={style.calendar}
+					value={meatingDate}
+					onChange={setMeatingDate}
+					multiple={false}
+					plugins={[<AnalogTimePicker hideSeconds />]}
+				/>
+				<Label label="wybierz sposób spotkania" className={style.label}>
+					<Select
+						className={style.select}
+						options={[
+							{ value: '1', title: 'na miejscu' },
+							{ value: '2', title: 'przez telefon' },
+						]}
+					></Select>
+				</Label>
+				<Label label="Powód spotkania">
+					<TextArea
+						className={style.textarea}
+						minLength={10}
+						placeholder="Podaj powód spotkania"
+						maxLength={150}
+					></TextArea>
+				</Label>
+				<Button>zarezerwuj</Button>
+			</div>
 		</div>
 	);
 };

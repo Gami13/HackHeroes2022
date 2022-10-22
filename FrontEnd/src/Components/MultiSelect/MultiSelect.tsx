@@ -28,6 +28,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 	const [available, setAvailable] = React.useState<Option[] | any>(
 		props.options.map((option, index) => ({ ...option, id: index })) || []
 	);
+
 	if (props.getFuncton) {
 		if (useIsFirstRender()) {
 			props.getFuncton(setAvailable);
@@ -43,6 +44,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 		setAvailable(available.filter((option: any) => option.id != id));
 	}
 	function unselect(event: any) {
+		console.log('unselect');
 		const id = event.currentTarget.id;
 		const unselectedOption = selected.find((option: any) => option.id == id);
 		setAvailable([...available, unselectedOption]);
@@ -75,8 +77,10 @@ const MultiSelect = (props: MultiSelectProps) => {
 	}, [available]);
 
 	return (
-		<div ref={whole} className={[style.multiSelect, props.className].join(' ')}>
-			<span>Multi Select</span>
+		<div
+			ref={whole}
+			className={[style.multiSelect, props.className].flat().join(' ')}
+		>
 			<div
 				onClick={(e) => {
 					if (
@@ -86,7 +90,7 @@ const MultiSelect = (props: MultiSelectProps) => {
 					}
 				}}
 				title="placeholder"
-				className={[props.classNameMain, style.main].join(' ')}
+				className={[props.classNameMain, style.main].flat().join(' ')}
 			>
 				<ul className={style.selectedList}>
 					{selected.map((option: Option) => (
@@ -116,14 +120,12 @@ const MultiSelect = (props: MultiSelectProps) => {
 					props.classNameList,
 					style.list,
 					isFolded ? style.folded : null,
-				].join(' ')}
+				]
+					.flat()
+					.join(' ')}
 			>
-				{available.map((option: Option) => (
-					<li
-						id="available"
-						ref={(el) => (children.current[option.id] = el)}
-						key={option.id}
-					>
+				{available.map((option: Option, index: number) => (
+					<li ref={(el) => (children.current[option.id] = el)} key={index}>
 						<button id={option.id} onClick={select}>
 							{option.label}
 						</button>

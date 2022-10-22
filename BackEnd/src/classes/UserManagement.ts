@@ -188,6 +188,7 @@ class UserManagement {
 			};
 		}
 	}
+
 	static async activateAccount(userId: string) {
 		let query = 'UPDATE users SET isActivated = 1 WHERE id = ?';
 

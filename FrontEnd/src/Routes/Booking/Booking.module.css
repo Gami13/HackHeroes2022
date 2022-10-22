@@ -1,4 +1,28 @@
 .booking {
-	width: 100%;
+	height: fit-content;
+}
+
+.person {
 	height: 100%;
+}
+.calendar {
+	height: fit-content;
+}
+.controls {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+.controls > * {
+	width: 100%;
+}
+.select {
+	max-width: 100%;
+}
+
+.label {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 }

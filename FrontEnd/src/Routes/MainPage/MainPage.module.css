@@ -41,3 +41,46 @@
 	border-radius: var(--roundedBig);
 	background-color: var(--depth1);
 }
+
+.multiSelectLabel {
+	margin-right: 0.5rem;
+	margin-left: 0.5rem;
+	/* margin-right: 5px; */
+	font-weight: bold;
+}
+
+.multiSelect > div,
+.multiSelect ul {
+	background-color: var(--depth2);
+}
+
+@media screen and (max-width: 1400px) {
+	.additionalElements {
+		display: none;
+	}
+
+	.filters > div {
+		flex-wrap: wrap;
+		justify-content: flex-start !important;
+	}
+
+	.filters > div > div {
+		width: 50% !important;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.publication {
+		width: 36rem !important;
+	}
+}
+
+@media screen and (max-width: 610px) {
+	.publication {
+		width: 100% !important;
+	}
+
+	.filters > div > div {
+		width: 100% !important;
+	}
+}

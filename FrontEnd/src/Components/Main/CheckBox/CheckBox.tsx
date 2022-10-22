@@ -16,14 +16,14 @@ function CheckBox(props: CheckBoxProps) {
 		<input
 			id={id}
 			type="checkbox"
-			className={[style.checkbox, className].join(' ')}
+			className={[style.checkbox, className].flat().join(' ')}
 			// style={{ width: width, height: height }} chyba niepotrzebne
 		></input>
 
 		// <div className={!check ? style.form_input : style.form_input_checked}>
 		// 	<input
 		// 		type="checkbox"
-		// 		className={[style.checkbox, className].join(' ')}
+		// 		className={[style.checkbox, className].flat().join(' ')}
 		// 		id={id}
 		// 		// style={{ width: width, height: height }} chyba niepotrzebne
 		// 		onChange={() => setCheck(!check)}

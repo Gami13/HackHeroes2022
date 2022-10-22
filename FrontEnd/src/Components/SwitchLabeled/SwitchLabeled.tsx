@@ -20,7 +20,7 @@ const SwitchLabeled = (props: SwitchLabeledProps) => {
 
 	return (
 		<label
-			className={[props.className, style.switchLabeled].join(' ')}
+			className={[props.className, style.switchLabeled].flat().join(' ')}
 			htmlFor={props.id}
 			form={props.form}
 		>

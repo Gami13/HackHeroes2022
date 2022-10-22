@@ -301,7 +301,7 @@ const RegisterForm = () => {
 		}
 	}
 	return (
-		<div className={[layouts.center].join(' ')}>
+		<div className={[layouts.center].flat().join(' ')}>
 			<Form
 				padding="1rem"
 				className={style.registerForm}

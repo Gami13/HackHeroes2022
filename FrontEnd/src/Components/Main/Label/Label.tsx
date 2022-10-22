@@ -9,7 +9,7 @@ interface LabelProps {
 const label = (props: LabelProps) => {
 	const { label, className, children, htmlFor } = props;
 	return (
-		<label htmlFor={htmlFor} className={[className].join(' ')}>
+		<label htmlFor={htmlFor} className={[className].flat().join(' ')}>
 			<span className={style.label}>{label}</span>
 			{children}
 		</label>

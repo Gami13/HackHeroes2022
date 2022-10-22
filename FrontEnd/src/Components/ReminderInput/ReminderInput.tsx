@@ -26,7 +26,11 @@ const ReminderInput = (props: ReminderInputProps) => {
 	});
 
 	return (
-		<div className={[style.reminderForm, className, layouts.center].join(' ')}>
+		<div
+			className={[style.reminderForm, className, layouts.center]
+				.flat()
+				.join(' ')}
+		>
 			<FormInput
 				label="Tytuł"
 				type="text"

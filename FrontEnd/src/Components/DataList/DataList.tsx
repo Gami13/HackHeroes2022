@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './DataList.module.css';
 import Input from '../Main/Input/Input';
+import Label from '../Main/Label/Label';
 interface DataListProps {
 	className?: string;
 	data: string[];
@@ -15,15 +16,14 @@ interface DataListProps {
 const DataList = (props: DataListProps) => {
 	const { className, data, id, placeholder, title, disabled, errors } = props;
 	return (
-		<div className={[style.dataList, props.className].join(' ')}>
+		<div className={[style.dataList, props.className].flat().join(' ')}>
 			{/* 	
 			<datalist id={props.id + 'list'}>
 				{props.data.map((item, index) => (
 					<option key={index} value={item} />
 				))}
 			</datalist> */}
-			<label htmlFor={props.id}>
-				<span>{props.title}</span>
+			<Label htmlFor={props.id} label={props.title}>
 				{errors && errors.length > 0 ? (
 					<span className={style.error}>{props.errors}</span>
 				) : null}
@@ -41,7 +41,7 @@ const DataList = (props: DataListProps) => {
 						<option key={index} value={item} />
 					))}
 				</datalist>
-			</label>
+			</Label>
 		</div>
 	);
 };

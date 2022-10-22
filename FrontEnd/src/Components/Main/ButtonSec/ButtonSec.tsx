@@ -14,7 +14,7 @@ function ButtonSec(props: ButtonSecProps) {
 	return (
 		<button
 			type={type}
-			className={[style.button, props.className].join(' ')}
+			className={[style.button, props.className].flat().join(' ')}
 			onClick={onClick}
 		>
 			{children}

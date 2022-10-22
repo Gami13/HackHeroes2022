@@ -15,6 +15,9 @@ import Button from '../../Components/Main/Button/Button';
 import layouts from '../../layouts.module.css';
 import CreatePublication from '../../Components/CreatePublication/CreatePublication';
 import useIsFirstRender from '../../isFirstRender';
+import MultiSelect from '../../Components/MultiSelect/MultiSelect';
+import React from 'react';
+import Label from '../../Components/Main/Label/Label';
 interface tak {
 	id: number;
 	name: string;
@@ -61,6 +64,9 @@ const MainPage = () => {
 	const [gminy, setGminy] = useState<tak[]>([]);
 	const [gminySelected, setGminySelected] = useState<tak | undefined>();
 
+	const [selections, setSelections] = React.useState<any>([]);
+	const [tags, setTags] = React.useState<any>([]);
+
 	const isFirstRender = useIsFirstRender();
 	if (isFirstRender) {
 		let w = async () => {
@@ -98,18 +104,34 @@ const MainPage = () => {
 	return (
 		<div className={layouts.center}>
 			<Filters className={style.filters} heading="Wyszukiwanie">
-				<DataList
-					title="Tagi: "
-					id="tagi"
-					data={['frytak', 'lize', 'psy']}
-					placeholder="Tagi"
-				/>
-				<DataList
-					title="Autorzy: "
-					id="autorzy"
-					data={['frytak', 'lize', 'psy']}
-					placeholder="Autorzy"
-				/>
+				<div className={style.multiSelectLabel}>
+					<span>Tagi:</span>
+					<MultiSelect
+						className={style.multiSelect}
+						getFuncton={async (setTags) => {
+							let res = await fetch('http://localhost:3000/tags');
+							let json = await res.json();
+							let data = json.tags.map((option: any, index: number) => ({
+								value: option.id,
+								label: (
+									<Tag
+										className={style.tag}
+										text={option.text}
+										backgroundColor={'var(--' + option.color + ')'}
+									/>
+								),
+							}));
+							setTags(
+								data.map((option: any, index: number) => ({
+									...option,
+									id: index,
+								})) || []
+							);
+						}}
+						options={[]}
+						returnSetter={setTags}
+					/>
+				</div>
 
 				<DataList
 					title="Województwo: "
@@ -150,6 +172,7 @@ const MainPage = () => {
 
 			<main className={style.mainElements}>
 				<Button
+					disabled={!context.isLoggedIn}
 					className={style.addPublication}
 					onClick={() => {
 						setIsAddPublicationOpen(!isAddPublicationOpen);
@@ -157,8 +180,12 @@ const MainPage = () => {
 				>
 					{isAddPublicationOpen ? 'Ukryj' : 'Dodaj'} publikację
 				</Button>
+				{/*isAddPublicationOpen ? null : style.addPublicationInvis*/}
 				<CreatePublication
-					className={isAddPublicationOpen ? null : style.addPublicationInvis}
+					className={[
+						style.publication,
+						isAddPublicationOpen ? null : style.addPublicationInvis,
+					]}
 					date={new Date()}
 					user={context.userFirstName + ' ' + context.userLastName}
 					height="fit-content"
@@ -167,6 +194,7 @@ const MainPage = () => {
 					<Publication
 						key={index}
 						id={pub.id}
+						className={style.publication}
 						date={new Intl.DateTimeFormat('en-Gb').format(new Date(pub.date))}
 						user={pub.firstName + ' ' + pub.lastName}
 						title={pub.title}
@@ -180,32 +208,6 @@ const MainPage = () => {
 						))}
 					></Publication>
 				))}
-
-				<Publication
-					id={'114234'}
-					date="04/05/2021"
-					user="Anna Marlena Wołoszyn III"
-					title={'Plaaacki 🤤🤤🤤'}
-					body={
-						'Aaaa, ja bardzo lubię placki! Mają bardzo dobrą konsystencję, wszystkie placki są dobre, poza tymi jednymi plackami co znalazłam na drodze, one nie są dobre. Ale za to inne placki już są przeeepyszne! Mogła bym mówić o plackach caaały dzień. Ale są sprawy ważne i są placki, niestety teraz zajmę się sprawami ważnymi... Jak chodziłam po klatce schodowej poszukując placków, to niestety zauważyłam dużego pająka, który mnie przeraził, stoi przy tej pile mechanicznej, która nie jest zabezpieczona i dzieci z łatwością mogą się do niej dostać. Proszę, pozbądźcie się pająka, on nawet nie płąci ręty 😪'
-					}
-					footer={
-						<>
-							<Tag text="🥞 Placki" backgroundColor={'var(--green)'} />
-							<Tag text="💢 Skarga" />
-						</>
-					}
-				/>
-				<Publication
-					id={'1146574234'}
-					date="04/05/2021"
-					user="Marek"
-					title={'Koszenie trawy'}
-					body={
-						'Szybki zarobek za skoszenie trawnika. Zapłacę 1zł za każdy metr kwadratowy. Koszenie trawnika w okolicy ul. Kolejowej 12. Zainteresowanych proszę o kontakt.'
-					}
-					footer={<Tag text="💸 Money" backgroundColor={'var(--green)'} />}
-				/>
 			</main>
 
 			<div className={style.additionalElements}>

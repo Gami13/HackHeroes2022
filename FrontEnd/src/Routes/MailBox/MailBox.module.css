@@ -1,0 +1,78 @@
+.center {
+	overflow: hidden;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+}
+span {
+	text-align: center;
+	height: fit-content;
+}
+span h1 {
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+.contactList {
+	width: fit-content;
+	max-width: 100%;
+	height: fit-content;
+	max-height: calc(100vh - 130px - 1rem);
+	padding: 1rem;
+	background-color: var(--depth1);
+	border-radius: var(--roundedBig);
+	overflow-y: auto;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	overflow: auto;
+	position: relative;
+}
+.contactList::-webkit-scrollbar {
+	background-color: transparent;
+	width: 0.5rem;
+}
+.contactList::-webkit-scrollbar-thumb {
+	background-color: var(--primary);
+	border-radius: 1rem;
+}
+
+.contactList::-webkit-scrollbar-track-piece:end {
+	background: var(--depth3);
+	margin-bottom: 1rem;
+	border-radius: 1rem;
+}
+
+.contactList::-webkit-scrollbar-track-piece:start {
+	background: var(--depth3);
+	border-radius: 1rem;
+
+	margin-top: 1rem;
+}
+.contact {
+	list-style: none;
+	width: fit-content;
+	min-width: calc(100% / 3 - 0.7rem);
+
+	height: 5rem;
+	height: fit-content;
+	display: flex;
+	flex-direction: row;
+	background-color: var(--depth2);
+	padding: 1rem;
+	gap: 1rem;
+}
+.contact > div {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+.contact img {
+	width: 6em;
+	aspect-ratio: 1/1;
+	border-radius: 100%;
+	object-fit: cover;
+	border: 5px solid var(--textPrimary);
+}

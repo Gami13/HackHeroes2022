@@ -27,13 +27,12 @@ const Switch = (props: SwitchProps) => {
 			name={props.name}
 			type={props.type}
 			onClick={switcher}
-			className={[style.switch, props.className].join(' ')}
+			className={[style.switch, props.className].flat().join(' ')}
 		>
 			<div
-				className={[
-					style.track,
-					`${isToggled ? style.toggledTrack : null}`,
-				].join(' ')}
+				className={[style.track, `${isToggled ? style.toggledTrack : null}`]
+					.flat()
+					.join(' ')}
 			>
 				<div
 					className={[style.ball, `${isToggled ? style.toggled : null}`].join(

@@ -32,7 +32,7 @@ function TextArea(props: TextAreaProps) {
 		<textarea
 			disabled={disabled}
 			id={id}
-			className={[style.input, className].join(' ')}
+			className={[style.input, className].flat().join(' ')}
 			placeholder={placeholder}
 			form={form}
 			rows={rows}

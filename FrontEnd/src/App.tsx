@@ -21,6 +21,7 @@ import Publication from './Routes/Publication/Publication';
 import Booking from './Routes/Booking/Booking';
 import MailBox from './Routes/MailBox/MailBox';
 import AskQuestion from './Routes/AskQuestion/AskQuestion';
+import Mail from './Routes/Mail/Mail';
 
 const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -103,7 +104,7 @@ const App = () => {
 					<aside className={style.navbarPadder}></aside>
 					<div className={style.routes}>
 						<Routes>
-							{/* 		<Route path="/mail/:id" element={<Mail />} /> */}
+							<Route path="/mail/:id" element={<Mail />} />
 
 							<Route path="/mail" element={<MailBox />} />
 							<Route path="/booking/:id" element={<Booking />} />

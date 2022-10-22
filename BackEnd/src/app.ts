@@ -10,6 +10,7 @@ import load from './classes/extensions.js';
 import publications from './publications.js';
 import reminders from './reminders.js';
 import comments from './comments.js';
+import messages from './messages.js';
 load();
 
 const app = express();
@@ -45,6 +46,7 @@ authentication(app);
 publications(app);
 reminders(app);
 comments(app);
+messages(app);
 
 app.get('/wojewodztwa', async (req, res) => {
 	let query = 'SELECT * FROM wojewodztwa';
@@ -80,5 +82,16 @@ app.get('/gminy/:powId', async (req, res) => {
 	if (results.length == 0) return res.sendError('No results', 404);
 	res.sendSuccess({
 		gminy: results,
+	});
+});
+
+app.get('/user/:userId', async (req, res) => {
+	let userId = req.params.userId || 0;
+	let query =
+		'SELECT users.id,users.firstName,users.lastName,(SELECT name FROM wojewodztwa WHERE wojewodztwoId = users.wojewodztwoId LIMIT 1) as wojewodztwo,(SELECT name FROM powiaty WHERE powiatId = users.powiatId LIMIT 1) as powiat,(SELECT name FROM gminy WHERE gminaId = users.gminaId LIMIT 1) as gmina FROM users WHERE id = ?';
+	let [results, fields] = await db.query<RowDataPacket[]>(query, [userId]);
+	if (results.length == 0) return res.sendError('No results', 404);
+	res.sendSuccess({
+		user: results[0],
 	});
 });

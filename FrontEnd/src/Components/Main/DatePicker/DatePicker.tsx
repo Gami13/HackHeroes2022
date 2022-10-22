@@ -32,12 +32,12 @@ const DatePicker = (props: DatePickerProps) => {
 	return (
 		<DatePick
 			// TODO replace input render={<Input type="text" />}
-			containerClassName={[containerClassName].join(' ')}
+			containerClassName={[containerClassName].flat().join(' ')}
 			locale={gregorian_pl}
-			inputClass={[style['custom-input'], inputClassName].join(' ')}
-			className={['custom-calendar', className].join(' ')}
+			inputClass={[style['custom-input'], inputClassName].flat().join(' ')}
+			className={['custom-calendar', className].flat().join(' ')}
 			plugins={props.plugins}
-			// className={[props.className].join(' ')}
+			// className={[props.className].flat().join(' ')}
 			// defaultActiveStartDate={props.defaultActiveStartDate}
 			value={value}
 			format="DD/MM/YYYY"

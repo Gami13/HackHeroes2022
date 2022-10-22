@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS `users` (
     `firstName` varchar(255) NOT NULL,
     `lastName` varchar(255) NOT NULL,
     `gminaId` int(11) NOT NULL,
+    `powiatId` int(11) NOT NULL,
+    `wojewodztwoId` int(11) NOT NULL,
     `dateOfBirth` date NOT NULL,
     `email` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
@@ -10,7 +12,12 @@ CREATE TABLE IF NOT EXISTS `users` (
     `tokens` JSON NOT NULL DEFAULT '[]',
     `ranks` JSON NOT NULL DEFAULT '["user"]',
     `isBanned` tinyint(1) NOT NULL,
-    `isActivated` tinyint(1) NOT NULL
+    `isActivated` tinyint(1) NOT NULL,
+    `phoneNumber` varchar(9),
+    `description` TEXT(1000),
+    `photo` varchar(255),
+    `tags` JSON DEFAULT '[]',
+    `address` varchar(255)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 ALTER TABLE `users`
 ADD PRIMARY KEY (`id`);
@@ -22,6 +29,15 @@ CREATE TABLE IF NOT EXISTS `verifyaccount` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 ALTER TABLE `verifyaccount`
 ADD PRIMARY KEY (`id`, `userId`);
+-- messages
+CREATE TABLE IF NOT EXISTS `messages` (
+    `id` bigint(20) NOT NULL,
+    `senderId` bigint(20) NOT NULL,
+    `recipientId` bigint(20) NOT NULL,
+    `message` TEXT(1000) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+ALTER TABLE `messages`
+ADD PRIMARY KEY (`id`);
 -- publication
 CREATE TABLE IF NOT EXISTS `publication` (
     `id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -29,7 +45,10 @@ CREATE TABLE IF NOT EXISTS `publication` (
     `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `title` varchar(255) NOT NULL,
     `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-    `footer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
+    `footer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+    `gminaId` int(11) NOT NULL,
+    `powiatId` int(11) NOT NULL,
+    `wojewodztwoId` int(11) NOT NULL,
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- comments
 CREATE TABLE IF NOT EXISTS `comments` (
@@ -45,7 +64,15 @@ CREATE TABLE IF NOT EXISTS `reminders` (
     `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `title` varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
-
+-- meetings
+CREATE TABLE IF NOT EXISTS `meetings` (
+    `id` int(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `userId` bigint(20) NOT NULL,
+    `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `title` varchar(255) NOT NULL,
+    `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+    `isDone` tinyint(1) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- create table wojewodztwa
 CREATE TABLE IF NOT EXISTS `wojewodztwa` (
     `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,

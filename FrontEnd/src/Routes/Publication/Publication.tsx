@@ -4,28 +4,36 @@ import style from './Publication.module.css';
 import Publication from '../../Components/Publication/Publication';
 import * as layouts from '../../layouts.module.css';
 import Tag from '../../Components/Main/Tag/Tag';
+import useIsFirstRender from '../../isFirstRender';
 
 const PublicationPage = () => {
 	const { id } = useParams();
-	const [selections, setSelections] = useState<any>([]);
-	const [publicationDate, setPublicationDate] = useState<Date>();
-	const [publicationUserFirstName, setPublicationUserFirstName] =
-		useState<string>('');
-	const [publicationUserLastName, setPublicationUserLastName] =
-		useState<string>('');
-	const [publicationTitle, setPublicationTitle] = useState<string>('');
-	const [publicationBody, setPublicationBody] = useState<string>('');
-	const [publicationFooter, setPublicationFooter] = useState<any[]>([]);
+	const isFirstRender = useIsFirstRender();
+
+	const [publication, setPublication] = useState<any | undefined>();
+
+	if (isFirstRender) {
+		let w = async () => {
+			let res = await fetch(`http://localhost:3000/publicationes/${id}`);
+			let json = await res.json();
+			setPublication(json.publication);
+		};
+		w();
+		console.log(publication);
+	}
 
 	return (
 		<div className={layouts.center}>
 			<Publication
-				id={id || ''}
-				date={new Intl.DateTimeFormat('en-Gb').format(publicationDate)}
-				user={publicationUserFirstName + ' ' + publicationUserLastName}
-				title={publicationTitle}
-				body={publicationBody}
-				footer={publicationFooter.map((f: any, i: number) => (
+				disabled={true}
+				id={publication?.id}
+				date={new Intl.DateTimeFormat('en-Gb').format(
+					new Date(publication?.date | 0)
+				)}
+				user={publication?.user?.firstName + ' ' + publication?.user?.lastName}
+				title={publication?.title}
+				body={publication?.body}
+				footer={publication?.footer?.map((f: any, i: number) => (
 					<Tag
 						key={i}
 						text={f.text}
