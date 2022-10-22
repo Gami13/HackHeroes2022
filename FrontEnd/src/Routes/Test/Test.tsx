@@ -9,12 +9,7 @@ const Test = () => {
 	console.log(check);
 	return (
 		<>
-			<div className={layouts.center}>
-				<span className={style.loading}>
-					<h1>Ładowanie</h1>
-					<h1 className={style.loadingDots}></h1>
-				</span>
-			</div>
+			<div className={layouts.center}></div>
 		</>
 	);
 };

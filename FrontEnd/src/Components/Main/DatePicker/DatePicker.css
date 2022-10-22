@@ -36,3 +36,11 @@
 .custom-calendar .rmdp-panel-body li span {
 	color: var(--textSecondary);
 }
+.rmdp-month-picker,
+.rmdp-year-picker {
+	background-color: var(--depth1) !important;
+	border-radius: var(--roundedSmall) !important;
+}
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span {
+	overflow: hidden;
+}
