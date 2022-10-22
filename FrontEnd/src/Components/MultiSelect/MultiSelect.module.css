@@ -42,7 +42,7 @@
 	gap: 0.2rem;
 	display: flex;
 	flex-wrap: wrap;
-	flex-direction: column;
+	flex-direction: row;
 	position: absolute;
 	transition: height 0.5s;
 }
@@ -69,17 +69,15 @@
 .selectedList {
 	background-color: var(--depth3);
 	width: 100%;
-	height: -moz-fit-content;
+	max-height: 100%;
 	height: 40px;
-	/* flex-wrap: wrap; */
 	gap: 0.1rem;
 	padding: 0.2rem;
 	display: flex;
 	align-items: center;
-	flex-direction: row;
-	overflow-x: auto;
-	overflow-y: hidden;
+
 	border-radius: var(--rounded);
+	overflow: auto;
 }
 
 .selectedList::-webkit-scrollbar {

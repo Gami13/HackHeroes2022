@@ -40,6 +40,14 @@
 .custom-calendar .rmdp-panel-body li span {
 	color: var(--textSecondary);
 }
+.rmdp-container.custom-calendar .rmdp-month-picker,
+.rmdp-container.custom-calendar .rmdp-year-picker {
+	background-color: var(--depth2);
+}
+.rmdp-wrapper.custom-calendar .rmdp-month-picker,
+.rmdp-wrapper.custom-calendar .rmdp-year-picker {
+	background-color: var(--depth1);
+}
 .rmdp-month-picker,
 .rmdp-year-picker {
 	background-color: var(--depth1) !important;
@@ -61,7 +69,7 @@
 	.rmdp-calendar {
 		min-width: 100% !important;
 		display: flex;
-		/* justify-content: center; */
+		/* justify-content: center;
 		align-items: center;
 		flex-direction: column;
 	}

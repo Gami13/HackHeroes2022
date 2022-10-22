@@ -19,6 +19,7 @@ import { getCookie } from './cookies';
 import BookMeeting from './Routes/BookMeeting/BookMeeting';
 import Publication from './Routes/Publication/Publication';
 import Booking from './Routes/Booking/Booking';
+import MailBox from './Routes/MailBox/MailBox';
 import AskQuestion from './Routes/AskQuestion/AskQuestion';
 
 const App = () => {
@@ -102,6 +103,9 @@ const App = () => {
 					<aside className={style.navbarPadder}></aside>
 					<div className={style.routes}>
 						<Routes>
+							{/* 		<Route path="/mail/:id" element={<Mail />} /> */}
+
+							<Route path="/mail" element={<MailBox />} />
 							<Route path="/booking/:id" element={<Booking />} />
 
 							<Route path="/askQuestion/:id" element={<AskQuestion />} />
