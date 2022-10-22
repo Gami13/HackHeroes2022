@@ -19,6 +19,7 @@
 	width: 100%;
 	height: fit-content;
 	font-weight: bold;
+	word-break: break-all;
 }
 
 .body {
@@ -29,6 +30,7 @@
 	background-color: var(--depth2);
 	border-radius: var(--roundedBig);
 	text-align: left;
+	word-break: break-all;
 }
 
 .footer {

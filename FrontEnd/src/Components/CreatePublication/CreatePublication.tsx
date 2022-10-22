@@ -118,7 +118,13 @@ function Publication(props: PublicationProps) {
 						console.log(json);
 						let data = json.tags.map((option: any, index: number) => ({
 							value: option.id,
-							label: <Tag className={style.tag} text={option.text} />,
+							label: (
+								<Tag
+									className={style.tag}
+									text={option.text}
+									backgroundColor={'var(--' + option.color + ')'}
+								/>
+							),
 						}));
 						setTags(
 							data.map((option: any, index: number) => ({
