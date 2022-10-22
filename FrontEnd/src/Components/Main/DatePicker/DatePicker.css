@@ -17,11 +17,15 @@
 .rmdp-container.custom-calendar .rmdp-day.rmdp-selected span:not(.highlight),
 .rmdp-wrapper.custom-calendar .rmdp-day.rmdp-selected span:not(.highlight) {
 	background-color: var(--primary);
+	min-width: fit-content;
+	padding: 2px;
 }
 
 .rmdp-container.custom-calendar .rmdp-day.rmdp-today span,
 .rmdp-wrapper.custom-calendar .rmdp-day.rmdp-today span {
 	background-color: var(--secondary);
+	min-width: fit-content;
+	padding: 2px;
 }
 
 .custom-calendar .rmdp-panel {
@@ -43,4 +47,28 @@
 }
 .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span {
 	overflow: hidden;
+	margin: 2px;
+}
+
+.rmdp-week,
+.rmdp-ym {
+	gap: 5px;
+}
+@media screen and (max-width: 530px) {
+	.rmdp-top-class {
+		flex-direction: column;
+	}
+	.rmdp-calendar {
+		min-width: 100% !important;
+		display: flex;
+		/* justify-content: center; */
+		align-items: center;
+		flex-direction: column;
+	}
+	.rmdp-header > div {
+		width: 200px;
+	}
+	.rmdp-day-picker {
+		min-height: 278px;
+	}
 }

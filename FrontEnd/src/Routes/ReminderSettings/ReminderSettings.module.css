@@ -5,7 +5,8 @@
 }
 .calendar {
 	width: 100% !important;
-	max-width: 24rem;
+	min-width: fit-content;
+	max-width: 25rem;
 }
 .date {
 	width: 100%;
