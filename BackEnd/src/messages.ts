@@ -114,17 +114,17 @@ export default function messages(app: Express) {
 		let tags = results.map((user) => {
 			return JSON.parse(user.ranks);
 		});
+
 		let users = results.map((user) => {
 			return {
-				...results,
+				...user,
 				ranks: JSON.parse(user.ranks),
 			};
 		});
 		tags = tags.flat();
-		//remove duplicates
-		console.log(tags);
+
 		tags = [...new Set(tags)];
-		console.log(tags);
+
 		let nulls = tags.filter((tag) => tag == null);
 		if (nulls.length != tags.length) {
 			let notNulls = tags.filter((tag) => tag != null);
@@ -132,9 +132,9 @@ export default function messages(app: Express) {
 				','
 			)})`;
 			const [results, fields] = await db.query<RowDataPacket[]>(sql);
-			console.log('results', results);
 			for (let i = 0; i < users.length; i++) {
-				users[i].ranks = users[i].ranks.map((rank: any) => {
+				if (users[i].ranks == null) continue;
+				users[i].ranks = users[i].ranks?.map((rank: any) => {
 					console.log(rank);
 					if (rank != null) {
 						let found = results.find((result) => result.id == rank);
@@ -144,10 +144,85 @@ export default function messages(app: Express) {
 						return { name: found.name, color: found.color };
 					}
 				});
-				console.log('ranks', users[i].ranks);
 			}
 		}
-		//console.log(users);
+		res.sendSuccess('Users found', {
+			users,
+		});
+	});
+	app.post('setAdminData', async (req, res) => {
+		const userId = req.body.userId;
+		const email = req.body.email;
+		const token = req.body.token;
+		const ranks = req.body.ranks;
+		/* add photo */
+		const description = req.body.description;
+		const phoneNumber = req.body.phoneNumber;
+		const address = req.body.address;
+		const tags = req.body.tags;
+
+		if (!ranks.some((rank: any) => rank.name == '1')) {
+			res.sendError('Not admin', 400);
+			return false;
+		}
+		if (!(await UserManagement.isLoggedIn(email, token, userId))) {
+			res.sendError('Not logged in', 401);
+			return false;
+		}
+		console.log(userId, ranks, description, phoneNumber, address, tags);
+	});
+	app.post('/getSpotkanies', async (req, res) => {
+		const userId = req.body.userId;
+		const wojewodztwoId = req.body.wojewodztwo || '%';
+		const powiatId = req.body.powiat || '%';
+		const gminaId = req.body.gmina || '%';
+		console.log(userId, wojewodztwoId, powiatId, gminaId);
+
+		const query = `SELECT DISTINCT users.id, firstName, lastName, email, phoneNumber, description, photo, ranks, address, wojewodztwa.name as wojewodztwo, powiaty.name as powiat, gminy.name as gmina FROM users, wojewodztwa, powiaty, gminy, messages WHERE wojewodztwa.id = users.wojewodztwoId AND powiaty.id = users.powiatId AND gminy.id = users.gminaId AND users.id != 43 AND users.wojewodztwoId LIKE ? AND users.powiatId LIKE ? AND users.gminaId LIKE ? AND users.ranks LIKE "%1%";`;
+		const [results, fields] = await db.query<RowDataPacket[]>(query, [
+			wojewodztwoId,
+			powiatId,
+			gminaId,
+		]);
+		if (results.length < 1) {
+			res.sendError('No users', 404);
+			return false;
+		}
+		let tags = results.map((user) => {
+			return JSON.parse(user.ranks);
+		});
+
+		let users = results.map((user) => {
+			return {
+				...user,
+				ranks: JSON.parse(user.ranks),
+			};
+		});
+		tags = tags.flat();
+
+		tags = [...new Set(tags)];
+
+		let nulls = tags.filter((tag) => tag == null);
+		if (nulls.length != tags.length) {
+			let notNulls = tags.filter((tag) => tag != null);
+			let sql = `SELECT ranks.name, ranks.color,ranks.id FROM ranks WHERE ranks.id IN (${notNulls.join(
+				','
+			)})`;
+			const [results, fields] = await db.query<RowDataPacket[]>(sql);
+			for (let i = 0; i < users.length; i++) {
+				if (users[i].ranks == null) continue;
+				users[i].ranks = users[i].ranks?.map((rank: any) => {
+					console.log(rank);
+					if (rank != null) {
+						let found = results.find((result) => result.id == rank);
+						if (found == undefined) {
+							return null;
+						}
+						return { name: found.name, color: found.color };
+					}
+				});
+			}
+		}
 		res.sendSuccess('Users found', {
 			users,
 		});

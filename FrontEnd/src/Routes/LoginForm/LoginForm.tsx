@@ -46,13 +46,14 @@ const LoginForm = () => {
 			context.setUserID(json.id);
 			context.setUserToken(json.token);
 			context.setUserRanks(json.ranks);
-
+			console;
 			setCookie({
 				token: json.token,
 				email: json.email,
 				id: json.id,
 			});
 			console.log('login successful');
+
 			navigate('/');
 		} else {
 			setResponseError(json.message);
@@ -99,6 +100,7 @@ const LoginForm = () => {
 					</h1>
 				</label> */}
 				<Button type="submit">Zaloguj</Button>
+				{error ? <p className={style.error}>{error}</p> : null}
 				<Link to="/register">Nie masz konta?</Link>
 			</Form>
 		</div>

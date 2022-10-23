@@ -5,7 +5,7 @@
 ## Temat konkursu: Obywatele
 
 Nazwa projektu: Obywatel++\
-Nazwa drużyny: Wielbiciele Kerfusia\
+Nazwa drużyny: Kerfusie\
 Nazwa szkoły: Zespół Szkół Nr. 1 im. Ignacego Łukasiewicza w Gorlicach\
 Skład drużyny: [Drużyna](##Drużyna)\
 Link do pracy:
@@ -20,13 +20,18 @@ Obywatel++ to aplikacja, która ma na celu ułatwienie obywatelom kontaktu z urz
 
 W jakich językach programowania, jakich technologiach powstała aplikacja/narzędzie?
 
-Aplikacja została stworzona za pomocą Reacta, frameworku do javascripta, który bardzo usprawnia pracę. Do samego pisania kodu używamy TypeScripta. Natomiast jako bazę danych mamy MySQL.
+Aplikacja została stworzona za pomocą Reacta, frameworku do javascripta, który bardzo usprawnia pracę. Do samego pisania kodu używamy TypeScripta, a stylizacja odbywa się za pomocą css modules. Natomiast jako bazę danych mamy MySQL.
 
 ## Działanie
 
 Opisz działanie Waszej aplikacji/narzędzia. (W jaki sposób działa Wasza aplikacja? Co może dzięki niej osiągnąć użytkownik? Jaką ma funkcjonalność?)
 
-Po zarejestrowaniu się w naszej aplikacji wpisując wszystkie dane i klikając link, który przyszedł na maila i zalogowaniu się użytkownik może przeglądać posty, które początkowo są sortowane po rejonie, wpisanym przy rejestracji co oczywiście można zmienić. Można też dodać posty, które będą widoczne dla wszystkich użytkowników i mogą zawierać informację na temat zgubionych/znalezioncyh rzeczy, skarg/propozycji na temat miasta lub nawet zbiórek charytatywnych! Po kliknięciu na posta zostajemy przesłani do sekcji komentarzy, gdzie można prowadzić dyskusje. Strona zawiera też kalendarz dla zalogowanych użytkoników, gdzie mogą zapisywać ważne wydarzenia takie jak płacenie podatków lub wizyta u lekarza. **TODO**
+Po zarejestrowaniu się w naszej aplikacji wpisując wszystkie dane i klikając link, który przyszedł na maila i zalogowaniu się użytkownik może przeglądać posty, które początkowo są sortowane po rejonie, wpisanym przy rejestracji co oczywiście można zmienić. Można też dodać posty, które będą widoczne dla wszystkich użytkowników i mogą zawierać informację na temat zgubionych/znalezioncyh rzeczy, skarg/propozycji na temat miasta lub nawet zbiórek charytatywnych!
+Posty możemy sortować poprzez tagi mówiące o tematyce posta (skarga, zgubiony przedmiot), a także po lokalizacji której dotyczy porządany post.
+Po kliknięciu na posta zostajemy przesłani do sekcji komentarzy, gdzie można prowadzić dyskusje. Strona zawiera też kalendarz dla zalogowanych użytkoników, gdzie mogą zapisywać ważne wydarzenia takie jak płacenie podatków lub wizyta u lekarza. Po zapisaniu te wydarzenia są przypominane na stornie głównej.
+W zakładce "Umów spotkanie" użytkownicy mogą napisać o problemach bezpośrednio do osoby z urzędu, poprzez zadanie pytania lub umówić spotkanie (telefonicznie lub osobiście). Na spotkanie można umówić się z wójtami/burmistrzami z różnych wsi, miast, powiatów itd. Do znalezienia odpowiadającej nam osoby służy wyszukiwarka na górze strony ekranu.
+Gdy jednak decydujemy się na zadanie pytanie otwiera nam się chat z daną osobą. Wszystkie otwarte chaty, w których wysłaliśmy wiadomość są wyświetlane w "Wiadomościach". Po kliknięciu w osobe otwiera się nasz chat room.
+**TODO**
 Napisać dalszą część
 
 ## Dalszy rozwój
@@ -34,18 +39,34 @@ Napisać dalszą część
 Jak widzicie dalszy rozwój Waszego rozwiązania? (W jaki sposób Wasz projekt mógłby zostać wdrożony lub rozwijany? Jacy partnerzy mogliby się zaangażować w jego rozwój?)
 
 W przyszłości mamy nadzieję, że nasz projekt mógłby być używany na terenie całej Polski, aby pomagać obszarom szybciej się rozwijać i rozwiązywać te problemy, które aktualnie dla obywateli są najważniejsze. W przyszłości w jego rozwój mógłby się zaangażować Polski rząd.
+Zamysłem projektu było dodawanie wydarzeń do kalendaża przez instytucje np. (następna wizyta u dętysty czy fryzjera). Dzięki takiemu rozwiązaniu obywatelą będą przypominane wszelkie ważne daty. W przyszłości chcielibyśmy dodać możliwość dodawania wydarzeń przez instytucje, które mogłyby być widoczne dla wszystkich użytkowników. Dzięki temu obywatelom będzie łatwiej znaleźć informacje na temat wydarzeń w ich okolicy.
+
+Lecz na mniejszą skale planujemy zaimplementować:
+
+- dodawanie zdjęć do postów
+- możliwość dodawania postów anonimowo
+- wyszukiwanie wiadomości po nazwie rozmówcy
+- możliwość dodawania postów tylko dla wybranych osób
+- zaimplementować system powiadomień o nowych wiadomościach
+- zaimplementować system powiadomień o nowych postach
+- zaimplementować system powiadomień o nowych komentarzach
+- edycja swojego profilu
+- zgłaszanie nieodpowiednich treści w postach
+- dodawanie reakcji pod postami
+- możliwość dodania dedykowanych postó pod zbiórki, petycje,
+- usuwanie wiadomości z chatów
 
 ## Zagrożenia
 
 Jakie widzicie zagrożenia/ryzyka dla Waszego rozwiązania? (Opisz zdiagnozowane zagrożenia jak np. problemy technologiczne czy konieczność zaangażowania innych podmiotów np. urząd miasta)
 
-Jednym z zagrożeń mogliby być ludzie, którzy nie biorą tego typu rzeczy poważnie i są potencjalnym zagrażać dla innych użytkowników. Jednak w przyszłości dodalibyśmy możliwość zgłaszania postów, a także zespół moderatoró zatrudniony przez nas, który będzie sprawdzał posty i usuwał te, które mogą być niebezpieczne. Na tą chwilę nie widzimy problemów technologicznych, ale jeśli pojawią się to z pewnością będziemy w stanie je rozwiązać.
+Jednym z zagrożeń mogliby być ludzie, którzy nie biorą tego typu rzeczy poważnie i potencjalnie mogą pisać nieodpowiednie rzeczy. Jednak w przyszłości dodalibyśmy możliwość zgłaszania postów, a także zespół moderatoró zatrudniony przez nas, który będzie sprawdzał posty i usuwał te, które mogą być niebezpieczne. Na tą chwilę nie widzimy problemów technologicznych, ale jeśli pojawią się to z pewnością będziemy w stanie je rozwiązać.
 
 ## Czemu my?
 
 Dlaczego akurat Wy powinniście wygrać? (Napisz, co wyróżnia Was pomysł lub jego realizacja np. wybór innowacyjnej technologii)
 
-Jako że jesteśmy młodymi i ambitnymi ludźmi sądzimy, że wygranie tego konkursu zbliżyło by nas do mażenia o pomocy społeczeństwu. Nad projektem pracowaliśmy każdego dnia pomimo wielu sprawdzianów w szkole, a także innych obowiązków. Podczas projektu nabyliśmy bardzo wiele doświadczenia dzięki czemu moglibyśmy z łatwością rozbudować go jeszcze bardziej i co z chęcią zrobimy w przyszłości. Dlatego też jesteśmy przekonani, że to właśnie my powinniśmy być wygranymi.
+Jako że jesteśmy młodymi i ambitnymi ludźmi sądzimy, że wygranie tego konkursu zbliżyło by nas do marzenia o pomocy społeczeństwu. Nad projektem pracowaliśmy każdego dnia pomimo wielu sprawdzianów w szkole, a także innych obowiązków. Podczas projektu nabyliśmy bardzo wiele doświadczenia dzięki czemu moglibyśmy z łatwością rozbudować go jeszcze bardziej i co z chęcią zrobimy w przyszłości. Dlatego też jesteśmy przekonani, że to właśnie my powinniśmy być zwycięzcami tego konkursu.
 
 ## Kontakt
 

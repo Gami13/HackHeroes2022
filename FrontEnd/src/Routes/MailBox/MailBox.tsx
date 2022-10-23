@@ -9,8 +9,10 @@ import Box from '../../Components/Main/Box/Box';
 import CheckBox from '../../Components/Main/CheckBox/CheckBox';
 import MessagesUserCard from '../../Components/MessagesUserCard/MessagesUserCard';
 import useIsFirstRender from '../../isFirstRender';
+import Tag from '../../Components/Main/Tag/Tag';
 import PersonCard from '../../Components/PersonCard/PersonCard';
 const MailBox = () => {
+	const navigate = useNavigate();
 	const context = useContext(States);
 	const isFirstRender = useIsFirstRender();
 	const [contacts, setContacts] = useState<any>();
@@ -29,14 +31,17 @@ const MailBox = () => {
 		const data = await response.json();
 
 		if (data.status == 'success') {
-			setContacts(data.results);
-			console.log(data.results);
+			setContacts(data.users);
+			console.log(data.users);
 		}
 	}
 	if (isFirstRender) {
 		fetchDzbans();
 	}
-	function tak() {}
+	function clicked(e: any) {
+		console.log(e.currentTarget.id);
+		navigate('/mail/' + e.currentTarget.id);
+	}
 	return (
 		<>
 			<div className={[layouts.center, style.center].flat().join(' ')}>
@@ -50,13 +55,25 @@ const MailBox = () => {
 									key={contact.id}
 									className={style.contact}
 									role="button"
-									onClick={tak}
-									data-id={contact.id}
+									onClick={clicked}
+									id={contact.id}
 								>
 									<PersonCard
-										image={contact.photo}
+										image={
+											'http://localhost:3000/userProfileImage/' + contact.photo
+										}
 										name={contact.firstName + ' ' + contact.lastName}
-										position={'asdfasdf'}
+										position={
+											contact.ranks
+												? contact.ranks.map((rank: any, index: number) => (
+														<Tag
+															text={rank.name}
+															backgroundColor={rank.color}
+															key={index}
+														/>
+												  ))
+												: null
+										}
 										description={contact.description}
 										voivodeship={contact.wojewodztwo}
 										county={contact.powiat}

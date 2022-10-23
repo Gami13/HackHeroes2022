@@ -52,13 +52,19 @@
 }
 .contact {
 	list-style: none;
-	width: fit-content;
+	height: fit-content;
 
-	height: fit-content;
-	height: fit-content;
 	display: flex;
 	flex-direction: row;
 	background-color: var(--depth2);
-	padding: 1rem;
-	gap: 1rem;
+	border-radius: var(--roundedBig);
+	cursor: pointer;
+}
+.contact:hover > div {
+	background-color: var(--depth3);
+}
+.contact > div {
+	background-color: var(--depth2);
+	margin: 0px;
+	width: 100%;
 }

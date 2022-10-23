@@ -1,6 +1,6 @@
 import React, { useEffect, useState, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-
+import Admin from './Routes/Admin/Admin';
 import RegisterForm from './Routes/RegisterForm/RegisterForm';
 import './css.css';
 import States from './Components/States';
@@ -61,7 +61,7 @@ const App = () => {
 
 			const res = await fetch(`http://localhost:3000/userData`, config);
 			const json = await res.json();
-			console.log(json);
+
 			if (json.status == 'success') {
 				setUserEmail(json.email);
 				setUserID(cookie.id);
@@ -122,6 +122,8 @@ const App = () => {
 							<Route path="/plsVerify" element={<PlsVerify />} />
 							<Route path="/logout" element={<Logout />} />
 							<Route path="/bookMeeting" element={<BookMeeting />} />
+							<Route path="/admin" element={<Admin />} />
+
 							<Route path="/" element={<MainPage />} />
 							<Route
 								path="/*"

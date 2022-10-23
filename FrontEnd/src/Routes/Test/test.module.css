@@ -11,7 +11,3 @@
 	background-color: var(--secondary);
 	border-radius: var(--rounded);
 }
-p {
-	width: 10px;
-	display: flex;
-}

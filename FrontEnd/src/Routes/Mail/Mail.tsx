@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import layouts from '../../layouts.module.css';
 import Button from '../../Components/Main/Button/Button';
@@ -26,9 +26,13 @@ const Mail = () => {
 	);
 	const [messages, setMessages] = useState<any>([]);
 
+	const [loaded, setLoaded] = useState(false);
+
 	const isFirstRender = useIsFirstRender();
 	const { id } = useParams();
+
 	async function sendMessage() {
+		if (!loaded) return;
 		const response = await fetch('http://localhost:3000/sendMessage', {
 			method: 'POST',
 			headers: {
@@ -65,7 +69,12 @@ const Mail = () => {
 		const data = await response.json();
 
 		if (data.status == 'success') {
-			setMessages([...data.results]);
+			let filterAlreadyFetched = messages.filter((message: any) =>
+				alreadyFetched.includes(message.id)
+			);
+			console.log(filterAlreadyFetched, data.results);
+			setMessages([...filterAlreadyFetched, ...data.results]);
+			setLoaded(true);
 
 			let test = data.results.map((e: any) => e.id);
 			test = [...alreadyFetchedMessages, ...test];
@@ -138,8 +147,9 @@ const Mail = () => {
 							onChange={(e) => setMessage(e.target.value)}
 							type="text"
 							value={message}
+							disabled={!loaded}
 						/>
-						<Button onClick={() => sendMessage()}>
+						<Button onClick={() => sendMessage()} disabled={!loaded}>
 							<svg viewBox="0 0 24 24">
 								<path d="M5.521,19.9h5.322l3.519,3.515a2.035,2.035,0,0,0,1.443.6,2.1,2.1,0,0,0,.523-.067,2.026,2.026,0,0,0,1.454-1.414L23.989,1.425Z" />
 								<path d="M4.087,18.5,22.572.012,1.478,6.233a2.048,2.048,0,0,0-.886,3.42l3.495,3.492Z" />

@@ -72,12 +72,15 @@
 
 @media screen and (max-width: 1000px) {
 	.publication {
-		width: 36rem !important;
+		width: 34rem !important;
 	}
 }
 
 @media screen and (max-width: 610px) {
 	.publication {
+		width: 100% !important;
+	}
+	.addPublication {
 		width: 100% !important;
 	}
 	.filters > div {

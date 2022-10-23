@@ -24,13 +24,10 @@ interface PersonCardProps {
 const PersonCard = (props: PersonCardProps) => {
 	const navigate = useNavigate();
 	function bookMeeting(id: string) {
-		console.log(id);
 		navigate('/booking/' + id.toString());
 	}
 	function askQuestion(id: string) {
-		console.log(id);
 		navigate('/mail/' + id.toString());
-		alert('pytanie');
 	}
 	const context = React.useContext(States);
 	return (

@@ -7,6 +7,7 @@ interface DataListProps {
 	data: string[];
 	id?: string;
 	placeholder?: string;
+	value?: string;
 	title?: string;
 	disabled?: boolean;
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -28,6 +29,7 @@ const DataList = (props: DataListProps) => {
 					<span className={style.error}>{props.errors}</span>
 				) : null}
 				<Input
+					value={props.value}
 					disabled={props.disabled}
 					placeholder={props.placeholder}
 					type="text"

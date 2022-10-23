@@ -26,12 +26,6 @@ const Test = () => {
 		console.log(JSON.stringify(response));
 	}
 	console.log(uploadedImage);
-	return (
-		<>
-			<div className={layouts.center}>
-				<MessagesUserCard></MessagesUserCard>
-			</div>
-		</>
-	);
+	return <></>;
 };
 export default Test;

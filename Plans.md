@@ -25,25 +25,24 @@
 ## <span style="color:Red;">🚨**TODO**🚨</span>
 
 - [ ] Zrobić styl powiadomień i animacje
-- [ ] Informacja o nie poprawnym zalogowaniu
-- [ ] Informacja o nie poprawnym zarejestrowaniu
+- [x] Informacja o nie poprawnym zalogowaniu
+- [x] Informacja o nie poprawnym zarejestrowaniu
 - [ ] Informacja o nie poprawnym dodaniu komentarza
 - [ ] Informacja o nie poprawnym dodaniu post
 - [ ] Wyszukiwarka na głównej stronie
-- [ ] Wyszukiwarka w wiadomościach
 - [x] Skalowanie komentarzy
 - [x] Skalowanie kalendarza
 - [x] Skalowanie multiselecta
 - [x] Naprawić skalowanie Filtera (to takie co oddziela go od reszty elementów szare a jest za daleko np. na stronie "Umów spotkanie")
-- [ ] Naprawić tło w kalendarzu na głównej stronie (to za guzikami)
+- [x] Naprawić tło w kalendarzu na głównej stronie (to za guzikami)
 - [ ] Sortowanie komentarzy i postów po użytkowniku który dodał i dacie
 - [ ] Przypinanie postów
-- ❌ Bazę danych przenieść do radzika
+- [x] Bazę danych przenieść do radzika
 - [ ] Przenieść projekt na Vercela
 - [ ] Wszystko od strony samorządu
 - [ ] Poprawne dodawanie dodatkowych informacji dla osób z samorządu
-- [ ] Wyświetlanie wiadomości
-- [ ] Wyświetlanie rozpoczętych rozmów
+- [x] Wyświetlanie wiadomości
+- [x] Wyświetlanie rozpoczętych rozmów
 - [ ] Umówienie spotkań
 
 ## <span style="color:Red;">🤓**Konta Użytkowników**🚨</span>

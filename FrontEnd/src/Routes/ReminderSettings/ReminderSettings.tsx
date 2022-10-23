@@ -21,7 +21,7 @@ const tagValid = (tag: string) => {
 };
 
 const ReminderSettings = () => {
-	const [currentTitle, setCurrentTitle] = useState('tak');
+	const [currentTitle, setCurrentTitle] = useState('Zapłacić rachunki');
 
 	const [titles, setTitles] = useState<{ [key: number]: string }>({});
 
@@ -49,7 +49,7 @@ const ReminderSettings = () => {
 		}
 		console.log(data);
 		let date = data.reminders.map((reminder: any) => {
-			return new Date(reminder.date);
+			return new DateObject(new Date(reminder.date));
 		});
 		let titles = data.reminders.reduce(
 			(acc: any, reminder: any, index: any) => {
@@ -156,6 +156,17 @@ const ReminderSettings = () => {
 															d.toDate().getTime() !==
 															data.date?.toDate().getTime()
 													)
+												);
+												setTitles(
+													Object.keys(titles)
+														.filter(
+															(key) =>
+																parseInt(key) !== data.date?.toDate().getTime()
+														)
+														.reduce((acc, key) => {
+															acc[parseInt(key)] = titles[parseInt(key)];
+															return acc;
+														}, {} as { [key: number]: string })
 												);
 											}}
 										>

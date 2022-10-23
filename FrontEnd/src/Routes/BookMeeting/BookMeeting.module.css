@@ -4,3 +4,6 @@
 	font-size: 6rem;
 	padding-right: 0.5rem;
 }
+.personCard {
+	max-width: fit-content;
+}

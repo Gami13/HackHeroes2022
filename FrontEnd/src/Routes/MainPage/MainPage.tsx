@@ -55,13 +55,16 @@ const MainPage = () => {
 	const [isAddPublicationOpen, setIsAddPublicationOpen] = useState(false);
 
 	const [wojewodztwa, setWojewodztwa] = useState<tak[]>([]);
+	const [wojewodztwaValue, setWojewodztwaValue] = useState<string>();
 	const [wojewodztwaSelected, setWojewodztwaSelected] = useState<
 		tak | undefined
 	>();
 	const [powiaty, setPowiaty] = useState<tak[]>([]);
+	const [powiatyValue, setPowiatyValue] = useState<string>();
 	const [powiatySelected, setPowiatySelected] = useState<tak | undefined>();
 
 	const [gminy, setGminy] = useState<tak[]>([]);
+	const [gminyValue, setGminyValue] = useState<string>();
 	const [gminySelected, setGminySelected] = useState<tak | undefined>();
 
 	const [selections, setSelections] = React.useState<any>([]);
@@ -71,11 +74,31 @@ const MainPage = () => {
 
 	const isFirstRender = useIsFirstRender();
 
-	async function fetchPublications() {
-		let res2 = await fetch(`http://localhost:3000/publications`);
-		let json2 = await res2.json();
-		setPublications(json2.publications);
-		console.log(json2.publications);
+	async function fetchPublications(
+		wojewodztwo: string,
+		powiat: string,
+		gmina: string
+	) {
+		let res = await fetch(`http://localhost:3000/publications`, {
+			method: 'POST',
+			body: JSON.stringify({
+				wojewodztwo,
+				powiat,
+				gmina,
+			}),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+
+		let data = await res.json();
+		console.log(data);
+		if (data.status === 'error') {
+			setPublications([]);
+			return;
+		}
+
+		setPublications(data.publications);
 	}
 
 	if (isFirstRender) {
@@ -84,7 +107,23 @@ const MainPage = () => {
 			let json = await res.json();
 			setWojewodztwa(json.wojewodztwa);
 
-			fetchPublications();
+			let res2 = await fetch('http://localhost:3000/userWPG', {
+				method: 'POST',
+				body: JSON.stringify({
+					userId: context.userID,
+				}),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+
+			let WPG = await res2.json();
+			WPG = WPG.WPG[0];
+
+			fetchPublications(WPG.wojName, WPG.powName, WPG.gminName);
+			setWojewodztwaValue(WPG.wojName);
+			setPowiatyValue(WPG.powName);
+			setGminyValue(WPG.gminName);
 
 			res = await fetch('http://localhost:3000/getReminders', {
 				method: 'POST',
@@ -133,6 +172,27 @@ const MainPage = () => {
 		});
 	}
 
+	useEffect(() => {
+		const abortController = new AbortController();
+		if (!wojewodztwaSelected || !powiatySelected || !gminySelected) return;
+		fetchPublications(
+			wojewodztwaSelected?.name,
+			powiatySelected?.name,
+			gminySelected?.name
+		);
+		return () => {
+			abortController.abort();
+		};
+	}, [gminySelected]);
+
+	useEffect(() => {
+		updatePowiaty();
+	}, [wojewodztwaSelected]);
+
+	useEffect(() => {
+		updateGminy();
+	}, [powiatySelected]);
+
 	return (
 		<div className={layouts.center}>
 			<Filters className={style.filters} heading="Wyszukiwanie">
@@ -166,6 +226,7 @@ const MainPage = () => {
 				</div>
 
 				<DataList
+					value={wojewodztwaValue}
 					title="Województwo: "
 					id="wojewodztwa"
 					data={wojewodztwa.map((woj) => woj.name)}
@@ -178,6 +239,7 @@ const MainPage = () => {
 					}}
 				/>
 				<DataList
+					value={powiatyValue}
 					title="Powiat: "
 					id="powiat"
 					data={powiaty.map((pow) => pow.name)}
@@ -192,6 +254,7 @@ const MainPage = () => {
 					}}
 				/>
 				<DataList
+					value={gminyValue}
 					title="Gmina: "
 					id="gmina"
 					data={gminy.map((gmin) => gmin.name)}
@@ -223,7 +286,7 @@ const MainPage = () => {
 					width="100%"
 					afterAdded={() => {
 						setIsAddPublicationOpen(false);
-						fetchPublications();
+						fetchPublications('małopolskie', 'nowosądecki', 'Grybów');
 					}}
 				></CreatePublication>
 				{publications

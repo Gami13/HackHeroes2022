@@ -198,12 +198,12 @@ export default function authentication(app: Express) {
 		let { userId, isActivated, tokens, hashedPassword, salt, isOkay } =
 			await UserManagement.getAuthData(email);
 		if (!isOkay) {
-			res.sendError('User not found');
+			res.sendError('Nie znaleziono użytkownika');
 			return false;
 		}
 
 		if (isActivated == false) {
-			res.sendError('Your account has not been activated yet');
+			res.sendError('Twoje konto nie zostało aktywowane');
 			return false;
 		}
 		let isPasswordCorrect = await UserManagement.checkPassword(
@@ -214,17 +214,17 @@ export default function authentication(app: Express) {
 		if (isPasswordCorrect) {
 			let { token, isOkay } = await UserManagement.updateToken(userId, tokens);
 			if (!isOkay) {
-				res.sendError('Something went wrong, please try again later');
+				res.sendError('Coś poszło nie tak, spróbuj ponownie później');
 				return false;
 			}
 			const r = await UserManagement.getDataFromToken(token, userId);
 			if (!r.isOkay) {
-				res.sendError('Something went wrong, please try again later');
+				res.sendError('Coś poszło nie tak, spróbuj ponownie później');
 				return false;
 			}
 			/* check is admin */
 			/* TODO: fetch first name and last name and id */
-			res.sendSuccess('Logged in correctly', {
+			res.sendSuccess('Zalogowano pomyślnie', {
 				token: token,
 				ranks: r.ranks,
 				email: email,

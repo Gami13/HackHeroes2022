@@ -94,21 +94,27 @@ app.get('/userProfileImage/:userId', async (req, res) => {
 	let [results, fields] = await db.query<RowDataPacket[]>(query, [userId]);
 
 	if (results.length == 0 || results[0].photo == null) {
-		let urls = [
-			'https://media.tenor.com/d8-MHhSV7OAAAAAS/dream-dream-smp.gif',
-			'https://media.tenor.com/yQNEexfp7oUAAAAS/dream-dream-minecraft.gif',
-			'https://media.tenor.com/03kIzIohoBUAAAAC/dream-team-dream-minecraft.gif',
-			'https://tenor.com/view/this-is-my-kingdom-come-gif-22105215.gif',
-		];
-		let buffer = await (
-			await fetch(urls[Math.floor(Math.random() * urls.length)])
-		).arrayBuffer();
-		let mimeTypes = (await fileTypeFromBuffer(Buffer.from(buffer))) || {
-			mime: 'image/gif',
-		};
-		res.setHeader('Content-Type', mimeTypes.mime);
-		console.log(await fileTypeFromBuffer(buffer));
-		res.send(Buffer.from(buffer));
+		// let urls = [
+		// 	'https://media.tenor.com/d8-MHhSV7OAAAAAS/dream-dream-smp.gif',
+		// 	'https://media.tenor.com/yQNEexfp7oUAAAAS/dream-dream-minecraft.gif',
+		// 	'https://media.tenor.com/03kIzIohoBUAAAAC/dream-team-dream-minecraft.gif',
+		// 	'https://tenor.com/view/this-is-my-kingdom-come-gif-22105215.gif',
+		// ];
+		// let buffer = await (
+		// 	await fetch(urls[Math.floor(Math.random() * urls.length)])
+		// ).arrayBuffer();
+		// let mimeTypes = (await fileTypeFromBuffer(Buffer.from(buffer))) || {
+		// 	mime: 'image/gif',
+		// };
+		// res.setHeader('Content-Type', mimeTypes.mime);
+		// console.log(await fileTypeFromBuffer(buffer));
+		// res.send(Buffer.from(buffer));
+		let svg = `
+		
+<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M24 23.3q-3.85 0-6.3-2.45-2.45-2.45-2.45-6.3 0-3.85 2.45-6.3Q20.15 5.8 24 5.8q3.85 0 6.325 2.45t2.475 6.3q0 3.85-2.475 6.3Q27.85 23.3 24 23.3ZM6.75 41.9v-6.05q0-2.2 1.15-3.875 1.15-1.675 2.95-2.525 3.45-1.55 6.675-2.325Q20.75 26.35 24 26.35q3.3 0 6.5.8t6.6 2.3q1.9.8 3.05 2.475t1.15 3.925v6.05Zm4.7-4.7h25.1v-1.15q0-.75-.475-1.45T34.9 33.55q-3-1.4-5.525-1.925Q26.85 31.1 24 31.1q-2.8 0-5.425.525T13.05 33.55q-.7.35-1.15 1.05-.45.7-.45 1.45ZM24 18.6q1.75 0 2.9-1.15t1.15-2.9q0-1.8-1.15-2.925Q25.75 10.5 24 10.5t-2.9 1.125q-1.15 1.125-1.15 2.925 0 1.75 1.15 2.9T24 18.6Zm0-4.05Zm0 22.65Z"/></svg>`;
+		let buffer = Buffer.from(svg);
+		res.setHeader('Content-Type', 'image/svg+xml');
+		res.send(buffer);
 		return;
 	}
 
@@ -127,5 +133,19 @@ app.get('/users', async (req, res) => {
 	let [results, fields] = await db.query<RowDataPacket[]>(query);
 	if (results.length == 0) return res.sendError('No results', 404);
 
+	res.sendSuccess({ users: results });
+});
+
+app.post('/updateUserData', async (req, res) => {
+	let { userId, description, ranks, photo } = req.body;
+	let query =
+		'UPDATE users SET description = ?, ranks = ?, photo = ? WHERE id = ?';
+	let [results, fields] = await db.query<RowDataPacket[]>(query, [
+		description || null,
+		ranks || null,
+		photo || null,
+		userId || 0,
+	]);
+	if (results.length == 0) return res.sendError('No results', 404);
 	res.sendSuccess({ users: results });
 });

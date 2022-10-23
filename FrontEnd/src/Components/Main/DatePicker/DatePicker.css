@@ -36,9 +36,7 @@
 /* .custom-calendar .rmdp-panel-body span {
 	color: var(--textSecondary);
 } */
-.rmdp-wrapper.custom-calendar .rmdp-panel-body {
-	/* background-color: var(--depth2); */
-}
+
 .custom-calendar .rmdp-panel > :nth-child(2)::-webkit-scrollbar {
 	width: 5px;
 	border-radius: var(--roundedSmall);
@@ -89,6 +87,9 @@
 @media screen and (max-width: 530px) {
 	.rmdp-top-class {
 		flex-direction: column;
+	}
+	.rmdp-panel {
+		padding-top: 0 !important;
 	}
 	.rmdp-calendar {
 		min-width: 100% !important;

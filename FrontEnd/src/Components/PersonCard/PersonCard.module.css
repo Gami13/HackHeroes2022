@@ -38,7 +38,7 @@
 	transition-duration: var(--transitionSpeedFast);
 	transition-timing-function: ease-in-out;
 	transition-property: background-color, transform;
-	max-width: fit-content;
+
 	width: fit-content;
 }
 

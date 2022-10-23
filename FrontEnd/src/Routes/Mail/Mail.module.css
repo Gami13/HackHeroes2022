@@ -66,25 +66,41 @@
 	width: 100%;
 	height: calc(100vh - 4rem - 4rem);
 }
+.messages::-webkit-scrollbar {
+	position: absolute;
+	width: 5px;
+	height: 5px;
+}
+.messages::-webkit-scrollbar-track {
+	background-color: var(--depth1);
+	padding: 0.1rem;
+	border-radius: var(--rounded);
+}
+.messages::-webkit-scrollbar-thumb {
+	background-color: var(--secondary);
+	border-radius: var(--rounded);
+}
 .message:last-child {
 	margin-bottom: 4rem;
 }
 .message {
 	height: fit-content;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	width: fit-content;
+	grid-template-columns: 1fr;
 	width: 100%;
+
 	padding: 0.5rem;
 	border-radius: var(--roundedBig);
 	position: relative;
 }
+
 .message > p {
 	color: var(--textSecondary);
 	width: fit-content;
-	max-width: 95%;
+	max-width: 47%;
 	padding: 0.5rem;
 	border-radius: var(--roundedBig);
+	word-break: break-word;
 }
 .message > span {
 	font-size: 0.8rem;
@@ -92,13 +108,14 @@
 }
 .message[data-from='me'] > p {
 	background-color: var(--primary);
-	grid-column-start: 2;
-	grid-column-end: 3;
+
+	grid-column-start: 1;
+	grid-column-end: 2;
 	margin-left: auto;
 }
 .message[data-from='me'] > span {
-	grid-column-start: 2;
-	grid-column-end: 3;
+	grid-column-start: 1;
+	grid-column-end: 2;
 	text-align: right;
 }
 .message[data-from='other'] > p {
@@ -111,4 +128,18 @@
 	text-align: left;
 	grid-column-start: 1;
 	grid-column-end: 2;
+}
+/* for screns between 900 and 1000 pixels */
+@media screen and (max-width: 1000px) {
+	.mail {
+		grid-template-columns: 1fr;
+	}
+	.mainWrapper {
+		grid-column-start: 1;
+		grid-column-end: 2;
+	}
+	.person {
+		grid-column-start: 1;
+		grid-column-end: 2;
+	}
 }

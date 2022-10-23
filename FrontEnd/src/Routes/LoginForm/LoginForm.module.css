@@ -14,3 +14,6 @@
 .rememberMe:hover {
 	cursor: pointer;
 }
+.error {
+	color: var(--textError);
+}

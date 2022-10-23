@@ -36,12 +36,14 @@ const MessagesUserCard = (props: MessagesUserCardProps) => {
 				alt={props.name}
 				className={style['clip-animation']}
 			/>
-			<h2>{props.name}</h2>
-			<span>
-				{props.voivodeship} - {props.county} - {props.town}
-			</span>
-			<p>{props.description}</p>
-			<div className={style.tags}>{props.position}</div>
+			<div>
+				<h2>{props.name}</h2>
+				<span>
+					{props.voivodeship} - {props.county} - {props.town}
+				</span>
+				<p>{props.description}</p>
+				<div className={style.tags}>{props.position}</div>
+			</div>
 		</Box>
 	);
 };

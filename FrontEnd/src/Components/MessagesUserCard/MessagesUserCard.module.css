@@ -5,7 +5,7 @@
 	margin-top: 0px;
 	justify-content: center;
 	display: grid;
-	grid-template-columns: 10rem 1fr;
+	grid-template-columns: 6rem 1fr;
 }
 .messagesUserCard > img {
 	width: 6rem;
@@ -13,6 +13,13 @@
 	border-radius: 100%;
 	object-fit: cover;
 	border: 5px solid var(--textPrimary);
+	grid-area: 1/1/2/2;
+}
+.messagesUserCard > div {
+	grid-area: 1/2/2/3;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 .messagesUserCard > h2 {
 	font-size: 1.5rem;

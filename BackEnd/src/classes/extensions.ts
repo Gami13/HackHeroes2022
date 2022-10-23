@@ -19,7 +19,7 @@ class extend {
 		let response = this as unknown as Response;
 		return response
 			.status(errorCode)
-			.send({ status: 'error', success: false, message: 'UwU ' + message });
+			.send({ status: 'error', success: false, message: '' + message });
 	}
 	static sendSuccess(message: string, data: any = null): express.Response {
 		let response = this as unknown as Response;

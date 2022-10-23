@@ -6,6 +6,7 @@ import PersonCard from '../../Components/PersonCard/PersonCard';
 import Filters from '../../Components/Filters/Filters';
 import DataList from '../../Components/DataList/DataList';
 import layouts from '../../layouts.module.css';
+import Tag from '../../Components/Main/Tag/Tag';
 import useIsFirstRender from '../../isFirstRender';
 
 const BookMeeting = () => {
@@ -15,6 +16,7 @@ const BookMeeting = () => {
 	const [voivodeship, setVoivodeship] = useState<string | undefined>();
 	const [county, setCounty] = useState<string | undefined>();
 	const [town, setTown] = useState<string | undefined>();
+	const [peoples, setPeoples] = useState<any>();
 	const [voivodeshipList, setVoivodeshipList] = useState<
 		{ name: string; id: string }[]
 	>([]);
@@ -63,21 +65,27 @@ const BookMeeting = () => {
 		});
 		let data = await res.json();
 		console.log(data);
-		setTownList(data.gminy);
+		setPeoples(data.gminy);
 	}
 
 	async function fetchPeople() {
-		if (!town) {
-			return;
-		}
-		let res = await fetch(`http://localhost:3000/users/${town}`, {
-			method: 'GET',
+		let res = await fetch(`http://localhost:3000/getSpotkanies`, {
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
+			body: JSON.stringify({
+				email: context.userEmail,
+				token: context.userToken,
+				userId: context.userID,
+				gmina: town,
+				wojewodztwo: voivodeship,
+				powiat: county,
+			}),
 		});
 		let data = await res.json();
-		console.log(data);
+		setPeoples(data.users);
+		console.log(data.users);
 	}
 	useEffect(() => {
 		fetchPeople();
@@ -92,6 +100,7 @@ const BookMeeting = () => {
 
 	if (useIsFirstRender()) {
 		fetchVoivodeships();
+		fetchPeople();
 	}
 
 	return (
@@ -134,16 +143,32 @@ const BookMeeting = () => {
 				/>
 			</Filters>
 			{/* <h1>Book Meeting</h1> */}
-			<PersonCard
-				image="https://api.time.com/wp-content/uploads/2014/07/301386_full1.jpg"
-				name="Harry Potter"
-				position="Wójt"
-				description="Cześć :) jestem super wójtem i mieszkam w twoich ścianach 🙃 i wiem co robisz po nocach 😈"
-				voivodeship="Małopolska"
-				county="Gorlicki"
-				town="Gorlice"
-				id={'106798720795811136'}
-			/>
+
+			{peoples
+				? peoples.map((person: any) => (
+						<PersonCard
+							image={'http://localhost:3000/userProfileImage/' + person.image}
+							name={person.firstName + ' ' + person.lastName}
+							position={
+								person.ranks
+									? person.ranks.map((rank: any, index: number) => (
+											<Tag
+												text={rank.name}
+												backgroundColor={rank.color}
+												key={index}
+											/>
+									  ))
+									: null
+							}
+							description={person.description}
+							voivodeship={person.wojewodztwo}
+							county={person.powiat}
+							town={person.gmina}
+							className={style.personCard}
+							id={person.id}
+						/>
+				  ))
+				: null}
 		</div>
 	);
 };

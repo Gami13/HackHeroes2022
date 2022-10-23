@@ -100,11 +100,26 @@ const Navbar = () => {
 							</g>
 						</svg>
 					</NavBarButton>
-					<NavBarButton to="/mail" title="Wiadomości">
-						<svg width="16" height="16" viewBox="0 0 16 16" strokeWidth={0}>
-							<path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
-						</svg>
-					</NavBarButton>
+					{states.isLoggedIn ? (
+						<NavBarButton to="/mail" title="Wiadomości">
+							<svg width="16" height="16" viewBox="0 0 16 16" strokeWidth={0}>
+								<path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+							</svg>
+						</NavBarButton>
+					) : null}
+					{states.userRanks ? (
+						states.userRanks.some((a) => a == '1') ? (
+							<NavBarButton to="/admin" title="Admin">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 576 512"
+									strokeWidth={4}
+								>
+									<path d="M224 96c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zM152.5 247.2c12.4-4.7 18.7-18.5 14-30.9s-18.5-18.7-30.9-14C75.1 225.1 32 283.5 32 352c0 88.4 71.6 160 160 160c61.2 0 114.3-34.3 141.2-84.7c6.2-11.7 1.8-26.2-9.9-32.5s-26.2-1.8-32.5 9.9C272 440 234.8 464 192 464c-61.9 0-112-50.1-112-112c0-47.9 30.1-88.8 72.5-104.8zM291.8 176l-1.9-9.7c-4.5-22.3-24-38.3-46.8-38.3c-30.1 0-52.7 27.5-46.8 57l23.1 115.5c6 29.9 32.2 51.4 62.8 51.4h5.1c.4 0 .8 0 1.3 0h94.1c6.7 0 12.6 4.1 15 10.4L434 459.2c6 16.1 23.8 24.6 40.1 19.1l48-16c16.8-5.6 25.8-23.7 20.2-40.5s-23.7-25.8-40.5-20.2l-18.7 6.2-25.5-68c-11.7-31.2-41.6-51.9-74.9-51.9H314.2l-9.6-48H368c17.7 0 32-14.3 32-32s-14.3-32-32-32H291.8z" />
+								</svg>
+							</NavBarButton>
+						) : null
+					) : null}
 					<NavBarButton to="/bookMeeting" title="Umów spotkanie">
 						<svg
 							version="1.1"
@@ -126,23 +141,24 @@ const Navbar = () => {
 							</g>
 						</svg>
 					</NavBarButton>
-					<NavBarButton to="/reminder" title="Kalendarz">
-						{/* <Test /> */}
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							strokeWidth="1.5"
-							width="512"
-							height="512"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-							/>
-						</svg>
-					</NavBarButton>
+					{states.isLoggedIn ? (
+						<NavBarButton to="/reminder" title="Kalendarz">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth="1.5"
+								width="512"
+								height="512"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+								/>
+							</svg>
+						</NavBarButton>
+					) : null}
 					{states.isLoggedIn ? (
 						<NavBarButton to="/logout" title="Wyloguj">
 							<svg

@@ -13,6 +13,7 @@ import Label from '../../Components/Main/Label/Label';
 import Select from '../../Components/Main/Select/Select';
 import Button from '../../Components/Main/Button/Button';
 import TextArea from '../../Components/Main/TextArea/TextArea';
+import Tag from '../../Components/Main/Tag/Tag';
 
 const Booking = () => {
 	const [personImage, setPersonImage] = useState(
@@ -31,7 +32,7 @@ const Booking = () => {
 	const [meatingDate, setMeatingDate] = useState(new Date());
 
 	async function fetchPerson() {
-		///TODO: fetch person data
+		//TODO: fetch person data
 		let res = await fetch(`http://localhost:3000/getUserData`, {
 			method: 'POST',
 			headers: {
@@ -47,12 +48,18 @@ const Booking = () => {
 		//url to imgur image
 		setPersonImage('http://localhost:3000/userProfileImage/' + json.userId);
 		setPersonName(json.firstName + ' ' + json.lastName);
-		setPersonPosition('monitor');
+		console.log(json);
+		setPersonPosition(
+			json.ranks.map((rank: any, index: number) => (
+				<Tag text={rank.name} backgroundColor={rank.color} key={index} />
+			))
+		);
 		setPersonDescription(json.description);
-		setpersonVoivodeship(json.wojewodztwo);
-		setPersonCounty(json.powiat);
-		setPersonTown(json.gmina);
+		setpersonVoivodeship(json.voivodeship);
+		setPersonCounty(json.county);
+		setPersonTown(json.town);
 	}
+
 	if (isFirstRender) {
 		fetchPerson();
 	}
