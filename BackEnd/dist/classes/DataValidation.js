@@ -1,19 +1,30 @@
 class DataValidation {
-    static isUserDataValid(username, email, password, passwordConfirm) {
+    static isUserDataValid(username, email, password, passwordConfirm, dateOfBirth) {
         if (DataValidation.validateUsername(username).length == 0 &&
             DataValidation.validateEmail(email).length == 0 &&
-            DataValidation.validatePassword(password, passwordConfirm)) {
+            DataValidation.validatePassword(password, passwordConfirm).length == 0 &&
+            DataValidation.validateDateOfBirth(dateOfBirth).length == 0) {
             return true;
         }
+    }
+    static validateDateOfBirth(dateOfBirth) {
+        let errors = [];
+        if (dateOfBirth == null) {
+            errors.push('Date of birth is required');
+        }
+        if (dateOfBirth.getTime() > Date.now() - 1000 * 60 * 60 * 24 * 365 * 13) {
+            errors.push('You must be at least 13 years old');
+        }
+        return errors;
     }
     static validateUsername(username) {
         let usernameErrors = [];
         if (username.includes('#')) {
             usernameErrors.push('- Cannot contain #');
         }
-        if (username.length < 3 || username.length > 32) {
-            usernameErrors.push('- Must be between 3 and 32 characters');
-        }
+        // if (username.length < 3 || username.length > 32) {
+        // 	usernameErrors.push('- Must be between 3 and 32 characters');
+        // }
         return usernameErrors;
     }
     static validateEmail(email) {
@@ -42,11 +53,11 @@ class DataValidation {
         }
         return passwordErrors;
     }
-    static isUserAvailable(username, email, db) {
+    static isUserAvailable(email, db) {
         return new Promise(async (resolve, reject) => {
-            const query = 'SELECT id FROM users WHERE username = ? OR email = ? LIMIT 1';
+            const query = 'SELECT id FROM users WHERE email = ? LIMIT 1';
             console.log('checking if user is available');
-            let [results, fields] = await db.execute(query, [username, email]);
+            let [results, fields] = await db.execute(query, [email]);
             if (results.length > 0) {
                 resolve(false);
             }
