@@ -70,16 +70,21 @@ const MainPage = () => {
 	const [calendarData, setCalendarData] = useState<any>({});
 
 	const isFirstRender = useIsFirstRender();
+
+	async function fetchPublications() {
+		let res2 = await fetch(`http://localhost:3000/publications`);
+		let json2 = await res2.json();
+		setPublications(json2.publications);
+		console.log(json2.publications);
+	}
+
 	if (isFirstRender) {
 		let w = async () => {
 			let res = await fetch('http://localhost:3000/wojewodztwa');
 			let json = await res.json();
 			setWojewodztwa(json.wojewodztwa);
 
-			let res2 = await fetch(`http://localhost:3000/publications`);
-			let json2 = await res2.json();
-			setPublications(json2.publications);
-			console.log(json2.publications);
+			fetchPublications();
 
 			res = await fetch('http://localhost:3000/getReminders', {
 				method: 'POST',
@@ -93,6 +98,10 @@ const MainPage = () => {
 				}),
 			});
 			let data = await res.json();
+			console.log(data);
+			if (data.status === 'error') {
+				return;
+			}
 			let titles = data.reminders.reduce(
 				(acc: any, reminder: any, index: any) => {
 					acc[new Date(reminder.date).getTime()] = reminder.title;
@@ -203,7 +212,6 @@ const MainPage = () => {
 				>
 					{isAddPublicationOpen ? 'Ukryj' : 'Dodaj'} publikację
 				</Button>
-				{/*isAddPublicationOpen ? null : style.addPublicationInvis*/}
 				<CreatePublication
 					className={[
 						style.publication,
@@ -212,25 +220,34 @@ const MainPage = () => {
 					date={new Date()}
 					user={context.userFirstName + ' ' + context.userLastName}
 					height="fit-content"
+					width="100%"
+					afterAdded={() => {
+						setIsAddPublicationOpen(false);
+						fetchPublications();
+					}}
 				></CreatePublication>
-				{publications.map((pub: any, index: number) => (
-					<Publication
-						key={index}
-						id={pub.id}
-						className={[style.publication, style.pub]}
-						date={new Intl.DateTimeFormat('en-Gb').format(new Date(pub.date))}
-						user={pub.firstName + ' ' + pub.lastName}
-						title={pub.title}
-						body={pub.body}
-						footer={pub.footer.map((f: any, i: number) => (
-							<Tag
-								key={i}
-								text={f.text}
-								backgroundColor={'var(--' + f.color + ')'}
-							/>
-						))}
-					></Publication>
-				))}
+				{publications
+					? publications.map((pub: any, index: number) => (
+							<Publication
+								key={index}
+								id={pub.id}
+								className={[style.publication, style.pub]}
+								date={new Intl.DateTimeFormat('en-Gb').format(
+									new Date(pub.date)
+								)}
+								user={pub.firstName + ' ' + pub.lastName}
+								title={pub.title}
+								body={pub.body}
+								footer={pub.footer.map((f: any, i: number) => (
+									<Tag
+										key={i}
+										text={f.text}
+										backgroundColor={'var(--' + f.color + ')'}
+									/>
+								))}
+							></Publication>
+					  ))
+					: null}
 			</main>
 
 			<div className={style.additionalElements}>

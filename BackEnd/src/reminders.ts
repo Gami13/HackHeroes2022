@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from 'express';
 import db from './connection.js';
 import SnowflakeID from './classes/Snowflake.js';
 import UserManagement from './classes/UserManagement.js';
+
 export default function reminders(app: Express) {
 	app.post('/getReminders', async (req, res) => {
 		let email = req.body.email || '';
@@ -14,7 +15,7 @@ export default function reminders(app: Express) {
 		}
 		let query = 'SELECT * FROM `reminders` WHERE `userId` = ?';
 		let [results] = await db.query<RowDataPacket[]>(query, [userId]);
-		if (results.length == 0) return res.sendError('No results', 404);
+		if (results.length == 0) return res.sendError('No results');
 		res.sendSuccess({ reminders: results });
 	});
 	app.post('/reminder', async (req, res) => {

@@ -44,6 +44,9 @@ const ReminderSettings = () => {
 			}),
 		});
 		let data = await res.json();
+		if (data.status != 'success') {
+			return;
+		}
 		console.log(data);
 		let date = data.reminders.map((reminder: any) => {
 			return new Date(reminder.date);

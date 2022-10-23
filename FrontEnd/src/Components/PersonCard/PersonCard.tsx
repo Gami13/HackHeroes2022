@@ -29,7 +29,7 @@ const PersonCard = (props: PersonCardProps) => {
 	}
 	function askQuestion(id: string) {
 		console.log(id);
-		navigate('askQuestion/' + id.toString());
+		navigate('/mail/' + id.toString());
 		alert('pytanie');
 	}
 	const context = React.useContext(States);
@@ -51,10 +51,7 @@ const PersonCard = (props: PersonCardProps) => {
 				{props.voivodeship} - {props.county} - {props.town}
 			</span>
 			<p>{props.description}</p>
-			<Tag
-				text={props.position ? props.position : 'Nieznany'}
-				backgroundColor="pink"
-			/>
+			<div className={style.tags}>{props.position}</div>
 			{props.noButtons ? null : (
 				<div className={style.buttons}>
 					<Button

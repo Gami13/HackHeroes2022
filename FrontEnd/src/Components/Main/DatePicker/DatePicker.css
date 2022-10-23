@@ -30,12 +30,14 @@
 
 .custom-calendar .rmdp-panel {
 	width: 100%;
+	grid-template-rows: 1fr !important;
+	padding-top: 3rem;
 }
 /* .custom-calendar .rmdp-panel-body span {
 	color: var(--textSecondary);
 } */
 .rmdp-wrapper.custom-calendar .rmdp-panel-body {
-	background-color: var(--depth2);
+	/* background-color: var(--depth2); */
 }
 .custom-calendar .rmdp-panel > :nth-child(2)::-webkit-scrollbar {
 	width: 5px;
@@ -74,6 +76,16 @@
 .rmdp-ym {
 	gap: 5px;
 }
+.rmdp-panel-header {
+	display: none;
+}
+.rmdp-arrow-container {
+	align-items: center;
+	width: 20px;
+}
+.rmdp-arrow-container i {
+	margin: 0 !important;
+}
 @media screen and (max-width: 530px) {
 	.rmdp-top-class {
 		flex-direction: column;
@@ -88,7 +100,16 @@
 	.rmdp-header > div {
 		width: 200px;
 	}
-	.rmdp-day-picker {
-		min-height: 278px;
+
+	.rmdp-panel-body {
+		flex-direction: row !important;
+		overflow-x: auto !important;
+	}
+
+	.rmdp-panel > :nth-child(2) {
+		height: 60px;
+	}
+	.box {
+		max-width: 90%;
 	}
 }

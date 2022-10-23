@@ -6,51 +6,129 @@ import PersonCard from '../../Components/PersonCard/PersonCard';
 import Filters from '../../Components/Filters/Filters';
 import DataList from '../../Components/DataList/DataList';
 import layouts from '../../layouts.module.css';
+import useIsFirstRender from '../../isFirstRender';
 
 const BookMeeting = () => {
 	function come() {
 		alert('please come in');
 	}
-	const [voivodeship, setVoivodeship] = useState('');
-	const [county, setCounty] = useState('');
-	const [town, setTown] = useState('');
-	const [countyList, setCountyList] = useState(['test', 'test2', 'test3']);
-	const [townList, setTownList] = useState(['test4', 'test5', 'test6']);
+	const [voivodeship, setVoivodeship] = useState<string | undefined>();
+	const [county, setCounty] = useState<string | undefined>();
+	const [town, setTown] = useState<string | undefined>();
+	const [voivodeshipList, setVoivodeshipList] = useState<
+		{ name: string; id: string }[]
+	>([]);
+	const [countyList, setCountyList] = useState<{ name: string; id: string }[]>(
+		[]
+	);
+	const [townList, setTownList] = useState<{ name: string; id: string }[]>([]);
 	const context = useContext(States);
-	function fetchCounties() {
-		/* TODO: Fetch counties */
+
+	async function fetchVoivodeships() {
+		const response = await fetch('http://localhost:3000/wojewodztwa', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		const data = await response.json();
+		console.log(data);
+		setVoivodeshipList(data.wojewodztwa);
 	}
-	function fetchTowns() {
-		/* TODO: Fetch towns */
+	async function fetchCounties() {
+		if (!voivodeship) {
+			return;
+		}
+		console.log(voivodeship);
+		/* TODO: Fetch counties */
+		let res = await fetch(`http://localhost:3000/powiaty/${voivodeship}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		let data = await res.json();
+		console.log(data);
+		setCountyList(data.powiaty);
+	}
+	async function fetchTowns() {
+		if (!county) {
+			return;
+		}
+		let res = await fetch(`http://localhost:3000/gminy/${county}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		let data = await res.json();
+		console.log(data);
+		setTownList(data.gminy);
+	}
+
+	async function fetchPeople() {
+		if (!town) {
+			return;
+		}
+		let res = await fetch(`http://localhost:3000/users/${town}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		let data = await res.json();
+		console.log(data);
 	}
 	useEffect(() => {
-		/* TODO: Fetch people */
+		fetchPeople();
 	}, [voivodeship, county, town]);
+
+	useEffect(() => {
+		fetchCounties();
+	}, [voivodeship]);
+	useEffect(() => {
+		fetchTowns();
+	}, [county]);
+
+	if (useIsFirstRender()) {
+		fetchVoivodeships();
+	}
+
 	return (
 		<div className={layouts.center}>
 			<Filters heading="Umów spotkanie">
 				<DataList
 					title="Województwo: "
 					id="wojewodztwa"
-					data={['Małopolska', 'Śląskie', 'Mazowieckie']}
-					onChange={(e) => setVoivodeship(e.target.value)}
+					data={voivodeshipList.map((item) => item.name)}
+					onChange={(e) => {
+						setVoivodeship(
+							voivodeshipList.find((item) => item.name === e.target.value)?.id
+						);
+					}}
 					onBlur={fetchCounties}
 					placeholder="Województwo"
 				/>
 				<DataList
 					title="Powiat: "
 					id="powiat"
-					data={countyList}
-					onChange={(e) => setCounty(e.target.value)}
-					disabled={voivodeship == ''}
+					data={countyList.map((item) => item.name)}
+					onChange={(e) => {
+						setCounty(
+							countyList.find((item) => item.name === e.target.value)?.id
+						);
+					}}
+					disabled={voivodeship == null}
 					onBlur={fetchTowns}
 					placeholder="Powiat"
 				/>
 				<DataList
 					title="Gmina: "
 					id="gmina"
-					data={townList}
-					onChange={(e) => setTown(e.target.value)}
+					data={townList.map((item) => item.name)}
+					onChange={(e) => {
+						setTown(townList.find((item) => item.name === e.target.value)?.id);
+					}}
 					disabled={county == ''}
 					placeholder="Gmina"
 				/>

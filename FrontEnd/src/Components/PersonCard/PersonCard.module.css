@@ -58,3 +58,9 @@
 .askQuestion:hover {
 	background-color: var(--secondaryHover);
 }
+.tags {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+}

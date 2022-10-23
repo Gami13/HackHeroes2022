@@ -1,29 +1,31 @@
-.personCard {
+.messagesUserCard {
 	border-radius: var(--roundedBig);
 	transition-duration: var(--transitionSpeedFast);
 	width: 100% !important;
 	margin-top: 0px;
 	justify-content: center;
+	display: grid;
+	grid-template-columns: 10rem 1fr;
 }
-.personCard > img {
-	width: 10rem;
+.messagesUserCard > img {
+	width: 6rem;
 	aspect-ratio: 1/1;
 	border-radius: 100%;
 	object-fit: cover;
 	border: 5px solid var(--textPrimary);
 }
-.personCard > h2 {
+.messagesUserCard > h2 {
 	font-size: 1.5rem;
 	font-weight: 600;
 	margin: 0;
 	padding: 0.25rem;
 }
-.personCard > span {
+.messagesUserCard > span {
 	font-size: 0.8rem;
 	color: var(--textPrimaryHover);
 	padding-bottom: 0.25rem;
 }
-.personCard > p {
+.messagesUserCard > p {
 	padding: 0.25rem;
 	padding-bottom: 1rem;
 	max-width: 32ch;
@@ -57,4 +59,10 @@
 }
 .askQuestion:hover {
 	background-color: var(--secondaryHover);
+}
+.tags {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
 }

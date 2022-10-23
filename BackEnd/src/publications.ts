@@ -7,9 +7,9 @@ import SnowflakeID from './classes/Snowflake.js';
 export default function publications(app: Express) {
 	app.get('/publications', async (req, res) => {
 		let query =
-			'SELECT `publication`.*, `users`.`firstName`, `users`.`lastName` FROM `publication`, `users` WHERE `users`.`id` = `publication`.`userId`;';
+			'SELECT `publication`.*, `users`.`firstName`, `users`.`lastName` FROM `publication`, `users` WHERE `users`.`id` = `publication`.`userId` ORDER BY `publication`.`id` DESC;';
 		let [results] = await db.query<RowDataPacket[]>(query);
-		if (results.length == 0) return res.sendError('No results', 404);
+		if (results.length == 0) return res.sendSuccess({ publications: [] }, 404);
 
 		let r = results.map((a) => {
 			return {
@@ -18,6 +18,12 @@ export default function publications(app: Express) {
 				date: SnowflakeID.getDataFromID(a.id).date,
 			};
 		});
+		// query = 'SELECT * FROM `tags` WHERE id in (?)';
+		// let [tags] = await db.query<RowDataPacket[]>(query, [
+		// 	r.map((a) => a.footer),
+		// ]);
+
+		// console.log('tags:', tags);
 		//query tags
 		query = 'SELECT * FROM `tags` WHERE id = ?';
 		for (let a of r) {
@@ -32,7 +38,7 @@ export default function publications(app: Express) {
 
 	app.get('/publicationes/:id', async (req, res) => {
 		let query =
-			'SELECT `publication`.*, `users`.`firstName`, `users`.`lastName` FROM `publication`, `users` WHERE `publication`.`id` = ? AND `publication`.`userId` = `users`.`id`';
+			'SELECT `publication`.*, `users`.`firstName`, `users`.`lastName` FROM `publication`, `users` WHERE `publication`.`id` = ? AND `publication`.`userId` = `users`.`id`;';
 		let [results] = await db.query<RowDataPacket[]>(query, [req.params.id]);
 
 		if (results.length == 0) return res.sendError('No results', 404);
@@ -66,7 +72,6 @@ export default function publications(app: Express) {
 	app.post('/publication', async (req, res) => {
 		let title = req.body.title;
 		let body = req.body.body;
-		let date = new Date();
 		let tags = req.body.tags || [];
 		let userId = req.body.userId;
 		let email = req.body.email;
@@ -80,17 +85,20 @@ export default function publications(app: Express) {
 			res.sendError('Invalid tags', 400);
 			return false;
 		}
+
 		let snowflake = SnowflakeID.createID('010');
 		let query =
-			'INSERT INTO `publication` (`id`,`title`, `body`, `date`, `userId`,`footer`) VALUES (?,?, ?, ?, ?, ?)';
+			'INSERT INTO `publication` (`id`,`title`, `body`, `userId`, `footer`, `gminaId`, `powiatId`, `wojewodztwoId`) VALUES (?, ?, ?, ?, ?, (SELECT `gminy`.`id` FROM `users`, `gminy` WHERE `gminy`.`id` = `users`.`gminaId` AND `users`.`id` = ?), (SELECT `powiaty`.`id` FROM `users`, `powiaty` WHERE `powiaty`.`id` = `users`.`powiatId` AND `users`.`id` = ?), (SELECT `wojewodztwa`.`id` FROM `users`, `wojewodztwa` WHERE `wojewodztwa`.`id` = `users`.`wojewodztwoId` AND `users`.`id` = ?))';
 
 		let [results] = await db.query<OkPacket>(query, [
 			snowflake,
 			title,
 			body,
-			date,
 			userId,
 			JSON.stringify(tags),
+			userId,
+			userId,
+			userId,
 		]);
 		if (results.affectedRows == 0)
 			return res.sendError('Failed to create publication', 500);

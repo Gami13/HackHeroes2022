@@ -46,16 +46,22 @@
 .box {
 	background-color: var(--depth1);
 	transition-duration: var(--transitionSpeedFast);
-	width: 40rem;
+	width: 100%;
+	max-width: 40rem;
 	height: fit-content;
-	cursor: default;
+	cursor: pointer;
 }
 
 .wrapper {
 	border-radius: var(--roundedBig);
-	cursor: pointer;
+
 	height: fit-content;
-	width: fit-content;
+	width: 100%;
+	max-width: 34rem;
+}
+
+.wrapper:not(:disabled) {
+	cursor: pointer;
 }
 
 .wrapper:hover .box .body {

@@ -6,6 +6,7 @@
 - [Table of Content](#table-of-content)
 - [Założenia projektu](#założenia-projektu)
   - [<span style="color:Red;">🚨**TODO**🚨</span>](#todo)
+  - [<span style="color:Red;">🤓**Konta Użytkowników**🚨</span>](#konta-użytkowników)
   - [obywatel może:](#obywatel-może)
   - [Osoba z dostępem samorządowym może:](#osoba-z-dostępem-samorządowym-może)
   - [Komponenty](#komponenty)
@@ -30,20 +31,54 @@
 - [ ] Informacja o nie poprawnym dodaniu post
 - [ ] Wyszukiwarka na głównej stronie
 - [ ] Wyszukiwarka w wiadomościach
-- [ ] Skalowanie komentarzy
-- [ ] Skalowanie kalendarza
-- [ ] Skalowanie multiselecta
-- [ ] Naprawić skalowanie Filtera (to takie co oddziela go od reszty elementów szare a jest za daleko np. na stronie "Umów spotkanie")
+- [x] Skalowanie komentarzy
+- [x] Skalowanie kalendarza
+- [x] Skalowanie multiselecta
+- [x] Naprawić skalowanie Filtera (to takie co oddziela go od reszty elementów szare a jest za daleko np. na stronie "Umów spotkanie")
 - [ ] Naprawić tło w kalendarzu na głównej stronie (to za guzikami)
 - [ ] Sortowanie komentarzy i postów po użytkowniku który dodał i dacie
 - [ ] Przypinanie postów
-- [ ] Bazę danych przenieść do radzika
+- ❌ Bazę danych przenieść do radzika
 - [ ] Przenieść projekt na Vercela
 - [ ] Wszystko od strony samorządu
 - [ ] Poprawne dodawanie dodatkowych informacji dla osób z samorządu
 - [ ] Wyświetlanie wiadomości
 - [ ] Wyświetlanie rozpoczętych rozmów
 - [ ] Umówienie spotkań
+
+## <span style="color:Red;">🤓**Konta Użytkowników**🚨</span>
+
+- Karol Biedra - karolbiedra@gmail.com haslo123 - (małopolskie - nowosądecki - Grybów)
+- Andrzej Matys - anderejowy@wp.pl haslo123 - (lubelskie - krasnostawski - Rudnik)
+- Janusz Skalmar Okojski - januszskalmar@gmail.com sibjdfij7h&\*(RFYASIYFBUYIg1j2nej)2 - (małopolskie - suski - Stryszawa)
+- Izabela Nowak - izuniabella@sus.com haslo123 - (małopolskie - nowosądecki - Grybów)
+- Rafał Beniowski - beniekrafon@gmail.com haslo123 - (małopolskie - nowosądecki - Grybów)
+- Marta Loska - martaloska123@onet.pl haslo123 - (lubelskie - krasnostawski - Rudnik)
+
+Karol Biedra:
+Tytuł: Niemiła obsługa! 🤓
+Tekst: Dzisiejszego dnia poszedłem do tej nowej kawiarni, która się nazywa Owocowo. Zamówiłem sobie kawę i ciastko. Kawa była smaczna, ale ciastko było zbyt suche więc poprosiłem obsługę, aby je wymienili. Otrzymałem od nich bardzo nie miłe zachowanie. Nie chcieli mi wymienić ciastka, a jedynie zaoferowali mi inne. Nie chciałem się z nimi kłócić, więc wypłaciłem pieniądze i wyszedłem. Nie polecam tej kawiarni.
+Tagi: Skarga, Miejsce Publiczne
+
+Karol Biedra:
+Tytuł: Kto to zgubił?
+Tekst: Spacerując sobie dzisiaj w parku znalazłem obrożę, która nie jest moja. Jeśli ktoś zgubił to proszę o kontakt. 🐶🦮
+Tagi: Pytanie, Miejsce Publiczne, Znalezione
+
+Andrzej Matys:
+Tytuł: Zgubiłem telefon
+Tekst: Zgubiłem telefon 📱 wczoraj w okolicach ulicy Kolejowej. Jeśli ktoś go znalazł to proszę o kontakt... Najlepiej przez maila bo nie mam jak odebrać telefonu
+Tagi: Pytanie, Miejsce Publiczne, Znalezione
+
+Janusz Skalmar Okojski:
+Tytuł: Sus Sąsiad
+Tekst: Wczoraj w nocy zauważyłem podejrzanego mężczyznę, który wchodził do mojego domu. Nie wiem co robił, ale nie wyglądał na dobrego człowieka. Proszę o kontakt z policją.
+Tagi: Pytanie, Dom, Skarga, Niebezpieczne
+
+Izabela Nowak:
+Tytuł: Czy ktoś powiedział pyszne.pl? 🍴
+Tekst: Czy ktoś z was słyszał o tej stronie? Czy warto tam zamawiać?
+Tagi: Pytanie, Miejsce Publiczne
 
 ## obywatel może:
 

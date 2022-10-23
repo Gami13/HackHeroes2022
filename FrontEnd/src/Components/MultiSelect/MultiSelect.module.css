@@ -1,7 +1,7 @@
 .multiSelect {
 	position: relative;
-	width: 350px;
 	height: fit-content;
+	max-width: 100%;
 }
 
 .main {
@@ -76,7 +76,7 @@
 	padding: 0.2rem;
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	border-radius: var(--rounded);
 	overflow-x: auto;
 	overflow-y: hidden;
@@ -84,11 +84,12 @@
 
 .selectedList::-webkit-scrollbar {
 	position: absolute;
-	width: 10px;
+	width: 5px;
+	height: 5px;
 }
 .selectedList::-webkit-scrollbar-track {
 	background-color: var(--depth1);
-	padding: 0.2rem;
+	padding: 0.1rem;
 	border-radius: var(--rounded);
 }
 .selectedList::-webkit-scrollbar-thumb {

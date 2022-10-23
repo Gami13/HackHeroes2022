@@ -19,7 +19,7 @@
 	width: 100%;
 	height: fit-content;
 	font-weight: bold;
-	word-break: break-all;
+	word-break: break-word;
 }
 
 .body {
@@ -30,15 +30,19 @@
 	background-color: var(--depth2);
 	border-radius: var(--roundedBig);
 	text-align: left;
-	word-break: break-all;
+	word-break: break-word;
 }
 
 .footer {
 	grid-row: 4 / 5;
-	display: flex;
 }
 .footer .multiSelect {
 	width: 100%;
+}
+.multiSelect > div > ul {
+	flex-wrap: wrap;
+	overflow-x: auto;
+	max-width: 100%;
 }
 .box {
 	background-color: var(--depth1);

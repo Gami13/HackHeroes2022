@@ -6,7 +6,7 @@ import Snowflake from './classes/Snowflake.js';
 export default function comments(app: Express) {
 	app.get('/comments/:id', async (req, res) => {
 		let query =
-			'SELECT `users`.`firstName`, `users`.`lastName`, `comments`.* FROM `users`, `comments` WHERE `publicationId` = ? AND `comments`.`userId` = `users`.`id`';
+			'SELECT `users`.`firstName`, `users`.`lastName`, `comments`.* FROM `users`, `comments` WHERE `publicationId` = ? AND `comments`.`userId` = `users`.`id` ORDER BY `comments`.`id` DESC;';
 		let [results] = await db.query<RowDataPacket[]>(query, [req.params.id]);
 		if (results.length == 0) return res.sendError('No results', 404);
 

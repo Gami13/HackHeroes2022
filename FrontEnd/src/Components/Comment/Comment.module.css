@@ -37,7 +37,7 @@
 .box {
 	background-color: var(--depth1);
 	transition-duration: var(--transitionSpeedFast);
-	width: 40rem;
+	width: 34rem;
 	height: fit-content;
 	padding: 0;
 }

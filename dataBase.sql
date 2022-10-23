@@ -9,14 +9,12 @@ CREATE TABLE IF NOT EXISTS `users` (
     `email` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `salt` varchar(255) NOT NULL,
-    `tokens` JSON NOT NULL DEFAULT '[]',
-    `ranks` JSON NOT NULL DEFAULT '["user"]',
-    `isBanned` tinyint(1) NOT NULL,
+    `tokens` JSON NOT NULL,
+    `ranks` JSON,
     `isActivated` tinyint(1) NOT NULL,
     `phoneNumber` varchar(9),
     `description` TEXT(1000),
-    `photo` varchar(255),
-    `tags` JSON DEFAULT '[]',
+    `photo` mediumblob,
     `address` varchar(255)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 ALTER TABLE `users`
@@ -28,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `verifyaccount` (
     `isUsed` tinyint(1) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 ALTER TABLE `verifyaccount`
-ADD PRIMARY KEY (`id`, `userId`);
+ADD PRIMARY KEY (`id`);
 -- messages
 CREATE TABLE IF NOT EXISTS `messages` (
     `id` bigint(20) NOT NULL,
@@ -47,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `publication` (
     `footer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
     `gminaId` int(11) NOT NULL,
     `powiatId` int(11) NOT NULL,
-    `wojewodztwoId` int(11) NOT NULL,
+    `wojewodztwoId` int(11) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- comments
 CREATE TABLE IF NOT EXISTS `comments` (
@@ -89,15 +87,28 @@ CREATE TABLE IF NOT EXISTS `gminy` (
     `name` varchar(255) NOT NULL,
     `powId` int(11) NOT NULL -- ,FOREIGN KEY (powId) REFERENCES powiaty(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
--- get powiaty.name and wojewodztwa.name from gminy where id = 1
-SELECT gminy.name,
-    powiaty.name,
-    wojewodztwa.name
-FROM gminy
-    INNER JOIN powiaty ON gminy.powId = powiaty.id
-    INNER JOIN wojewodztwa ON powiaty.wojId = wojewodztwa.id
-WHERE gminy.id = 1;
+CREATE TABLE IF NOT EXISTS `tags` (
+    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `text` varchar(255) NOT NULL,
+    `color` varchar(255) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- -- get powiaty.name and wojewodztwa.name from gminy where id = 1
+-- SELECT gminy.name,
+--     powiaty.name,
+--     wojewodztwa.name
+-- FROM gminy
+--     INNER JOIN powiaty ON gminy.powId = powiaty.id
+--     INNER JOIN wojewodztwa ON powiaty.wojId = wojewodztwa.id
+-- WHERE gminy.id = 1;
 -- data
+CREATE TABLE IF NOT EXISTS `ranks` (
+    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `color` varchar(255) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+INSERT INTO ranks (name, color)
+VALUES ('🎩 Burmistrz', '#FF0000'),
+    ('🚜 Wójt', 'pink');
 INSERT INTO wojewodztwa (name)
 VALUES ('dolnośląskie'),
     ('kujawsko-pomorskie'),
@@ -128,11 +139,9 @@ INSERT INTO `users` (
         `salt`,
         `tokens`,
         `ranks`,
-        `isBanned`,
         `isActivated`,
         `phoneNumber`,
         `description`,
-        `tags`,
         `address`
     )
 VALUES (
@@ -147,12 +156,10 @@ VALUES (
         '$argon2id$v=19$m=4096,t=3,p=1$vqSdoyEDMpSW1w3AV6shPg$ymRjPRK+dxPeUXU+wzIRvjOzwkJxRG3loTdx4f7SZHI',
         'U501EEzDgJAHcHCUH9VFgd0NXj4SjquYqdjx+eaH6gg=',
         '[]',
-        '[\"user\"]',
-        '0',
+        '[]',
         '1',
         '123456789',
         'Cześć :) jestem super wójtem i mieszkam w twoich ścianach 🙃 i wiem co robisz po nocach 😈',
-        '[11, 5]',
         'Gorlice 420'
     );
 INSERT INTO powiaty (name, wojId)

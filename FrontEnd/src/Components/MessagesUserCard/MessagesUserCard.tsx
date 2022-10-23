@@ -22,22 +22,12 @@ interface MessagesUserCardProps {
 }
 
 const MessagesUserCard = (props: MessagesUserCardProps) => {
-	const navigate = useNavigate();
-	function bookMeeting(id: string) {
-		console.log(id);
-		navigate('/booking/' + id.toString());
-	}
-	function askQuestion(id: string) {
-		console.log(id);
-		navigate('askQuestion/' + id.toString());
-		alert('pytanie');
-	}
 	const context = React.useContext(States);
 	return (
 		<Box
 			width="fit-content"
 			backgroundColor={null}
-			className={[style.MessagesUserCard, props.className, style.wrapper]
+			className={[style.messagesUserCard, props.className, style.wrapper]
 				.flat()
 				.join(' ')}
 		>
@@ -51,10 +41,7 @@ const MessagesUserCard = (props: MessagesUserCardProps) => {
 				{props.voivodeship} - {props.county} - {props.town}
 			</span>
 			<p>{props.description}</p>
-			<Tag
-				text={props.position ? props.position : 'Nieznany'}
-				backgroundColor="pink"
-			/>
+			<div className={style.tags}>{props.position}</div>
 		</Box>
 	);
 };

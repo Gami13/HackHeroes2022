@@ -1,8 +1,5 @@
-import * as dotenv from 'dotenv';
-dotenv.config({ path: './.env' });
 import express, { Response } from 'express';
 import cors from 'cors';
-
 import authentication from './Authentication.js';
 import db from './connection.js';
 import { RowDataPacket } from 'mysql2';
@@ -13,6 +10,7 @@ import comments from './comments.js';
 import messages from './messages.js';
 import fileUpload from 'express-fileupload';
 import fetch from 'node-fetch';
+import { fileTypeFromBuffer } from 'file-type';
 load();
 
 const app = express();
@@ -95,7 +93,7 @@ app.get('/userProfileImage/:userId', async (req, res) => {
 	let query = 'SELECT photo FROM users WHERE id = ?';
 	let [results, fields] = await db.query<RowDataPacket[]>(query, [userId]);
 
-	if (results.length == 0) {
+	if (results.length == 0 || results[0].photo == null) {
 		let urls = [
 			'https://media.tenor.com/d8-MHhSV7OAAAAAS/dream-dream-smp.gif',
 			'https://media.tenor.com/yQNEexfp7oUAAAAS/dream-dream-minecraft.gif',
@@ -105,10 +103,29 @@ app.get('/userProfileImage/:userId', async (req, res) => {
 		let buffer = await (
 			await fetch(urls[Math.floor(Math.random() * urls.length)])
 		).arrayBuffer();
-		res.setHeader('Content-Type', 'image/gif');
+		let mimeTypes = (await fileTypeFromBuffer(Buffer.from(buffer))) || {
+			mime: 'image/gif',
+		};
+		res.setHeader('Content-Type', mimeTypes.mime);
+		console.log(await fileTypeFromBuffer(buffer));
 		res.send(Buffer.from(buffer));
 		return;
 	}
+
+	let mimeTypes = (await fileTypeFromBuffer(Buffer.from(results[0].photo))) || {
+		mime: 'image/png',
+	};
+	res.setHeader('Content-Type', mimeTypes.mime);
 	res.send(results[0].photo);
 	//send get content type from buffer
+});
+
+app.get('/users', async (req, res) => {
+	//get users.firstName,id,ranks,descripton all users with ranks not null
+	let query =
+		'SELECT users.id,users.firstName,ranks,users.description FROM users WHERE ranks IS NOT NULL';
+	let [results, fields] = await db.query<RowDataPacket[]>(query);
+	if (results.length == 0) return res.sendError('No results', 404);
+
+	res.sendSuccess({ users: results });
 });

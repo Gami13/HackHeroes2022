@@ -20,6 +20,7 @@ interface PublicationProps {
 	footer?: any[] | any;
 	className?: string[] | string;
 	id?: string;
+	afterAdded?: () => void;
 }
 
 function Publication(props: PublicationProps) {
@@ -44,6 +45,7 @@ function Publication(props: PublicationProps) {
 	}
 
 	async function upload() {
+		console.log(selections);
 		const response = await fetch('http://localhost:3000/publication', {
 			method: 'POST',
 			headers: {
@@ -52,13 +54,14 @@ function Publication(props: PublicationProps) {
 			body: JSON.stringify({
 				title: titleValue,
 				body: bodyValue,
-				tags: tags,
+				tags: selections.map((x: any) => x.value),
 				email: context.userEmail,
 				token: context.userToken,
 				userId: context.userID,
 			}),
 		});
 		const data = await response.json();
+		if (props.afterAdded) props.afterAdded();
 		console.log(data);
 	}
 	// const isFirstRender = useIsFirstRender();

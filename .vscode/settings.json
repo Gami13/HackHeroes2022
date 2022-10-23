@@ -25,6 +25,19 @@
       "database": "obywatel++",
       "username": "root",
       "password": ""
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "h4k3r2s1.eu",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "test",
+      "database": "konkurs",
+      "username": "konkurs",
+      "password": "Konkurs123*"
     }
   ]
 }

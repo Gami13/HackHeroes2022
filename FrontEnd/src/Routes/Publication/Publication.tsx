@@ -60,7 +60,7 @@ const PublicationPage = () => {
 				disabled={true}
 				id={publication?.id}
 				date={new Intl.DateTimeFormat('en-Gb').format(
-					new Date(publication?.date)
+					new Date(publication?.date || 0)
 				)}
 				user={publication?.firstName + ' ' + publication?.lastName}
 				title={publication?.title}
@@ -95,6 +95,7 @@ const PublicationPage = () => {
 						date={new Intl.DateTimeFormat('en-Gb').format(new Date(c?.date))}
 						user={c?.firstName + ' ' + c?.lastName}
 						body={c?.text}
+						key={i}
 					></Comment>
 				))}
 			</div>
