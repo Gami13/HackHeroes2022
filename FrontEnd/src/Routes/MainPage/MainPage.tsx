@@ -55,16 +55,16 @@ const MainPage = () => {
 	const [isAddPublicationOpen, setIsAddPublicationOpen] = useState(false);
 
 	const [wojewodztwa, setWojewodztwa] = useState<tak[]>([]);
-	const [wojewodztwaValue, setWojewodztwaValue] = useState<string>();
+	const [wojewodztwaValue, setWojewodztwaValue] = useState<string>('');
 	const [wojewodztwaSelected, setWojewodztwaSelected] = useState<
 		tak | undefined
 	>();
 	const [powiaty, setPowiaty] = useState<tak[]>([]);
-	const [powiatyValue, setPowiatyValue] = useState<string>();
+	const [powiatyValue, setPowiatyValue] = useState<string>('');
 	const [powiatySelected, setPowiatySelected] = useState<tak | undefined>();
 
 	const [gminy, setGminy] = useState<tak[]>([]);
-	const [gminyValue, setGminyValue] = useState<string>();
+	const [gminyValue, setGminyValue] = useState<string>('');
 	const [gminySelected, setGminySelected] = useState<tak | undefined>();
 
 	const [selections, setSelections] = React.useState<any>([]);
@@ -119,11 +119,14 @@ const MainPage = () => {
 
 			let WPG = await res2.json();
 			WPG = WPG.WPG[0];
+			let wojName = WPG?.wojName || 'małopolskie';
+			let powName = WPG?.powName || 'nowosądecki';
+			let gminName = WPG?.gminName || 'Grybów';
 
-			fetchPublications(WPG.wojName, WPG.powName, WPG.gminName);
-			setWojewodztwaValue(WPG.wojName);
-			setPowiatyValue(WPG.powName);
-			setGminyValue(WPG.gminName);
+			fetchPublications(wojName, powName, gminName);
+			setWojewodztwaValue(wojName);
+			setPowiatyValue(powName);
+			setGminyValue(gminName);
 
 			res = await fetch('http://localhost:3000/getReminders', {
 				method: 'POST',
@@ -232,6 +235,7 @@ const MainPage = () => {
 					data={wojewodztwa.map((woj) => woj.name)}
 					placeholder="Województwa"
 					onChange={(e) => {
+						setWojewodztwaValue(e.target.value);
 						setWojewodztwaSelected(
 							wojewodztwa.find((woj) => woj.name == e.target.value)
 						);
@@ -243,8 +247,10 @@ const MainPage = () => {
 					title="Powiat: "
 					id="powiat"
 					data={powiaty.map((pow) => pow.name)}
+					disabled={wojewodztwaValue == null || wojewodztwaValue.length == 0}
 					placeholder="Powiat"
 					onChange={(e) => {
+						setPowiatyValue(e.target.value);
 						setPowiatySelected(
 							powiaty.find((pow) => pow.name == e.target.value)
 						);
@@ -257,10 +263,12 @@ const MainPage = () => {
 					value={gminyValue}
 					title="Gmina: "
 					id="gmina"
+					disabled={powiatyValue == null || powiatyValue.length == 0}
 					data={gminy.map((gmin) => gmin.name)}
-					onChange={(e) =>
-						setGminySelected(gminy.find((gmin) => gmin.name == e.target.value))
-					}
+					onChange={(e) => {
+						setGminyValue(e.target.value);
+						setGminySelected(gminy.find((gmin) => gmin.name == e.target.value));
+					}}
 					placeholder="Gmina"
 				/>
 			</Filters>

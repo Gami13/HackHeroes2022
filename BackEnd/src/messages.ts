@@ -150,26 +150,96 @@ export default function messages(app: Express) {
 			users,
 		});
 	});
-	app.post('setAdminData', async (req, res) => {
-		const userId = req.body.userId;
-		const email = req.body.email;
-		const token = req.body.token;
-		const ranks = req.body.ranks;
-		/* add photo */
+	app.post('/setAdminData', async (req, res) => {
+		const userId = req.body.userId || '0';
+		const email = req.body.email || '';
+		const token = req.body.token || '';
+		const ranks = JSON.parse(req.body.ranks || '[]') || [];
+
+		//działa? niby dziala, a moglbys jeszcze wziac mi value z tagu?"
+		console.log(req.body);
 		const description = req.body.description;
 		const phoneNumber = req.body.phoneNumber;
 		const address = req.body.address;
-		const tags = req.body.tags;
 
-		if (!ranks.some((rank: any) => rank.name == '1')) {
-			res.sendError('Not admin', 400);
-			return false;
+		const photo = <UploadedFile>req.files?.personImage;
+		if (photo == undefined) {
+			let tags = JSON.parse(req.body.tags || '[]') || [];
+			let newTags = <number[]>[];
+			tags.map((tag: any) => {
+				newTags.push(tag.value);
+			});
+
+			if (ranks) {
+				if (!ranks.some((rank: any) => rank == '1')) {
+					res.sendError('Not admin', 400);
+					return false;
+				}
+			} else {
+				res.sendError('Not admin', 400);
+			}
+
+			if (!(await UserManagement.isLoggedIn(email, token, userId))) {
+				res.sendError('Not logged in', 401);
+				return false;
+			}
+
+			const sql = `UPDATE users SET ranks = ?, description = ?, phoneNumber = ?, address = ? WHERE users.id = ?`;
+
+			console.log('userId', userId);
+			console.log('description', description);
+			console.log('phoneNumber', phoneNumber);
+			console.log('address', address);
+
+			console.log('tags:', newTags);
+			const [results, fields] = await db.query<any>(sql, [
+				JSON.stringify(newTags),
+				description,
+				phoneNumber,
+				address,
+				userId,
+			]);
+			res.sendSuccess('Data updated', {});
+			return true;
 		}
+
+		let tags = JSON.parse(req.body.tags || '[]') || [];
+		let newTags = <number[]>[];
+		tags.map((tag: any) => {
+			newTags.push(tag.value);
+		});
+
+		if (ranks) {
+			if (!ranks.some((rank: any) => rank == '1')) {
+				res.sendError('Not admin', 400);
+				return false;
+			}
+		} else {
+			res.sendError('Not admin', 400);
+		}
+
 		if (!(await UserManagement.isLoggedIn(email, token, userId))) {
 			res.sendError('Not logged in', 401);
 			return false;
 		}
-		console.log(userId, ranks, description, phoneNumber, address, tags);
+
+		const sql = `UPDATE users SET ranks = ?, description = ?, phoneNumber = ?, address = ?, photo = ? WHERE users.id = ?`;
+
+		console.log('userId', userId);
+		console.log('description', description);
+		console.log('phoneNumber', phoneNumber);
+		console.log('address', address);
+		console.log('photo', photo);
+
+		console.log('tags:', newTags);
+		const [results, fields] = await db.query<any>(sql, [
+			JSON.stringify(newTags),
+			description,
+			phoneNumber,
+			address,
+			photo.data,
+			userId,
+		]);
 	});
 	app.post('/getSpotkanies', async (req, res) => {
 		const userId = req.body.userId;

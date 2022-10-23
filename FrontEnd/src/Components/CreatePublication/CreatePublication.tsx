@@ -148,7 +148,6 @@ function Publication(props: PublicationProps) {
 				/>
 			</div>
 			<div className={style.actions}>
-				<Button className={style.cancelButton}>Anuluj</Button>
 				<Button onClick={upload}>Opublikuj</Button>
 			</div>
 		</Box>

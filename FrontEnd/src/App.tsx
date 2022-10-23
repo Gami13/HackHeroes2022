@@ -12,7 +12,6 @@ import ReminderSettings from './Routes/ReminderSettings/ReminderSettings';
 import ActivateAccount from './Routes/ActivateAccount/ActivateAccount';
 import MainPage from './Routes/MainPage/MainPage';
 import useIsFirstRender from './isFirstRender';
-import Test from './Routes/Test/Test';
 import Logout from './Routes/Logout/Logout';
 import PlsVerify from './Routes/PlsVerify/PlsVerify';
 import { getCookie } from './cookies';
@@ -118,7 +117,7 @@ const App = () => {
 							<Route path="/login" element={<LoginForm />} />
 
 							<Route path="/reminder" element={<ReminderSettings />} />
-							<Route path="/test" element={<Test />} />
+
 							<Route path="/plsVerify" element={<PlsVerify />} />
 							<Route path="/logout" element={<Logout />} />
 							<Route path="/bookMeeting" element={<BookMeeting />} />

@@ -138,7 +138,7 @@ const BookMeeting = () => {
 					onChange={(e) => {
 						setTown(townList.find((item) => item.name === e.target.value)?.id);
 					}}
-					disabled={county == ''}
+					disabled={county?.length == 0}
 					placeholder="Gmina"
 				/>
 			</Filters>
@@ -147,7 +147,7 @@ const BookMeeting = () => {
 			{peoples
 				? peoples.map((person: any) => (
 						<PersonCard
-							image={'http://localhost:3000/userProfileImage/' + person.image}
+							image={'http://localhost:3000/userProfileImage/' + person.id}
 							name={person.firstName + ' ' + person.lastName}
 							position={
 								person.ranks
