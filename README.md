@@ -12,12 +12,13 @@ Link do pracy: [Link](obywatelpp.netlify.app)
 
 ## <span style="color:Red;">🤓**Konta Użytkowników**🚨</span>
 
-- Karol Biedra - karolbiedra@gmail.com haslo123 - (małopolskie - nowosądecki - Grybów)
-- Andrzej Matys - anderejowy@wp.pl haslo123 - (lubelskie - krasnostawski - Rudnik)
-- Janusz Skalmar Okojski - januszskalmar@gmail.com sibjdfij7h&\*(RFYASIYFBUYIg1j2nej)2 - (małopolskie - suski - Stryszawa)
-- Izabela Nowak - izuniabella@sus.com haslo123 - (małopolskie - nowosądecki - Grybów)
-- Rafał Beniowski - beniekrafon@gmail.com haslo123 - (małopolskie - nowosądecki - Grybów)
-- Marta Loska - martaloska123@onet.pl haslo123 - (lubelskie - krasnostawski - Rudnik)
+- Harry Potter (urzędnik) - hedwiga@hp.com | haslo123
+- Karol Biedra (Urzędnik) - karolbiedra@gmail.com | haslo123 - (małopolskie - nowosądecki - Grybów)
+- Andrzej Matys - anderejowy@wp.pl | haslo123 - (lubelskie - krasnostawski - Rudnik)
+- Janusz Skalmar Okojski - januszskalmar@gmail.com | sibjdfij7h&\*(RFYASIYFBUYIg1j2nej)2 - (małopolskie - suski - Stryszawa)
+- Izabela Nowak - izuniabella@sus.com | haslo123 - (małopolskie - nowosądecki - Grybów)
+- Rafał Beniowski - beniekrafon@gmail.com | haslo123 - (małopolskie - nowosądecki - Grybów)
+- Marta Loska - martaloska123@onet.pl | haslo123 - (lubelskie - krasnostawski - Rudnik)
 
 ## Uzasadnienie
 
