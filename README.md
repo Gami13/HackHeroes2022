@@ -8,7 +8,7 @@ Nazwa projektu: Obywatel++\
 Nazwa drużyny: Kerfusie\
 Nazwa szkoły: Zespół Szkół Nr. 1 im. Ignacego Łukasiewicza w Gorlicach\
 Skład drużyny: [Drużyna](##Drużyna)\
-Link do pracy: [Link](obywatelpp.netlify.app)
+Link do pracy: [Link](https://obywatelpp.netlify.app/)
 
 ## <span style="color:Red;">🤓**Konta Użytkowników**🚨</span>
 
